@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FormFields from '../widgets/Forms/formFields'
 import { firebaseDB } from '../firebase'
+import { Redirect } from 'react-router-dom'
+
 
 class PaddlerAdd extends Component {
     state = {
@@ -17,7 +19,7 @@ class PaddlerAdd extends Component {
                 },
                 validation: {
                     required: true,
-                    minLen: 5
+                    minLen: 2
                 },
                 valid: false,
                 touched: false,
@@ -35,7 +37,7 @@ class PaddlerAdd extends Component {
                 },
                 validation: {
                     required: true,
-                    minLen: 5
+                    minLen: 2
                 },
                 valid: false,
                 touched: false,
@@ -61,7 +63,7 @@ class PaddlerAdd extends Component {
             },   
             Pref: {
                 element: 'select',
-                value: '',
+                value: 'either',
                 label: true,
                 labelText: 'Side Preference',
                 config: {
@@ -102,6 +104,7 @@ class PaddlerAdd extends Component {
             firebaseDB.ref('paddlers').push(dataToSubmit)
                 .then(() => {
                     console.log("new paddler added")
+                    return <Redirect to="/paddlers" />
                 })
                 .catch((e) => {
                     console.log("error: ", e)
@@ -115,7 +118,7 @@ class PaddlerAdd extends Component {
     }
     render() {
     return (
-        <div className="container">
+        <div>
 
             <form onSubmit={this.submitForm}>
                 <FormFields 

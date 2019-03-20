@@ -75,7 +75,6 @@ const FormFields = (props) => {
                             className="form-control"
                             />
                         {showValidation(values)}
-
                     </div>
                     )
                 break
@@ -87,6 +86,7 @@ const FormFields = (props) => {
                             value={values.value}
                             name={values.config.name}
                             className="form-control"
+                            onChange={(event) => changeHandler(event, data.id, false)}
                             >
                             {values.config.option.map((item, i) => (
                                 <option key={i} value={item.val}>

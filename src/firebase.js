@@ -11,9 +11,21 @@ var config = {
 firebase.initializeApp(config);
  
 const firebaseDB = firebase.database()
-firebaseDB.ref('name').set('Tom')
+const firebasePaddlers = firebaseDB.ref('paddlers')
 
+const firebaseLooper = (snapshot) => {
+    const data = []
+    snapshot.forEach((childSnapshot) => {
+        data.push({
+            ...childSnapshot.val(),
+            id: childSnapshot.key
+        })
+    })
+    return data
+}
 export {
     firebase,
-    firebaseDB
+    firebasePaddlers,
+    firebaseDB,
+    firebaseLooper
 }

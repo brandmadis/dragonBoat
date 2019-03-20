@@ -16,11 +16,11 @@ class Heat extends Component {
         //      5: { name: 'five', weight: 140 },
         //   },            
             paddlers: [
-             { name: 'one', id: 1, weight: 180 },
-             { name: 'two', id: 2, weight: 122 },
-             { name: 'three', id: 3, weight: 165 },
-             { name: 'four', id: 4, weight: 195 },
-             { name: 'five', id: 5, weight: 140 },
+             { name: 'one', id: 1, weight: 180, pref: 'left' },
+             { name: 'two', id: 2, weight: 122, pref: 'right' },
+             { name: 'three', id: 3, weight: 165, pref: 'either' },
+             { name: 'four', id: 4, weight: 195, pref: 'left' },
+             { name: 'five', id: 5, weight: 140, pref: 'right' },
             ],        
             boat: [2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             selSeat: -1            
@@ -125,7 +125,6 @@ class Heat extends Component {
         let paddlers = JSON.parse(JSON.stringify(this.state.paddlers));
         let boat = JSON.parse(JSON.stringify(this.state.boat));
         
-        
         let bench = Object.values(paddlers)
                   .filter(function(item){
                     return boat.indexOf(item.id) === -1})
@@ -133,12 +132,6 @@ class Heat extends Component {
                     return obj.id
                   })   
                   
-        // let bench = Object.values(this.state.paddlers)
-        //           // .filter(function(item){
-        //           //   return this.state.boat.indexOf(item.id) === -1})
-        //           .map(function(obj){
-        //             return obj.id
-        //           })   
         
         return (
             <div>

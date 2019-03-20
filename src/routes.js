@@ -13,12 +13,16 @@ const Routes = () => {
     return (
         <div>
             <NavBar />
-            <Route path="/paddlers" exact component={Paddlers}/>
-            <Route path="/paddlers/:id" component={PaddlerDetail}/>
-            <Route path="/profile" component={Profile}/>
-            <Route path="/heat" component={Heat}/>
-            <Route path="/" exact component={Home}/>
-            <Route path="/paddlerAdd" exact component={PaddlerAdd}/>
+            <div className="container">
+                <Route path="/paddlers" exact component={Paddlers}/>
+                
+                
+                <Route path="/paddlers/:id" component={PaddlerDetail}/>
+                <Route path="/profile" component={Profile}/>
+                <Route path="/heat" component={Heat}/>
+                <Route path="/" exact component={Home}/>
+                <Route path="/paddlerAdd" exact component={PaddlerAdd}/>
+            </div>
         </div>        
         )
 }
