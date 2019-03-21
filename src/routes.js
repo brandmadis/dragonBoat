@@ -15,8 +15,6 @@ const Routes = () => {
             <NavBar />
             <div className="container">
                 <Route path="/paddlers" exact component={Paddlers}/>
-                
-                
                 <Route path="/paddlers/:id" component={PaddlerDetail}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path="/heat" component={Heat}/>

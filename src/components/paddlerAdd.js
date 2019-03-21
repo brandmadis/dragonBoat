@@ -10,7 +10,7 @@ class PaddlerAdd extends Component {
         formData: {
             firstName: {
                 element: 'input',
-                value: '',
+                value: 'test firstName',
                 label: true,
                 labelText: 'First Name',
                 config: {
@@ -22,13 +22,13 @@ class PaddlerAdd extends Component {
                     required: true,
                     minLen: 2
                 },
-                valid: false,
-                touched: false,
+                valid: true,
+                touched: true,
                 validationMessage: ''
             },
             LastName: {
                 element: 'input',
-                value: '',
+                value: 'test lastName',
                 label: true,
                 labelText: 'Last Name',
                 config: {
@@ -40,13 +40,13 @@ class PaddlerAdd extends Component {
                     required: true,
                     minLen: 2
                 },
-                valid: false,
-                touched: false,
+                valid: true,
+                touched: true,
                 validationMessage: ''
             },    
             Weight: {
                 element: 'input',
-                value: '',
+                value: '150',
                 label: true,
                 labelText: 'Weight',
                 config: {
@@ -58,8 +58,8 @@ class PaddlerAdd extends Component {
                     required: true,
                     minLen: 2
                 },
-                valid: false,
-                touched: false,
+                valid: true,
+                touched: true,
                 validationMessage: ''
             },   
             Pref: {
@@ -79,7 +79,7 @@ class PaddlerAdd extends Component {
                     required: true,
                 },
                 valid: true,
-                touched: false,
+                touched: true,
                 validationMessage: ''
             },             
         }
@@ -99,7 +99,6 @@ class PaddlerAdd extends Component {
         for(let key in this.state.formData){
             formIsValid = this.state.formData[key].valid && formIsValid
         }
-        // console.log(formIsValid)
         
         if(formIsValid){
             firebaseDB.ref('paddlers').push(dataToSubmit)

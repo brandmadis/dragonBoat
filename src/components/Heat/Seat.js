@@ -37,7 +37,7 @@ class Seat extends Component {
             style={buttonStyle}
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
             >
-            {-this.props.seat}<br />
+            { isNaN(this.props.seat) ? "" : -this.props.seat }<br />
             {paddler.name}<br />
             {paddler.weight} lbs<br />
             {paddler.pref}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { firebase, firebasePaddlers, firebaseLooper } from '../firebase'
+import { firebaseDB, firebase, firebasePaddlers, firebaseLooper } from '../firebase'
 
 
   
@@ -19,31 +19,43 @@ class Paddlers extends Component {
             })
         }
     }
+    deletePaddler(id, index){
+        firebaseDB.ref('paddlers/' + id).remove()
+        this.setState({
+            paddlers: this.state.paddlers.filter((_, i) => i !== index)
+        })
+        // this.replaceState(this.getInitialState())
+        // this.setState({
+        //     paddlers: this.state.paddlers    
+        // })
+        console.log("deletePaddler")
+    }
     render(){
-        console.log("request: ", this.state.paddlers)
-    const padList = this.state.paddlers.map((item, i) => {
-        console.log("item: ", item, "i: ", i)
-        return (
-            <tr>
-                <td>{item.firstName} {item.LastName}</td>
-                <td>{item.Weight}</td>
-                <td>{item.Pref}</td>
-            </tr>        
-            )    
-    })
+        // console.log("request: ", this.state.paddlers)
+        const padList = this.state.paddlers.map((item, i) => {
+            // console.log("item: ", item, "i: ", i)
+            return (
+                <tr>
+                    <td>{item.firstName} {item.LastName}</td>
+                    <td>{item.id}</td>
+                    <td>{item.Weight}</td>
+                    <td>{item.Pref}</td>
+                    <td><button onClick={() => this.deletePaddler(item.id, i)}>delete</button></td>
+                </tr>        
+                )    
+        })
     return (
         <div>
             Paddlers<br/>
-            <Link to='/paddlerAdd' activeStyle={{color:'blue'}} className="nav-link"><button>Add New Paddler</button></Link><br />
-            <Link to="/paddlers/1">Paddler 1</Link><br/>
-            <Link to="/paddlers/2">Paddler 2</Link><br/>
-            <Link to="/paddlers/3">Paddler 3</Link><br/>
+            <Link to='/paddlerAdd' className="nav-link"><button>Add New Paddler</button></Link><br />
             <table className="table">
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>ID</th>
                         <th>Weight</th>
                         <th>Pref</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
