@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 
 class PaddlerAdd extends Component {
     state = {
+        redirect: false,
         formData: {
             firstName: {
                 element: 'input',
@@ -104,7 +105,7 @@ class PaddlerAdd extends Component {
             firebaseDB.ref('paddlers').push(dataToSubmit)
                 .then(() => {
                     console.log("new paddler added")
-                    return <Redirect to="/paddlers" />
+                    this.setState({ redirect: true })
                 })
                 .catch((e) => {
                     console.log("error: ", e)
@@ -117,6 +118,12 @@ class PaddlerAdd extends Component {
         })
     }
     render() {
+    const { redirect } = this.state;
+
+     if (redirect) {
+         console.log("redirect hit")
+       return <Redirect to='/paddlers'/>;
+     }
     return (
         <div>
 
@@ -125,7 +132,7 @@ class PaddlerAdd extends Component {
                     formData={this.state.formData}
                     change={(newState) => this.updateForm(newState)}
                     onblur={(newState) => this.updateForm(newState)}
-                />
+                /><br></br>
                 <button type='submit' className="btn btn-default">Submit</button>
             </form>
         </div>

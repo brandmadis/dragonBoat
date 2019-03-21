@@ -14,25 +14,24 @@ const NavBar = () => {
                 <li className="nav-item">
                   <NavLink to="/" 
                       exact 
-                      activeStyle={{color:'blue'}}
                       className="nav-link"
-                      >Home</NavLink>      
+                      >Home</NavLink> 
+
                 </li>
                 <li className="nav-item">
                   <NavLink to="/paddlers" 
-                      activeStyle={{color:'blue'}}
+                      isActive={(match, location) => location.pathname.startsWith("/paddler")}
+                      activeClassName="active"
                       className="nav-link"
                       >Paddlers</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to="/profile" 
-                      activeStyle={{color:'blue'}}
                       className="nav-link"
                       >Profile</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to="/heat" 
-                      activeStyle={{color:'blue'}}
                       className="nav-link"
                       >Heat</NavLink>
                 </li>                
