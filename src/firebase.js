@@ -12,6 +12,8 @@ firebase.initializeApp(config);
  
 const firebaseDB = firebase.database()
 const firebasePaddlers = firebaseDB.ref('paddlers')
+const firebaseBoat = firebaseDB.ref('boat/-LaXxOo3qx_qNFcCCmqd')
+// const firebaseBoat = firebaseDB.ref('boat').limitToFirst(1)
 
 const firebaseLooper = (snapshot) => {
     const data = []
@@ -23,9 +25,26 @@ const firebaseLooper = (snapshot) => {
     })
     return data
 }
+const firebaseLooper2 = (snapshot) => {
+    const data2 = []
+    snapshot.forEach((childSnapshot) => {
+        // console.log("childSnapshot: ", childSnapshot.val())
+        data2.push(childSnapshot.val())
+        // data2.push({
+            // ...childSnapshot.val(),
+            // id: childSnapshot.key
+        // })
+    })
+    
+    // transform into list
+    console.log("firebaseLooper2: ", data2)
+    return data2
+}
 export {
     firebase,
     firebasePaddlers,
+    firebaseBoat,
     firebaseDB,
-    firebaseLooper
+    firebaseLooper,
+    firebaseLooper2
 }

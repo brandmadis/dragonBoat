@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Profile from './components/profile'
 import Home from './components/home'
 import Paddlers from './components/paddlers'

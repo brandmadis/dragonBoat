@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class Seat extends Component {
 
   render() {
+    // console.log("this.props.paddlers: ", this.props.paddler)
     const buttonStyle = {
       width: '150px', 
       height: '100px', 
@@ -12,6 +13,8 @@ class Seat extends Component {
     }
     if(this.props.item === 0 || (this.props.paddler.length === 0 && this.props.paddler[this.props.item] === undefined)){
       const seatNum = {}
+      // console.log(this.props.item)
+
       return (
         <div>
           <button
@@ -29,18 +32,22 @@ class Seat extends Component {
       const paddler = this.props.paddler.filter(obj => {
         return obj.id === this.props.item
       })[0]
+      // console.log(paddler)
+      // console.log(this.props.item)
       return (
         <div>
         <div >
-          <div 
+{/*
           className={this.props.selected === paddler.id ? "selected" : ""}
+*/}
+          <div 
             style={buttonStyle}
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
-            >
-            { isNaN(this.props.seat) ? "" : -this.props.seat }<br />
-            {paddler.name}<br />
-            {paddler.weight} lbs<br />
-            {paddler.pref}
+            >{ isNaN(this.props.seat) ? "" : -this.props.seat }
+            <br />
+            <br />
+       
+
           </div>
 
         </div>
@@ -56,3 +63,4 @@ class Seat extends Component {
     
 
 export default Seat
+

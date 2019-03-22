@@ -97,6 +97,9 @@ const FormFields = (props) => {
                     </div>
                     
                     )
+                break
+             default: 
+                // console.log("switch input type default hit")
         }
         return formTemplate
 

@@ -4,7 +4,6 @@ import Seat from './Seat';
 class Boat extends Component {
   render() {
     var divStyle = {}
-    var buttonStyle = { }
     var divContainer = {
       display: 'grid',
       gridTemplateColumns: '150px 150px'      
@@ -12,12 +11,13 @@ class Boat extends Component {
     return(
       <div style={divStyle}>
         <p>Boat
-        <button onClick={() => this.props.removeFromBoat()}>Remove</button>
+        <button onClick={() => this.props.removeFromBoat()}>Remove Paddler</button>
+        <button onClick={() => this.props.saveBoat(this.props.boat)}>Save Boat</button>
         </p>
         <div style={divContainer}>
         {this.props.boat.map((item, index) => (
-            // console.log("index: ", index),
             <div>
+            {/* { console.log("index: ", index, item) } */}
               <Seat 
                 key={index}
                 item={item}
@@ -26,8 +26,6 @@ class Boat extends Component {
                 onClick={this.props.onClick}
                 selected={this.props.selected}
                 />
-                {/*
-                */}
             </div>        
           ))}
           
@@ -35,6 +33,5 @@ class Boat extends Component {
           </div>
       </div>
       )}}
-
 
 export default Boat
