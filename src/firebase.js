@@ -37,7 +37,6 @@ const firebaseLooper2 = (snapshot) => {
     })
     
     // transform into list
-    console.log("firebaseLooper2: ", data2)
     return data2
 }
 export {

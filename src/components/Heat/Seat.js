@@ -11,10 +11,9 @@ class Seat extends Component {
       display: 'inline-flex',
       border: '1px black solid'
     }
+    // empty seat
     if(this.props.item === 0 || (this.props.paddler.length === 0 && this.props.paddler[this.props.item] === undefined)){
       const seatNum = {}
-      // console.log(this.props.item)
-
       return (
         <div>
           <button
@@ -22,18 +21,18 @@ class Seat extends Component {
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
             >
             <div style={seatNum}>
-              {-this.props.seat}
+              {-this.props.seat} <br></br>
             </div>
             </button>
         </div>
         )
     } 
+    
+    // occupied seat
     else {
       const paddler = this.props.paddler.filter(obj => {
         return obj.id === this.props.item
       })[0]
-      // console.log(paddler)
-      // console.log(this.props.item)
       return (
         <div>
         <div >
@@ -45,6 +44,11 @@ class Seat extends Component {
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
             >{ isNaN(this.props.seat) ? "" : -this.props.seat }
             <br />
+            {paddler.firstName}
+            <br />
+            {paddler.Weight}
+            <br />
+            {paddler.Pref}
             <br />
        
 
