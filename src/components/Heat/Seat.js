@@ -35,9 +35,10 @@ class Seat extends Component {
       })[0]
       return (
         <div>
-        <div >
-{/*
+        <div 
           className={this.props.selected === paddler.id ? "selected" : ""}
+        >
+{/*
 */}
           <div 
             style={buttonStyle}

@@ -24,11 +24,10 @@ class Paddlers extends Component {
         this.setState({
             paddlers: this.state.paddlers.filter((_, i) => i !== index)
         })
-        // this.replaceState(this.getInitialState())
-        // this.setState({
-        //     paddlers: this.state.paddlers    
-        // })
         console.log("deletePaddler")
+    }
+    editField(item){
+        console.log("editField", item)
     }
     render(){
         // console.log("request: ", this.state.paddlers)
@@ -36,9 +35,10 @@ class Paddlers extends Component {
             // console.log("item: ", item, "i: ", i)
             return (
                 <tr>
-                    <td>{item.firstName} {item.LastName}</td>
-                    <td>{item.id}</td>
-                    <td>{item.Weight}</td>
+                    <td>{item.firstName}</td>
+                    <td>{item.LastName} </td>
+                    <td><span>{item.id}</span></td>
+                    <td><span onClick={() => this.editField(item)}>{item.Weight}</span></td>
                     <td>{item.Pref}</td>
                     <td><button onClick={() => this.deletePaddler(item.id, i)}>delete</button></td>
                 </tr>        
@@ -51,7 +51,8 @@ class Paddlers extends Component {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>ID</th>
                         <th>Weight</th>
                         <th>Pref</th>

@@ -49,8 +49,8 @@ class Heat extends Component {
             })
         }
         if(this.state.boat.length < 1){
-          // console.log("boat empty", firebaseBoat.once('value'))
-            firebaseBoat.once('value')
+            let refUrl = "boat/" + this.props.match.params.id
+            firebaseDB.ref(refUrl).once('value')
             .then((snapshot) => {
               const boat1 = firebaseLooper2(snapshot)
               // const boat = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -60,6 +60,9 @@ class Heat extends Component {
                 boat
               })
             })
+        }
+        else {
+          console.log("empty boat")
         }
         // console.log("this.state.boat: ", this.state.boat)
     }
@@ -148,22 +151,24 @@ class Heat extends Component {
         this.setState(newState)
       }
     }
-    
     // save as object
-    saveBoat(data){
+    saveBoat(data, id, history){
       console.log("saveBoat() hit", data)
-      // const test = {
-      //   boat: data
-      // }
-      firebaseDB.ref('boat/-LaXxOo3qx_qNFcCCmqd').set(data)
+      let refUrl = `boat/${id}`
+      console.log("refUrl: ", refUrl)
+      firebaseDB.ref(refUrl).set(data)
         .then(() => {
-          console.log("boat saved")
+          console.log("boat saved", history)
+          history.push(`/boats`);
+          
+          
         })
         .catch((e) => {
           console.log("error: ", e)
         })
     }
     render(){
+
         // let heatContainer = {
         //   display: 'grid',
         //   gridTemplateColumns: '300px 10px 150px'  
@@ -191,6 +196,8 @@ class Heat extends Component {
                         onClick={this.handleClick}
                         removeFromBoat={this.removeFromBoat}
                         saveBoat={this.saveBoat}
+                        boatId={this.props.match.params.id}
+                        history={this.props.history}
                         />
                   </div>
                   <div className="col-5">

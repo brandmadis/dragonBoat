@@ -10,10 +10,12 @@ class Boat extends Component {
     }
     return(
       <div style={divStyle}>
-        <p>Boat
-        <button onClick={() => this.props.removeFromBoat()}>Remove Paddler</button>
-        <button onClick={() => this.props.saveBoat(this.props.boat)}>Save Boat</button>
-        </p>
+        <button className="btn btn-default" onClick={() => this.props.removeFromBoat()}>Remove Paddler</button>
+        <button 
+          className="btn btn-success" 
+          onClick={() => this.props.saveBoat(this.props.boat, this.props.boatId, this.props.history)}>
+          Save Boat
+        </button>
         <div style={divContainer}>
         {this.props.boat.map((item, index) => (
             <div>
