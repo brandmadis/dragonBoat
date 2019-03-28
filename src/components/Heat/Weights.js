@@ -15,6 +15,8 @@ class Weights extends Component {
         console.log("weight type: ", typeof weight)
         if(i%2 === 0){left += weight} 
         else {right += weight} 
+        if(i<6){front += weight}
+        else if(i>13){rear += weight}
       }
     }
     let divStyle = {border: '1px black solid', width: '160px'}
