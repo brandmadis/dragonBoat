@@ -34,25 +34,25 @@ class Paddlers extends Component {
         const padList = this.state.paddlers.map((item, i) => {
             // console.log("item: ", item, "i: ", i)
             return (
-                <tr>
-                    <td>{item.firstName}</td>
-                    <td>{item.LastName} </td>
+                <tr>    
+                    <td><img src={item.Image} width="75" height="75"/></td>
+                    <td>{item.firstName} {item.LastName} </td>
                     <td><span>{item.id}</span></td>
                     <td><span onClick={() => this.editField(item)}>{item.Weight}</span></td>
                     <td>{item.Pref}</td>
-                    <td><button onClick={() => this.deletePaddler(item.id, i)}>delete</button></td>
+                    <td><button className="btn btn-default" onClick={() => this.deletePaddler(item.id, i)}>delete</button></td>
                 </tr>        
                 )    
         })
     return (
         <div>
             Paddlers<br/>
-            <Link to='/paddlerAdd' className="nav-link"><button>Add New Paddler</button></Link><br />
+            <Link to='/paddlerAdd' className="nav-link"><button className="btn btn-default">Add New Paddler</button></Link><br />
             <table className="table">
                 <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Image</th>
+                        <th>Name</th>
                         <th>ID</th>
                         <th>Weight</th>
                         <th>Pref</th>

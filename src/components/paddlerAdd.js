@@ -81,6 +81,42 @@ class PaddlerAdd extends Component {
                 valid: true,
                 touched: true,
                 validationMessage: ''
+            },   
+            Image: {
+                element: 'input',
+                value: '',
+                label: true,
+                labelText: 'Image Url',
+                config: {
+                    name: 'image_input',
+                    type: 'text',
+                    placeholder: ''
+                },
+                validation: {
+                    required: false,
+                    minLen: 2
+                },
+                valid: true,
+                touched: true,
+                validationMessage: ''
+            },  
+            Active: {
+                element: 'input',
+                value: true,
+                label: true,
+                labelText: 'active',
+                config: {
+                    name: 'active_input',
+                    type: 'text',
+                    placeholder: ''
+                },
+                validation: {
+                    required: false,
+                    minLen: 0
+                },
+                valid: true,
+                touched: true,
+                validationMessage: ''
             },             
         }
     }
@@ -132,6 +168,7 @@ class PaddlerAdd extends Component {
                     change={(newState) => this.updateForm(newState)}
                     onblur={(newState) => this.updateForm(newState)}
                 /><br></br>
+                
                 <button type='submit' className="btn btn-default">Submit</button>
             </form>
         </div>

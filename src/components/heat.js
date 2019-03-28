@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import { Link } from 'react-router-dom'
 import Boat from './Heat/Boat'
 import Bench from './Heat/Bench'
-// import Weights from './Heat/Weights'
+import Weights from './Heat/Weights'
 import { firebaseDB, 
           firebasePaddlers, 
           firebaseBoat, 
@@ -52,10 +52,8 @@ class Heat extends Component {
             let refUrl = "boat/" + this.props.match.params.id
             firebaseDB.ref(refUrl).once('value')
             .then((snapshot) => {
-              const boat1 = firebaseLooper2(snapshot)
-              // const boat = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-              // console.log("boat looper: ", boat1[0])
-              const boat = boat1
+              const boat = firebaseLooper2(snapshot)
+              console.log("heat boat: ", boat)
               this.setState({
                 boat
               })
@@ -64,7 +62,8 @@ class Heat extends Component {
         else {
           console.log("empty boat")
         }
-        // console.log("this.state.boat: ", this.state.boat)
+        console.log("this.state.boat",this.state.boat)
+        
     }
     handleClick(user, seat){
         const newState = Object.assign({}, this.state)
@@ -168,6 +167,7 @@ class Heat extends Component {
         })
     }
     render(){
+        console.log("this.state.boat",this.state.boat)
 
         // let heatContainer = {
         //   display: 'grid',
@@ -191,6 +191,10 @@ class Heat extends Component {
             <div>
                 <div className="row">
                   <div className="col-5">
+                    <Weights 
+                      boat={boat}
+                      paddlers={paddlers}
+                      />
                     <Boat 
                         {...this.state}
                         onClick={this.handleClick}

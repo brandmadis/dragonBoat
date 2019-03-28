@@ -8,6 +8,7 @@ class Boat extends Component {
       display: 'grid',
       gridTemplateColumns: '150px 150px'      
     }
+    console.log("paddlers: ", this.props.paddlers)
     return(
       <div style={divStyle}>
         <button className="btn btn-default" onClick={() => this.props.removeFromBoat()}>Remove Paddler</button>
