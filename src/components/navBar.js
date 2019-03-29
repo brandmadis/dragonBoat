@@ -25,16 +25,18 @@ const NavBar = () => {
                       className="nav-link"
                       >Paddlers</NavLink>
                 </li>
+                {/*
                 <li className="nav-item">
                   <NavLink to="/profile" 
                       className="nav-link"
                       >Profile</NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink to="/heat" 
-                      className="nav-link"
-                      >Heat</NavLink>
-                </li>    
+                // <li className="nav-item">
+                //   <NavLink to="/heat" 
+                //       className="nav-link"
+                //       >Heat</NavLink>
+                // </li>  
+                */}
                 <li className="nav-item">
                   <NavLink to="/boats" 
                       className="nav-link"

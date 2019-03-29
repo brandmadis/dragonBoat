@@ -25,8 +25,6 @@ class Weights extends Component {
     let alignCenter = {textAlign: 'center'}
     return (
       <div>
-      <p>Weights</p>
-      <p>left: {left}   right: {right}</p>
       <p>front: {front}  rear: {rear}</p>
         <div style={divStyle}>
           <div style={right === left 
