@@ -26,6 +26,12 @@ const firebaseLooper = (snapshot) => {
     })
     return data
 }
+
+
+// get all paddlers
+// get current boat
+// only make one call from heat
+
 const firebaseLooper2 = (snapshot) => {
     // console.log("snapshot: ", snapshot.key)
     const boatId = snapshot.key

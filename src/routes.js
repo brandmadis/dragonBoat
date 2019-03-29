@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import Profile from './components/profile'
 import Home from './components/home'
 import Paddlers from './components/paddlers'
-import PaddlerDetail from './components/paddler_detail'
+import PaddlerEdit from './components/paddlerEdit'
 import NavBar from './components/navBar'
 import Heat from './components/heat'
 import PaddlerAdd from './components/paddlerAdd'
@@ -16,7 +16,7 @@ const Routes = () => {
             <NavBar />
             <div className="container">
                 <Route path="/paddlers" exact component={Paddlers}/>
-                <Route path="/paddlers/:id" component={PaddlerDetail}/>
+                <Route path="/paddlers/:id" exact component={PaddlerEdit}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path="/heat" component={Heat}/>
                 <Route path="/boats" exact component={Boats}/>

@@ -26,19 +26,18 @@ class Paddlers extends Component {
         })
         console.log("deletePaddler")
     }
-    editField(item){
-        console.log("editField", item)
+    editPaddler(id){
+        this.props.history.push(`/paddlers/${id}`)
     }
     render(){
         // console.log("request: ", this.state.paddlers)
         const padList = this.state.paddlers.map((item, i) => {
             // console.log("item: ", item, "i: ", i)
             return (
-                <tr>    
+                <tr onClick={() => this.editPaddler(item.id)}>    
                     <td><img src={item.Image} width="75" height="75"/></td>
                     <td>{item.firstName} {item.LastName} </td>
-                    <td><span>{item.id}</span></td>
-                    <td><span onClick={() => this.editField(item)}>{item.Weight}</span></td>
+                    <td>{item.Weight} </td>
                     <td>{item.Pref}</td>
                     <td><button className="btn btn-default" onClick={() => this.deletePaddler(item.id, i)}>delete</button></td>
                 </tr>        
@@ -53,7 +52,6 @@ class Paddlers extends Component {
                     <tr>
                         <th>Image</th>
                         <th>Name</th>
-                        <th>ID</th>
                         <th>Weight</th>
                         <th>Pref</th>
                         <th>Delete</th>
