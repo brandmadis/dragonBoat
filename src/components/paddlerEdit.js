@@ -11,7 +11,6 @@ import { Redirect } from 'react-router-dom'
 class PaddlerEdit extends Component {
     constructor(props){
         super(props)
-    
         this.state = {
             paddlers: {},
             snapshot: {},
@@ -130,19 +129,11 @@ class PaddlerEdit extends Component {
                 },             
             }
         }
-        
     }
     componentWillMount(){
         console.log("newState: " , this.state.formData)
         var newState = {...this.state.formData}
         var curr_this = this
-   
-            
-// var someProperty = {...this.state.someProperty}
-// someProperty.flag = true;
-// this.setState({someProperty})
-
-
         let refUrl = "paddlers/" + this.props.match.params.id
         firebaseDB.ref(refUrl).on('value', function(data){
             console.log("data: ", data.val().firstName)
@@ -150,9 +141,7 @@ class PaddlerEdit extends Component {
             newState.lastName.value = data.val().lastName
             newState.Weight.value = data.val().Weight
             newState.Image.value = data.val().Image
-            
             curr_this.setState({formData: newState})
-            
         })
 
     }
@@ -162,18 +151,14 @@ class PaddlerEdit extends Component {
         let dataToSubmit = {}
         let formIsValid = true
         var updates = {}
-        
         for(let key in this.state.formData){
             dataToSubmit[key] = this.state.formData[key].value
-            
             console.log(formIsValid)
-            console.log(this.state.formData[key])
         }
         for(let key in this.state.formData){
             formIsValid = this.state.formData[key].valid && formIsValid
         }
         updates[this.props.match.params.id] = dataToSubmit
-        console.log("updates: ", updates)
         if(formIsValid){
             firebaseDB.ref('paddlers').update(updates)
                 .then(() => {

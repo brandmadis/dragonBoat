@@ -8,7 +8,7 @@ class Boat extends Component {
       display: 'grid',
       gridTemplateColumns: '150px 150px'      
     }
-    console.log("paddlers: ", this.props.paddlers)
+    // console.log("paddlers: ", this.props.paddlers)
     return(
       <div style={divStyle}>
         <button className="btn btn-default" onClick={() => this.props.removeFromBoat()}>Remove Paddler</button>
@@ -19,7 +19,9 @@ class Boat extends Component {
         </button>
         <div style={divContainer}>
         {this.props.boat.map((item, index) => (
-            <div>
+            <div
+                key={index}
+            >
             {/* { console.log("index: ", index, item) } */}
               <Seat 
                 key={index}

@@ -5,7 +5,7 @@ import Bench from './Heat/Bench'
 import Weights from './Heat/Weights'
 import { firebaseDB, 
           firebasePaddlers, 
-          // firebaseBoat, 
+          firebaseBoats, 
           firebaseLooper, 
           firebaseLooper2 
 } from '../firebase'
@@ -16,6 +16,7 @@ class Heat extends Component {
         this.state = {
             selected: null,
             paddlers: [],
+            paddlerIds: [],
         //   paddlers: {
         //      1: { name: 'one', weight: 180 },
         //      2: { name: 'two', weight: 122 },
@@ -32,13 +33,24 @@ class Heat extends Component {
             // ],        
             // boat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             boat: [],
-            selSeat: -1            
+            selSeat: -1,
+            loaded: false
         }
     this.handleClick = this.handleClick.bind(this);
     this.removeFromBoat = this.removeFromBoat.bind(this);
         
     }
-    componentWillMount(){
+        parseIds(){
+          const paddlerIds = []
+          for (let paddler in this.state.paddlers){
+            paddlerIds.push(this.state.paddlers[paddler].id)
+          }
+          this.setState({
+            paddlerIds
+          })
+        }
+    async componentDidMount(){
+        console.log("did mount start")
         if(this.state.paddlers.length < 1){
             firebasePaddlers.once('value')
             .then((snapshot) => {
@@ -47,24 +59,58 @@ class Heat extends Component {
                     paddlers
                 })
             })
+            .then(()=>{
+                this.parseIds()
+            })
         }
         if(this.state.boat.length < 1){
             let refUrl = "boat/" + this.props.match.params.id
-            firebaseDB.ref(refUrl).once('value')
+            await firebaseDB.ref(refUrl).once('value')
             .then((snapshot) => {
               const boat = firebaseLooper2(snapshot)
-              console.log("heat boat: ", boat)
+              // console.log("heat boat: ", boat)
               this.setState({
                 boat
               })
+
             })
+            await this.paddlerCheck()
+            console.log("after paddlerCheck")
         }
         else {
-          console.log("empty boat")
+          // console.log("empty boat")
         }
-        console.log("this.state.boat",this.state.boat)
-        
+        // console.log("this.state.boat",this.state.boat)
+        this.setState({loaded: true})
+        console.log("did mount finished")
     }
+    paddlerCheck(){
+      console.log("paddlerCheck", this.state.boat, this.state.paddlerIds)
+      
+      for( var seat in this.state.boat){
+        console.log("for start")
+        if(
+          this.state.paddlerIds.includes(this.state.boat[seat]) ||
+          this.state.boat[seat] === 0
+          ){
+          console.log("exists", this.state.boat[seat], this.state.paddlerIds)
+        }
+        else{
+          console.log("missing", this.state.boat[seat],  this.state.paddlerIds)
+          var updates = {}
+          updates[this.props.match.params.id + "/" + this.state.boat.indexOf(this.state.boat[seat]) ] = 0
+          console.log("updates: ", updates)
+          firebaseBoats.update(updates)                
+          this.state.boat[seat] = 0
+          
+        }
+      }      
+    }
+    // async componentDidMount(){
+    //   await this.paddlerCheck()
+    //   console.log("after")
+    // }
+    
     handleClick(user, seat){
         const newState = Object.assign({}, this.state)
         let sel = this.state.selected
@@ -152,12 +198,12 @@ class Heat extends Component {
     }
     // save as object
     saveBoat(data, id, history){
-      console.log("saveBoat() hit", data)
+      // console.log("saveBoat() hit", data)
       let refUrl = `boat/${id}`
-      console.log("refUrl: ", refUrl)
+      // console.log("refUrl: ", refUrl)
       firebaseDB.ref(refUrl).set(data)
         .then(() => {
-          console.log("boat saved", history)
+          // console.log("boat saved", history)
           history.push(`/boats`);
           
           
@@ -167,7 +213,7 @@ class Heat extends Component {
         })
     }
     render(){
-        console.log("this.state.boat",this.state.boat)
+        // console.log("this.state.boat",this.state.boat)
 
         // let heatContainer = {
         //   display: 'grid',
@@ -189,6 +235,7 @@ class Heat extends Component {
         
         return (
             <div>
+                  {this.state.loaded ? 
                 <div className="row">
                   <div className="col-5">
                     <Weights 
@@ -212,6 +259,7 @@ class Heat extends Component {
                         />
                   </div>
                 </div>
+                      : "" }
             </div>
                 
         )

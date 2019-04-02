@@ -33,38 +33,32 @@ const firebaseLooper = (snapshot) => {
 // only make one call from heat
 
 const firebaseLooper2 = (snapshot) => {
-    // console.log("snapshot: ", snapshot.key)
-    const boatId = snapshot.key
+    // console.log("looper2")
+    // const boatId = snapshot.key
     const data2 = []
-    // let seatOccupant = 0
     snapshot.forEach((childSnapshot) => {
-        // console.log("childSnapshot first: ", childSnapshot.val())
-        firebasePaddlers.child(childSnapshot.val()).once('value', function(snapshot){
+        console.log("childSnapshot first: ", childSnapshot.val())
+        // firebasePaddlers.child(childSnapshot.val()).once('value', function(snapshot){
+        //     if(snapshot.exists() || childSnapshot.val() === 0){
+        //         // console.log("if hit", snapshot.exists(), childSnapshot.val())
+        //     } 
             
-            if(snapshot.exists() || childSnapshot.key === 0){
-                // seatOccupant = childSnapshot.val()
-                // data2.push(childSnapshot.val())
-            } 
-            
-            else {
-                // console.log("does not exist", childSnapshot.key)
-                var updates = {}
-                updates[boatId + "/" + childSnapshot.key ] = 0
-                firebaseBoats.update(updates)
-                // data2.push(0)
-            }
-        })
-        // console.log("seatOccupant: ", seatOccupant, childSnapshot.val())
+        //     else {
+        //         // console.log("else hit", snapshot.exists(), childSnapshot.val())
+        //         // console.log("does not exist", childSnapshot.key)
+        //         var updates = {}
+        //         updates[boatId + "/" + childSnapshot.key ] = 0
+        //         firebaseBoats.update(updates)
+        //         // .then(() => {
+        //         //     console.log("Boat modified", childSnapshot.val())
+        //         // })                
+        //     }
+        // })
         // data2.push(seatOccupant)
         data2.push(childSnapshot.val())
-        // data2.push({
-            // ...childSnapshot.val(),
-            // id: childSnapshot.key
-        // })
     })
     
     // transform into list
-    // console.log("data2: ", data2)
     return data2
 }
 export {
