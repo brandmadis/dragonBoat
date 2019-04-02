@@ -56,7 +56,8 @@ class PaddlerAdd extends Component {
                 },
                 validation: {
                     required: true,
-                    minLen: 2
+                    minLen: 2,
+                    number: true
                 },
                 valid: true,
                 touched: true,

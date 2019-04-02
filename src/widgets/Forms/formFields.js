@@ -45,6 +45,12 @@ const FormFields = (props) => {
             const message = `${ !valid ? 'This field is required' : ''}`
             error = !valid ? [valid, message] : error
         }
+        if(element.validation.number){
+            const valid = element.value / 1
+            const message = `${ !valid ? 'This field must be a number' : ''}`
+            error = !valid ? [valid, message] : error
+            
+        }
         return error
     }
     const showValidation = (data) => {
