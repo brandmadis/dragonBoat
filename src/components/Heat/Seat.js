@@ -53,7 +53,7 @@ class Seat extends Component {
             style={buttonStyleFilled}
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
             >{ isNaN(this.props.seat) ? "" : -this.props.seat }
-            <img src={paddler.Image} width="75px" height="75px"/>
+            <img src={paddler.Image} alt="" width="75px" height="75px"/>
             <br />
             {paddler.firstName}
             <br />

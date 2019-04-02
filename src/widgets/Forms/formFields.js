@@ -107,7 +107,6 @@ const FormFields = (props) => {
     
     return (
         <div>
-            Add New Paddler
             {renderFields()}
         </div>
         )

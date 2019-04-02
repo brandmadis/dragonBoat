@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import FormFields from '../widgets/Forms/formFields'
-import { firebaseDB, firebasePaddlers, firebaseLooper } from '../firebase'
+import { 
+    firebaseDB, 
+    // firebasePaddlers, 
+    // firebaseLooper 
+} from '../firebase'
 import { Redirect } from 'react-router-dom'
 
 
@@ -142,7 +146,7 @@ class PaddlerEdit extends Component {
         firebaseDB.ref(refUrl).on('value', function(data){
             console.log("data: ", data.val().firstName)
             newState.firstName.value = data.val().firstName
-            newState.lastName.value = data.val().LastName
+            newState.lastName.value = data.val().lastName
             newState.Weight.value = data.val().Weight
             newState.Image.value = data.val().Image
             
@@ -156,6 +160,7 @@ class PaddlerEdit extends Component {
         event.preventDefault()
         let dataToSubmit = {}
         let formIsValid = true
+        var updates = {}
         
         for(let key in this.state.formData){
             dataToSubmit[key] = this.state.formData[key].value
@@ -166,11 +171,12 @@ class PaddlerEdit extends Component {
         for(let key in this.state.formData){
             formIsValid = this.state.formData[key].valid && formIsValid
         }
-        
+        updates[this.props.match.params.id] = dataToSubmit
+        console.log("updates: ", updates)
         if(formIsValid){
-            firebaseDB.ref('paddlers').push(dataToSubmit)
+            firebaseDB.ref('paddlers').update(updates)
                 .then(() => {
-                    console.log("new paddler added")
+                    console.log("paddler updated")
                     this.setState({ redirect: true })
                 })
                 .catch((e) => {
@@ -193,7 +199,7 @@ class PaddlerEdit extends Component {
      
     return (
         <div>
-
+            Edit paddler
             <form onSubmit={this.submitForm}>
                 <FormFields 
                     formData={this.state.formData}

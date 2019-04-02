@@ -34,11 +34,13 @@ class Paddlers extends Component {
         const padList = this.state.paddlers.map((item, i) => {
             // console.log("item: ", item, "i: ", i)
             return (
-                <tr onClick={() => this.editPaddler(item.id)}>    
-                    <td><img src={item.Image} width="75" height="75"/></td>
-                    <td>{item.firstName} {item.LastName} </td>
+                // <tr key={i} onClick={() => this.editPaddler(item.id)}> 
+                <tr key={i}>
+                    <td><img src={item.Image} alt="" width="75" height="75"/></td>
+                    <td>{item.firstName} {item.lastName} </td>
                     <td>{item.Weight} </td>
-                    <td>{item.Pref}</td>
+                    <td>{item.Pref} </td>
+                    <td><button className="btn btn-default" onClick={() => this.editPaddler(item.id)}>edit</button></td>
                     <td><button className="btn btn-default" onClick={() => this.deletePaddler(item.id, i)}>delete</button></td>
                 </tr>        
                 )    
@@ -54,6 +56,7 @@ class Paddlers extends Component {
                         <th>Name</th>
                         <th>Weight</th>
                         <th>Pref</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>

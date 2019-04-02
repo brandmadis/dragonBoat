@@ -5,7 +5,7 @@ import Bench from './Heat/Bench'
 import Weights from './Heat/Weights'
 import { firebaseDB, 
           firebasePaddlers, 
-          firebaseBoat, 
+          // firebaseBoat, 
           firebaseLooper, 
           firebaseLooper2 
 } from '../firebase'

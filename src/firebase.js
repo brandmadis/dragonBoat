@@ -36,13 +36,13 @@ const firebaseLooper2 = (snapshot) => {
     // console.log("snapshot: ", snapshot.key)
     const boatId = snapshot.key
     const data2 = []
-    let seatOccupant = 0
+    // let seatOccupant = 0
     snapshot.forEach((childSnapshot) => {
         // console.log("childSnapshot first: ", childSnapshot.val())
         firebasePaddlers.child(childSnapshot.val()).once('value', function(snapshot){
             
-            if(snapshot.exists() || childSnapshot.key == 0){
-                seatOccupant = childSnapshot.val()
+            if(snapshot.exists() || childSnapshot.key === 0){
+                // seatOccupant = childSnapshot.val()
                 // data2.push(childSnapshot.val())
             } 
             

@@ -26,7 +26,7 @@ class PaddlerAdd extends Component {
                 touched: true,
                 validationMessage: ''
             },
-            LastName: {
+            lastName: {
                 element: 'input',
                 value: 'test lastName',
                 label: true,
@@ -161,7 +161,7 @@ class PaddlerAdd extends Component {
      }
     return (
         <div>
-
+            Add new paddler
             <form onSubmit={this.submitForm}>
                 <FormFields 
                     formData={this.state.formData}
