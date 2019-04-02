@@ -20,7 +20,9 @@ class Paddlers extends Component {
         }
     }
     deletePaddler(id, index){
+
         firebaseDB.ref('paddlers/' + id).remove()
+        
         this.setState({
             paddlers: this.state.paddlers.filter((_, i) => i !== index)
         })
@@ -40,8 +42,21 @@ class Paddlers extends Component {
                     <td>{item.firstName} {item.lastName} </td>
                     <td>{item.Weight} </td>
                     <td>{item.Pref} </td>
-                    <td><button className="btn btn-default" onClick={() => this.editPaddler(item.id)}>edit</button></td>
-                    <td><button className="btn btn-default" onClick={() => this.deletePaddler(item.id, i)}>delete</button></td>
+                    <td>
+                        <button 
+                            className="btn btn-default" 
+                            onClick={() => this.editPaddler(item.id)}>
+                            edit
+                        </button>
+                    </td>
+                    <td>
+                    
+                        <button 
+                            className="btn btn-default" 
+                            onClick={() => {if (window.confirm("Are you sure you want to delete this paddler?")) this.deletePaddler(item.id, i)}}>
+                            delete
+                        </button>
+                    </td>
                 </tr>        
                 )    
         })
