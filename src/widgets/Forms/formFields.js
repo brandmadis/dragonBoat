@@ -31,6 +31,7 @@ const FormFields = (props) => {
             newState[id].validationMessage = validData[1]
         }
         newState[id].touched = blur
+        // console.log(newState)
         props.change(newState)
     }
     const validate = (element) => {

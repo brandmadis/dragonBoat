@@ -14,7 +14,6 @@ const firebaseDB = firebase.database()
 const firebasePaddlers = firebaseDB.ref('paddlers')
 const firebaseBoat = firebaseDB.ref('boat/-LaXxOo3qx_qNFcCCmqd')
 const firebaseBoats = firebaseDB.ref('boat')
-// const firebaseBoat = firebaseDB.ref('boat').limitToFirst(1)
 
 const firebaseLooper = (snapshot) => {
     const data = []
@@ -27,38 +26,12 @@ const firebaseLooper = (snapshot) => {
     return data
 }
 
-
-// get all paddlers
-// get current boat
-// only make one call from heat
-
 const firebaseLooper2 = (snapshot) => {
-    // console.log("looper2")
-    // const boatId = snapshot.key
     const data2 = []
     snapshot.forEach((childSnapshot) => {
         console.log("childSnapshot first: ", childSnapshot.val())
-        // firebasePaddlers.child(childSnapshot.val()).once('value', function(snapshot){
-        //     if(snapshot.exists() || childSnapshot.val() === 0){
-        //         // console.log("if hit", snapshot.exists(), childSnapshot.val())
-        //     } 
-            
-        //     else {
-        //         // console.log("else hit", snapshot.exists(), childSnapshot.val())
-        //         // console.log("does not exist", childSnapshot.key)
-        //         var updates = {}
-        //         updates[boatId + "/" + childSnapshot.key ] = 0
-        //         firebaseBoats.update(updates)
-        //         // .then(() => {
-        //         //     console.log("Boat modified", childSnapshot.val())
-        //         // })                
-        //     }
-        // })
-        // data2.push(seatOccupant)
         data2.push(childSnapshot.val())
     })
-    
-    // transform into list
     return data2
 }
 export {

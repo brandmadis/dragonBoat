@@ -50,7 +50,6 @@ class Heat extends Component {
           })
         }
     async componentDidMount(){
-        console.log("did mount start")
         if(this.state.paddlers.length < 1){
             firebasePaddlers.once('value')
             .then((snapshot) => {
@@ -68,48 +67,35 @@ class Heat extends Component {
             await firebaseDB.ref(refUrl).once('value')
             .then((snapshot) => {
               const boat = firebaseLooper2(snapshot)
-              // console.log("heat boat: ", boat)
               this.setState({
                 boat
               })
 
             })
             await this.paddlerCheck()
-            console.log("after paddlerCheck")
         }
         else {
-          // console.log("empty boat")
         }
-        // console.log("this.state.boat",this.state.boat)
         this.setState({loaded: true})
-        console.log("did mount finished")
     }
     paddlerCheck(){
-      console.log("paddlerCheck", this.state.boat, this.state.paddlerIds)
-      
       for( var seat in this.state.boat){
-        console.log("for start")
         if(
           this.state.paddlerIds.includes(this.state.boat[seat]) ||
           this.state.boat[seat] === 0
           ){
-          console.log("exists", this.state.boat[seat], this.state.paddlerIds)
         }
         else{
-          console.log("missing", this.state.boat[seat],  this.state.paddlerIds)
           var updates = {}
           updates[this.props.match.params.id + "/" + this.state.boat.indexOf(this.state.boat[seat]) ] = 0
-          console.log("updates: ", updates)
           firebaseBoats.update(updates)                
-          this.state.boat[seat] = 0
-          
+          // this.setState({boat.seat: 0})
+          const newBoat = this.state.boat.slice()
+          newBoat[seat] = 0
+          this.setState({boat: newBoat})
         }
       }      
     }
-    // async componentDidMount(){
-    //   await this.paddlerCheck()
-    //   console.log("after")
-    // }
     
     handleClick(user, seat){
         const newState = Object.assign({}, this.state)

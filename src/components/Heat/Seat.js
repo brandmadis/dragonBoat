@@ -53,7 +53,7 @@ class Seat extends Component {
             style={buttonStyleFilled}
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
             >{ isNaN(this.props.seat) ? "" : -this.props.seat }
-            <img src={paddler.Image} alt="" width="75px" height="75px"/>
+            <img src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${paddler.image}?alt=media`} alt="" width="75px" height="75px"/>
             <br />
             {paddler.firstName}
             <br />

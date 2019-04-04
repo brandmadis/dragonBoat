@@ -35,7 +35,7 @@ class Boats extends Component {
     render() {
         const boatList = this.state.boats.map((item, i) => {
             return (
-                <tr onClick={() => this.redirect(item.id)}>
+                <tr key={i} onClick={() => this.redirect(item.id)}>
                     <td></td>
                     <td>{item.id}</td>
                     <td></td>

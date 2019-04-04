@@ -7,6 +7,7 @@ import PaddlerEdit from './components/paddlerEdit'
 import NavBar from './components/navBar'
 import Heat from './components/heat'
 import PaddlerAdd from './components/paddlerAdd'
+import PaddlerAdd2 from './components/paddlerAdd2'
 import Boats from './components/boats'
 
 
@@ -23,6 +24,7 @@ const Routes = () => {
                 <Route path="/boats/:id" component={Heat}/>
                 <Route path="/" exact component={Home}/>
                 <Route path="/paddlerAdd" exact component={PaddlerAdd}/>
+                <Route path="/paddlerAdd2" exact component={PaddlerAdd2}/>
                 <Route path="/boatAdd" exact component={Heat}/>
             </div>
         </div>        

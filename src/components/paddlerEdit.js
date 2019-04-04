@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import FormFields from '../widgets/Forms/formFields'
+import FormFields from '../widgets/Forms/formFields2'
 import { 
     firebaseDB, 
     // firebasePaddlers, 
     // firebaseLooper 
 } from '../firebase'
 import { Redirect } from 'react-router-dom'
+import Uploader from '../widgets/FileUploader/fileUploaderEdit'
+
 
 
 class PaddlerEdit extends Component {
@@ -78,7 +80,7 @@ class PaddlerEdit extends Component {
                     labelText: 'Side Preference',
                     config: {
                         name: 'pref_input',
-                        option: [
+                        options: [
                             {val: 'either', text: 'Either'},
                             {val: 'left', text: 'Left'},
                             {val: 'right', text: 'Right'}
@@ -91,7 +93,7 @@ class PaddlerEdit extends Component {
                     touched: true,
                     validationMessage: ''
                 },   
-                Image: {
+                image: {
                     element: 'input',
                     value: '',
                     label: true,
@@ -109,24 +111,24 @@ class PaddlerEdit extends Component {
                     touched: true,
                     validationMessage: ''
                 },  
-                Active: {
-                    element: 'input',
-                    value: true,
-                    label: true,
-                    labelText: 'active',
-                    config: {
-                        name: 'active_input',
-                        type: 'text',
-                        placeholder: ''
-                    },
-                    validation: {
-                        required: false,
-                        minLen: 0
-                    },
-                    valid: true,
-                    touched: true,
-                    validationMessage: ''
-                },             
+                // Active: {
+                //     element: 'input',
+                //     value: true,
+                //     label: true,
+                //     labelText: 'active',
+                //     config: {
+                //         name: 'active_input',
+                //         type: 'text',
+                //         placeholder: ''
+                //     },
+                //     validation: {
+                //         required: false,
+                //         minLen: 0
+                //     },
+                //     valid: true,
+                //     touched: true,
+                //     validationMessage: ''
+                // },             
             }
         }
     }
@@ -140,7 +142,7 @@ class PaddlerEdit extends Component {
             newState.firstName.value = data.val().firstName
             newState.lastName.value = data.val().lastName
             newState.Weight.value = data.val().Weight
-            newState.Image.value = data.val().Image
+            newState.image.value = data.val().image
             curr_this.setState({formData: newState})
         })
 
@@ -170,11 +172,59 @@ class PaddlerEdit extends Component {
                 })
         }
     }
-    updateForm = (newState) => {
+    updateForm = (element, content = '') => {
+        const newformData = {
+            ...this.state.formData
+        }
+        const newElement = {
+            ...newformData[element.id]
+        }
+        
+        if(content === ''){
+            newElement.value = element.event.target.value
+        } else {
+            newElement.value = content
+        }
+        
+        if(element.blur){
+            let validData = this.validate(newElement)
+            newElement.valid = validData[0]
+            newElement.validationMessage = validData[1]
+        }
+        newElement.touched = element.blur
+        
+        newformData[element.id] = newElement
+        
         this.setState({
-            formData: newState
+            formData: newformData
         })
     }
+    validate = (element) => {
+        let error = [true, '']
+        if(element.validation.required){
+            const valid = element.value.trim() !==''
+            const message = `${!valid ? 'This field is required':''}`
+            error = !valid ? [valid, message]: error
+        }
+        return error
+    }    
+    submitButton = () => (
+        this.state.loading ? 
+            'loading...' :
+            <div>
+                <button type="submit"> Submit</button>
+            </div>
+    )  
+    showError = () => (
+        this.state.postError !== '' ?
+            <div>{this.state.postError} </div> :
+            ''
+    ) 
+    
+    storeFilename = (filename) => {
+        this.updateForm({id: 'image'}, filename)
+        
+    }    
     render() {
     const { redirect } = this.state;
 
@@ -183,18 +233,47 @@ class PaddlerEdit extends Component {
        return <Redirect to='/paddlers'/>;
      }
      
+                // <FormFields 
+                //     formData={this.state.formData}
+                //     change={(newState) => this.updateForm(newState)}
+                //     onblur={(newState) => this.updateForm(newState)}
+                // /><br></br>
+                
+                // <button type='submit' className="btn btn-default">Submit</button>
     return (
         <div>
             Edit paddler
+            
             <form onSubmit={this.submitForm}>
+                <img src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${this.state.formData.image.value}?alt=media`} alt="" width="150" height="150"/>
+            
+                <Uploader 
+                    filename={(filename)=>this.storeFilename(filename)}
+                    />
                 <FormFields 
-                    formData={this.state.formData}
-                    change={(newState) => this.updateForm(newState)}
-                    onblur={(newState) => this.updateForm(newState)}
-                /><br></br>
-                
-                <button type='submit' className="btn btn-default">Submit</button>
+                    id={'firstName'}
+                    formData={this.state.formData.firstName}
+                    change={(element) => this.updateForm(element)}
+                /> 
+                <FormFields 
+                    id={'lastName'}
+                    formData={this.state.formData.lastName}
+                    change={(element) => this.updateForm(element)}
+                />
+                <FormFields 
+                    id={'Weight'}
+                    formData={this.state.formData.Weight}
+                    change={(element) => this.updateForm(element)}
+                />
+                <FormFields 
+                    id={'Pref'}
+                    formData={this.state.formData.Pref}
+                    change={(element) => this.updateForm(element)}
+                />                 
+                { this.submitButton() }
+                { this.showError() }            
             </form>
+            
         </div>
         )
     }

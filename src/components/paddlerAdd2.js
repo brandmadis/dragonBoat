@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import FormFields from '../widgets/Forms/formFields'
-import { firebaseDB } from '../firebase'
+import FormFields from '../widgets/Forms/formFields2'
+import { firebasePaddlers } from '../firebase'
 import { Redirect } from 'react-router-dom'
 import Uploader from '../widgets/FileUploader/fileUploader'
 
@@ -17,7 +17,7 @@ class PaddlerAdd extends Component {
                 config: {
                     name: 'firstName_input',
                     type: 'text',
-                    placeholder: ''
+                    placeholder: 'First Name'
                 },
                 validation: {
                     required: true,
@@ -35,7 +35,7 @@ class PaddlerAdd extends Component {
                 config: {
                     name: 'lastName_input',
                     type: 'text',
-                    placeholder: ''
+                    placeholder: 'Last Name'
                 },
                 validation: {
                     required: true,
@@ -53,7 +53,7 @@ class PaddlerAdd extends Component {
                 config: {
                     name: 'weight_input',
                     type: 'text',
-                    placeholder: ''
+                    placeholder: 'Weight'
                 },
                 validation: {
                     required: true,
@@ -71,7 +71,7 @@ class PaddlerAdd extends Component {
                 labelText: 'Side Preference',
                 config: {
                     name: 'pref_input',
-                    option: [
+                    options: [
                         {val: 'either', text: 'Either'},
                         {val: 'left', text: 'Left'},
                         {val: 'right', text: 'Right'}
@@ -84,6 +84,11 @@ class PaddlerAdd extends Component {
                 touched: true,
                 validationMessage: ''
             },   
+            image: {
+              element: 'image',
+              value: '',
+              valid: true
+            },
             // Image: {
             //     element: 'input',
             //     value: '',
@@ -122,118 +127,102 @@ class PaddlerAdd extends Component {
             // },             
         }
     }
-    submitForm = (event) => {
-        console.log("submit", this.state.formData)
-        event.preventDefault()
-        let dataToSubmit = {}
-        let formIsValid = true
-        
-        for(let key in this.state.formData){
-            dataToSubmit[key] = this.state.formData[key].value
-            
-            console.log(formIsValid)
-            console.log(this.state.formData[key])
+    updateForm = (element, content = '') => {
+        const newformData = {
+            ...this.state.formData
         }
-        for(let key in this.state.formData){
-            formIsValid = this.state.formData[key].valid && formIsValid
+        const newElement = {
+            ...newformData[element.id]
         }
         
-        if(formIsValid){
-            firebaseDB.ref('paddlers').push(dataToSubmit)
-                .then(() => {
-                    console.log("new paddler added")
-                    this.setState({ redirect: true })
-                })
-                .catch((e) => {
-                    console.log("error: ", e)
-                })
+        if(content === ''){
+            newElement.value = element.event.target.value
+        } else {
+            newElement.value = content
         }
-    }
-    
-    updateForm = (newFormData, element_id) => {
-        console.log("updateform", newFormData[element_id])
         
-        // const copyFormData = {
-        //     ...this.state.formData
-        // }
-        // const newElement = {
-        //     ...newFormData[element.id]
-        // }
-        // const newElement = newFormData[element_id]
+        if(element.blur){
+            let validData = this.validate(newElement)
+            newElement.valid = validData[0]
+            newElement.validationMessage = validData[1]
+        }
+        newElement.touched = element.blur
         
-        // if(element[id].value === ''){
-        //     newElement.value = element.event.target.value
-        // } else {
-        //     newElement.value = content
-        // }
-        // if(newElement.blur){
-        //     let validData = this.validate(newElement)
-        //     newElement.valid = validData[0]
-        //     newElement.validationMessage = validData[1]
-        // }
-        // newElement.touched = element.blur
-        // console.log(newElement)
-        // copyFormData[element_id] = newElement
+        newformData[element.id] = newElement
         
         this.setState({
-            formData: newFormData
+            formData: newformData
         })
     }
-    
-    // updateForm = (element, content = 'test') => {
-    //     console.log("updateform", element.id)
-        
-    //     const newFormData = {
-    //         ...this.state.formData
-    //     }
-    //     const newElement = {
-    //         ...newFormData[element.id]
-    //     }
-    //     // const newElement = newFormData[element.id]
-        
-    //     if(content === ''){
-    //         newElement.value = element.event.target.value
-    //     } else {
-    //         newElement.value = content
-    //     }
-    //     if(element.blur){
-    //         let validData = this.validate(newElement)
-    //         newElement.valid = validData[0]
-    //         newElement.validationMessage = validData[1]
-    //     }
-    //     newElement.touched = element.blur
-    //     console.log(newElement)
-    //     newFormData[element.id] = newElement
-        
-    //     this.setState({
-    //         formData: newFormData
-    //     })
-    // }
     validate = (element) => {
         let error = [true, '']
-        console.log("element", element)
         if(element.validation.required){
-            const valid = element.value.trim() !== ''
-            const message = `${!valid ? 'This field is required' : ''}`
-            error = !valid ? [valid, message] : error
+            const valid = element.value.trim() !==''
+            const message = `${!valid ? 'This field is required':''}`
+            error = !valid ? [valid, message]: error
         }
         return error
     }
-    storeFilename = (filename) => {
-        this.updateForm({id: 'image'}, filename)
+    
+    submitForm = (event) => {
+        event.preventDefault()
+            let dataToSubmit = {}
+            let formIsValid = true;        
+            for(let key in this.state.formData){
+                dataToSubmit[key] = this.state.formData[key].value
+            }
+            for(let key in this.state.formData){
+                formIsValid = this.state.formData[key].valid && formIsValid;
+            }    
+            console.log(dataToSubmit)
+            if(formIsValid){
+                this.setState({
+                    loading: true,
+                    postError: ''
+                })
+              firebasePaddlers.orderByChild('id')
+              .limitToLast(1).once('value')
+              .then( snapshot => {
+                  snapshot.forEach(childSnapshot => {
+                  })
+                   
+                   
+                    firebasePaddlers.push(dataToSubmit)
+                    .then( article => {
+                        this.props.history.push(`/paddlers/`)
+                    }).catch( e => {
+                        this.setState({
+                            postError: e.message
+                        })
+                    })
+                     
+               })
+
+            } else {
+                console.log("not valid")
+                this.setState({
+                    postError: 'Something went wrong'
+                })
+            }
+
     }
     submitButton = () => (
-        this.state.loading ?
+        this.state.loading ? 
             'loading...' :
             <div>
-                <button type="submit">Submit</button>
+                <button type="submit"> Submit</button>
             </div>
-    )
+    )  
     showError = () => (
         this.state.postError !== '' ?
             <div>{this.state.postError} </div> :
             ''
-    )
+    ) 
+    
+    storeFilename = (filename) => {
+        this.updateForm({id: 'image'}, filename)
+        
+    }
     render() {
     const { redirect } = this.state;
 
@@ -249,15 +238,29 @@ class PaddlerAdd extends Component {
                     filename={(filename)=>this.storeFilename(filename)}
                     />
                 <FormFields 
-                    formData={this.state.formData}
-                    change={(newState, id) => this.updateForm(newState, id)}
-                    onblur={(newState) => this.updateForm(newState)}
-                /><br></br>
+                    id={'firstName'}
+                    formData={this.state.formData.firstName}
+                    change={(element) => this.updateForm(element)}
+                />
+                <FormFields 
+                    id={'lastName'}
+                    formData={this.state.formData.lastName}
+                    change={(element) => this.updateForm(element)}
+                />
+                <FormFields 
+                    id={'Weight'}
+                    formData={this.state.formData.Weight}
+                    change={(element) => this.updateForm(element)}
+                />
+                <FormFields 
+                    id={'Pref'}
+                    formData={this.state.formData.Pref}
+                    change={(element) => this.updateForm(element)}
+                />                
+                
+                <br></br>
                 { this.submitButton() }
                 { this.showError() }
-                {/*
-                <button type='submit' className="btn btn-default">Submit</button>
-                */}
             </form>
         </div>
         )
