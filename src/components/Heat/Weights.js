@@ -23,16 +23,23 @@ class Weights extends Component {
     let alignRight = {textAlign: 'right'}
     let alignLeft = {textAlign: 'left'}
     let alignCenter = {textAlign: 'center'}
+        // <div style={divStyle}>
+        //   <div style={right === left 
+        //     ? alignCenter : 
+        //     right > left ? alignRight : alignLeft}>
+        //     {right === left ? "0" : right > left ? right-left : left-right }
+        //   </div>
+          
+        // </div>
     return (
       <div>
-      <p>front: {front}  rear: {rear} </p>
-        <div style={divStyle}>
-          <div style={right === left 
-            ? alignCenter : 
-            right > left ? alignRight : alignLeft}>
-            {right === left ? "0" : right > left ? right-left : left-right }
-          </div>
-        </div>
+      <p> 
+      {front > rear ? `front: ${front-rear}` : `rear: ${rear-front}`} 
+      {right === left ? 'left/right' : 
+        right > left ? 
+          `right: ${right-left}` :
+          `left: ${left-right}` }
+      </p>
       </div>
       )
   }  

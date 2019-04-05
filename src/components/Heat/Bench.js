@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Seat from './Seat';
+import SeatRemove from './SeatRemove'
 
 class Bench extends Component {
   render() {
     return (
       <div>
-      <p>Bench</p>
+        <SeatRemove
+          removeFromBoat={this.props.removeFromBoat}
+        />
       {this.props.bench.map((item, index) => (
             <Seat 
               key={item}

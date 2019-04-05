@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
 import Seat from './Seat';
+import { Button } from 'semantic-ui-react'
 
 class Boat extends Component {
+  
   render() {
     var divStyle = {}
     var divContainer = {
       display: 'grid',
-      gridTemplateColumns: '150px 150px'      
+      gridTemplateColumns: '75px 75px'      
     }
     // console.log("paddlers: ", this.props.paddlers)
+        // <button 
+        //   className="btn btn-success" 
+        //   onClick={() => this.props.saveBoat(this.props.boat, this.props.boatId, this.props.history)}>
+        //   Save Boat
+        // </button>
+        // <Button 
+        //   secondary  
+        //   onClick={() => this.props.removeFromBoat()}>
+        //   Remove Paddler
+        // </Button>
     return(
       <div style={divStyle}>
-        <button className="btn btn-default" onClick={() => this.props.removeFromBoat()}>Remove Paddler</button>
-        <button 
-          className="btn btn-success" 
-          onClick={() => this.props.saveBoat(this.props.boat, this.props.boatId, this.props.history)}>
-          Save Boat
-        </button>
         <div style={divContainer}>
         {this.props.boat.map((item, index) => (
-            <div
-                key={index}
-            >
-            {/* { console.log("index: ", index, item) } */}
+            <div key={index}>
               <Seat 
                 key={index}
                 item={item}

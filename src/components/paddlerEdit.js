@@ -245,7 +245,7 @@ class PaddlerEdit extends Component {
             Edit paddler
             
             <form onSubmit={this.submitForm}>
-                <img src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${this.state.formData.image.value}?alt=media`} alt="" width="150" height="150"/>
+                <img src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${this.state.formData.image.value}?alt=media`} alt="" width="100" height="100"/>
             
                 <Uploader 
                     filename={(filename)=>this.storeFilename(filename)}

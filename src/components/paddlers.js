@@ -39,9 +39,10 @@ class Paddlers extends Component {
                 // <tr key={i} onClick={() => this.editPaddler(item.id)}> 
                 <tr key={i}>
                     <td><img src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${item.image}?alt=media`} alt="" width="75" height="75"/></td>
-                    <td>{item.firstName} {item.lastName} </td>
-                    <td>{item.Weight} </td>
-                    <td>{item.Pref} </td>
+                    <td>{item.firstName} {item.lastName} <br></br>
+                        {item.Weight} <br></br>
+                        {item.Pref}
+                    </td>
                     <td>
                         <button 
                             className="btn btn-default" 
@@ -68,10 +69,8 @@ class Paddlers extends Component {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Weight</th>
-                        <th>Pref</th>
+                        <th>Paddler</th>
+                        <th></th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>

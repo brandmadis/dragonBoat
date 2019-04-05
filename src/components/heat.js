@@ -130,19 +130,24 @@ class Heat extends Component {
               
               newState.boat[firstClick] = user
               newState.selected= null
+              this.updateBoat(1)
             }
           }
-          else if (seat !== undefined){
+          else if (seat !== undefined){ // second click on boat
             console.log("second click on boat")
             if (user === 0){
               console.log("user == 0 (empty boat seat was clicked)")
               console.log("sel: ", sel, "user: ", user, "seat: ", seat)
               if (this.state.boat.indexOf(sel) === -1){
                 newState.boat[-seat] = sel
+                this.updateBoat(2)
+
               } else {
                 let firstClick = this.state.boat.indexOf(sel)
                 newState.boat[firstClick] = 0
                 newState.boat[-seat] = sel
+                this.updateBoat(3)
+
               }
             } else {
               console.log("user != 0 (occupied seat was clicked), swap users")
@@ -150,16 +155,22 @@ class Heat extends Component {
                 console.log("First click was on bench, second on seat")
                 let firstClick = this.state.boat.indexOf(user)
                 newState.boat[firstClick] = sel
+                this.updateBoat(4)
+
               } else if (sel === 0){
                 console.log("empty seat to user swap")
                 newState.boat[this.state.selSeat] = user
                 newState.boat[-seat] = 0
+                this.updateBoat(5)
+
               } else {
                 console.log("First click was on boat, second on seat")
                 console.log("sel: ", sel, "user: ", user, "seat: ", seat)
                 let firstClick = this.state.boat.indexOf(sel)
                 newState.boat[firstClick] = user
                 newState.boat[-seat] = sel
+                this.updateBoat(6)
+
               }
             }
             newState.selected= null
@@ -171,6 +182,7 @@ class Heat extends Component {
     console.log("-------------------------") // logic iteration separator
     this.setState(newState)
   }
+  
     removeFromBoat(){
       if(this.state.selected !== null){
         console.log("remove from boat")
@@ -180,18 +192,23 @@ class Heat extends Component {
         newState.selected = null
         newState.selSeat = -1
         this.setState(newState)
+        
+        let refUrl = `boat/${this.props.match.params.id}`
+        firebaseDB.ref(refUrl).set(this.state.boat)
       }
     }
-    // save as object
+    
+    updateBoat(marker){
+      console.log("updateBoat func", marker)
+      let refUrl = `boat/${this.props.match.params.id}`
+      firebaseDB.ref(refUrl).set(this.state.boat)
+    }
+
     saveBoat(data, id, history){
-      // console.log("saveBoat() hit", data)
       let refUrl = `boat/${id}`
-      // console.log("refUrl: ", refUrl)
       firebaseDB.ref(refUrl).set(data)
         .then(() => {
-          // console.log("boat saved", history)
           history.push(`/boats`);
-          
           
         })
         .catch((e) => {
@@ -199,15 +216,6 @@ class Heat extends Component {
         })
     }
     render(){
-        // console.log("this.state.boat",this.state.boat)
-
-        // let heatContainer = {
-        //   display: 'grid',
-        //   gridTemplateColumns: '300px 10px 150px'  
-        // }
-        // console.log("paddlers: ", this.state.paddlers)
-        // console.log("boat: ", this.state.boat)
-        
         let paddlers = JSON.parse(JSON.stringify(this.state.paddlers));
         let boat = JSON.parse(JSON.stringify(this.state.boat));
         
@@ -218,16 +226,21 @@ class Heat extends Component {
                     return obj.id
                   })   
                   
-        
+        let border = { border: '1px solid black' }
         return (
             <div>
                   {this.state.loaded ? 
+            <div>
                 <div className="row">
-                  <div className="col-5">
                     <Weights 
                       boat={boat}
                       paddlers={paddlers}
                       />
+                      
+                  </div>
+                <div className="row">
+                      
+                  <div className="col-6">
                     <Boat 
                         {...this.state}
                         onClick={this.handleClick}
@@ -237,14 +250,17 @@ class Heat extends Component {
                         history={this.props.history}
                         />
                   </div>
-                  <div className="col-5">
+                  <div className="col-6">
                     <Bench
                         {...this.state}
                         onClick={this.handleClick}
                         bench={bench}
+                        removeFromBoat={this.removeFromBoat}
+                        
                         />
                   </div>
                 </div>
+            </div>
                       : "" }
             </div>
                 

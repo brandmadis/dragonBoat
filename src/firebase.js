@@ -29,7 +29,6 @@ const firebaseLooper = (snapshot) => {
 const firebaseLooper2 = (snapshot) => {
     const data2 = []
     snapshot.forEach((childSnapshot) => {
-        console.log("childSnapshot first: ", childSnapshot.val())
         data2.push(childSnapshot.val())
     })
     return data2
