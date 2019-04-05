@@ -50,7 +50,7 @@ class Boats extends Component {
                     className="btn btn-default" 
                     onClick={() => this.createBoat()}>Create new boat
                 </button>
-                <table className="table table-hover">
+                <table className="table table-hover" id="boats">
                     <thead>
                         <tr>
                             <th>Name</th>

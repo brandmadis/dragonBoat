@@ -41,7 +41,7 @@ class PaddlerAdd extends Component {
                     required: true,
                     minLen: 2
                 },
-                valid: true,
+                valid: false,
                 touched: true,
                 validationMessage: ''
             },    
@@ -52,7 +52,7 @@ class PaddlerAdd extends Component {
                 labelText: 'Weight',
                 config: {
                     name: 'weight_input',
-                    type: 'text',
+                    type: 'number',
                     placeholder: 'Weight'
                 },
                 validation: {
@@ -60,7 +60,7 @@ class PaddlerAdd extends Component {
                     minLen: 2,
                     number: true
                 },
-                valid: true,
+                valid: false,
                 touched: true,
                 validationMessage: ''
             },   
@@ -134,7 +134,6 @@ class PaddlerAdd extends Component {
         const newElement = {
             ...newformData[element.id]
         }
-        
         if(content === ''){
             newElement.value = element.event.target.value
         } else {
