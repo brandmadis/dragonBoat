@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Seat from './Seat';
-import { Button } from 'semantic-ui-react'
+// import { Button } from 'semantic-ui-react'
 
 class Boat extends Component {
   

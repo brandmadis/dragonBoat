@@ -213,7 +213,7 @@ class Heat extends Component {
                     return obj.id
                   })   
                   
-        let border = { border: '1px solid black' }
+        // let border = { border: '1px solid black' }
         return (
             <div>
                   {this.state.loaded ? 
