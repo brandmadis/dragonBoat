@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+import CountUp from 'react-countup';
 
 class Weights extends Component {
+  // constructor(props){
+  //   super(props)
+  //     this.state = {
+
+        
+  //     }
+    
+  // }
   render() {
     let left = 0
     let right = 0
@@ -19,10 +28,10 @@ class Weights extends Component {
         else if(i>13){rear += weight}
       }
     }
-    let divStyle = {border: '1px black solid', width: '160px'}
-    let alignRight = {textAlign: 'right'}
-    let alignLeft = {textAlign: 'left'}
-    let alignCenter = {textAlign: 'center'}
+    // let divStyle = {border: '1px black solid', width: '160px'}
+    // let alignRight = {textAlign: 'right'}
+    // let alignLeft = {textAlign: 'left'}
+    // let alignCenter = {textAlign: 'center'}
         // <div style={divStyle}>
         //   <div style={right === left 
         //     ? alignCenter : 
@@ -33,12 +42,33 @@ class Weights extends Component {
         // </div>
     return (
       <div>
-      <p> 
-      {front > rear ? `front: ${front-rear}` : `rear: ${rear-front}`} 
-      {right === left ? 'left/right' : 
-        right > left ? 
-          `right: ${right-left}` :
-          `left: ${left-right}` }
+      <p> {front > rear ? 'Front: ' : 'Rear: '} 
+<CountUp
+  start={this.props.prevFrontRear}
+  end={front > rear ? front-rear : rear-front} 
+  duration={.5}
+  // separator=" "
+  decimals={0}
+  decimal="."
+  // prefix="EUR "
+  // suffix=" left"
+  onEnd={() => console.log('Ended! 👏')}
+  onStart={() => console.log('Started! 💨')}
+/>
+      <span>    </span>
+        {right > left ? `right: ` :`left: ` }
+<CountUp
+  start={this.props.prevFrontRear}
+  end={right > left ? right-left : left-right} 
+  duration={.5}
+  // separator=" "
+  decimals={0}
+  decimal="."
+  // prefix="EUR "
+  // suffix=" left"
+  onEnd={() => console.log('Ended! 👏')}
+  onStart={() => console.log('Started! 💨')}
+/>          
       </p>
       </div>
       )

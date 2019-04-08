@@ -17,24 +17,11 @@ class Heat extends Component {
             selected: null,
             paddlers: [],
             paddlerIds: [],
-        //   paddlers: {
-        //      1: { name: 'one', weight: 180 },
-        //      2: { name: 'two', weight: 122 },
-        //      3: { name: 'three', weight: 165 },
-        //      4: { name: 'four', weight: 195 },
-        //      5: { name: 'five', weight: 140 },
-        //   },            
-            // paddlers: [
-            // { name: 'one', id: 1, weight: 180, pref: 'left' },
-            // { name: 'two', id: 2, weight: 122, pref: 'right' },
-            // { name: 'three', id: 3, weight: 165, pref: 'either' },
-            // { name: 'four', id: 4, weight: 195, pref: 'left' },
-            // { name: 'five', id: 5, weight: 140, pref: 'right' },
-            // ],        
-            // boat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             boat: [],
             selSeat: -1,
-            loaded: false
+            loaded: false,
+            prevFrontRear: 0,
+            prevLeftRight: 0            
         }
     this.handleClick = this.handleClick.bind(this);
     this.removeFromBoat = this.removeFromBoat.bind(this);
@@ -235,6 +222,7 @@ class Heat extends Component {
                     <Weights 
                       boat={boat}
                       paddlers={paddlers}
+                      prevFrontRear={this.state.prevFrontRear}
                       />
                       
                   </div>

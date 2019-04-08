@@ -3,8 +3,14 @@ import React, { Component } from 'react'
 import { firebaseBoats, firebaseLooper } from '../firebase'
 
 class Boats extends Component {
-    state = {
-        boats: []
+    constructor(props){
+        super(props)
+        this.state = {
+            boats: [],
+            value:''
+        }
+        this.handleChange = this.handleChange.bind(this)
+        this.createBoat2 = this.createBoat2.bind(this)
     }
     componentWillMount(){
         if(this.state.boats.length < 1){
@@ -27,6 +33,29 @@ class Boats extends Component {
         console.log("key: ", key)
 
     }
+    createBoat2(event){
+        event.preventDefault()
+        console.log("create boat 2", this.state.value)
+        var newRef = firebaseBoats.push()
+        var key = newRef.key
+        var data = {
+            'name': this.state.value,
+            'boat': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+        let dataToSubmit = {}
+        for(let key in data){
+            dataToSubmit[key] = data[key]
+            console.log("data: ", data[key] )
+        }
+        console.log("datatosubmit: ", dataToSubmit)
+        newRef.set(data)
+        // console.log("data: ", data)
+        this.props.history.push(`/boats/${key}`);
+        
+    }
+    handleChange(event){
+        this.setState({value: event.target.value});
+    }
     redirect(id){
         console.log("redirect", id)
         this.props.history.push(`/boats/${id}`);
@@ -36,8 +65,8 @@ class Boats extends Component {
         const boatList = this.state.boats.map((item, i) => {
             return (
                 <tr key={i} onClick={() => this.redirect(item.id)}>
-                    <td></td>
-                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.id} </td>
                     <td></td>
                 </tr>
                 )
@@ -45,7 +74,14 @@ class Boats extends Component {
         
         return (
             <div>
-                Boats<br/>
+                <form onSubmit={this.createBoat2}>
+                    <input type='text' 
+                        placeholder='new boat name'
+                        value={this.state.value} 
+                        onChange={this.handleChange}
+                        />
+                    <input type='submit' value="create new boat" />
+                </form>
                 <button 
                     className="btn btn-default" 
                     onClick={() => this.createBoat()}>Create new boat
@@ -54,7 +90,7 @@ class Boats extends Component {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Heat</th>
+                            <th>ID</th>
                             <th>Seating</th>
                         </tr>
                     </thead>
