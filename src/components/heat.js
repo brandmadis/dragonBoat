@@ -213,7 +213,10 @@ class Heat extends Component {
                   .map(function(obj){
                     return obj.id
                   })   
-                  
+        let divGrid = {
+          display: 'grid',
+          gridTemplateColumns: '120px 10px 60px' ,          
+        }
         // let border = { border: '1px solid black' }
         return (
             <div>
@@ -227,9 +230,8 @@ class Heat extends Component {
                       />
                       
                   </div>
-                <div className="row">
+                <div style={divGrid}>
                       
-                  <div className="col-6">
                     <Boat 
                         {...this.state}
                         onClick={this.handleClick}
@@ -237,8 +239,7 @@ class Heat extends Component {
                         boatId={this.props.match.params.id}
                         history={this.props.history}
                         />
-                  </div>
-                  <div className="col-6">
+                    <div></div>
                     <Bench
                         {...this.state}
                         onClick={this.handleClick}
@@ -246,7 +247,6 @@ class Heat extends Component {
                         removeFromBoat={this.removeFromBoat}
                         
                         />
-                  </div>
                 </div>
             </div>
                       : "" }

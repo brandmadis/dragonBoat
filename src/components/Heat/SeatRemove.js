@@ -10,7 +10,8 @@ class SeatRemove extends Component {
       borderRadius: '15px',
     //   border: '1px solid black',
       backgroundColor: 'lightgray',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      
       
       // backgroundImage: 'url({paddler.Image})',
       // backgroundRepeat: 'no-repeat'

@@ -8,13 +8,13 @@ class Boat extends Component {
     var divStyle = {}
     var divContainer = {
       display: 'grid',
-      gridTemplateColumns: '75px 75px'      
+      gridTemplateColumns: '60px 60px' ,
     }
     return(
       <div style={divStyle}>
         <div style={divContainer}>
         {this.props.boat.map((item, index) => (
-            <div key={index}>
+            <div id={`id${index}`} key={index}>
               <Seat 
                 key={index}
                 item={item}
