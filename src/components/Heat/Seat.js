@@ -18,15 +18,20 @@ class Seat extends Component {
     }
     // empty seat
     if(this.props.item === 0 || (this.props.paddler.length === 0 && this.props.paddler[this.props.item] === undefined)){
-      const seatNum = {}
+      const seatNum = { textAlign: 'right'}
+      console.log(this.props.selSeat, this.props.emptySeat)
       return (
         <div>
           <div
+            className={this.props.selSeat === this.props.emptySeat ? "selected" : ""}
+          
             style={buttonStyleEmpty}
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
             >
             <div style={seatNum}>
-              {-this.props.seat} <br></br>
+            <h1>
+              {-this.props.seat} 
+            </h1>
             </div>
             </div>
         </div>

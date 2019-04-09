@@ -19,9 +19,11 @@ class Boat extends Component {
                 key={index}
                 item={item}
                 seat={-index}
+                emptySeat={index}
                 paddler={this.props.paddlers}
                 onClick={this.props.onClick}
                 selected={this.props.selected}
+                selSeat={this.props.selSeat}
                 />
             </div>        
           ))}

@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 class SeatRemove extends Component {
     render(){
     const divStyle = {
-      width: '75px', 
-      height: '75px', 
+      width: '60px', 
+      height: '60px', 
       textAlign: 'center', 
       display: 'inline-flex',
       borderRadius: '15px',
