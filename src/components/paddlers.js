@@ -64,8 +64,7 @@ class Paddlers extends Component {
     return (
         <div>
             Paddlers<br/>
-            <Link to='/paddlerAdd' className="nav-link"><button className="btn btn-default">Add New Paddler</button></Link>
-            <Link to='/paddlerAdd2' className="nav-link"><button className="btn btn-default">paddlerAdd2</button></Link><br />
+            <Link to='/paddlerAdd2' className="nav-link"><button className="btn btn-default">Add New Paddler</button></Link><br />
             <table className="table">
                 <thead>
                     <tr>

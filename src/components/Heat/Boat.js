@@ -10,11 +10,14 @@ class Boat extends Component {
       display: 'grid',
       gridTemplateColumns: '60px 60px' ,
     }
+    var seat = {
+      marginBottom: '4px',
+    }
     return(
       <div style={divStyle}>
         <div style={divContainer}>
         {this.props.boat.map((item, index) => (
-            <div id={`id${index}`} key={index}>
+            <div id={`id${index}`} key={index} style={seat}>
               <Seat 
                 key={index}
                 item={item}

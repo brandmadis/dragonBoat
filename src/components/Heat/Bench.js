@@ -4,11 +4,20 @@ import SeatRemove from './SeatRemove'
 
 class Bench extends Component {
   render() {
+    var seat = {
+      marginBottom: '4px',
+    }    
+    var divContainer = {
+      display: 'grid',
+      gridTemplateColumns: '60px 60px' ,
+    }    
     return (
-      <div>
+      <div style={seat}>
         <SeatRemove
           removeFromBoat={this.props.removeFromBoat}
         />
+                <div style={divContainer}>
+
       {this.props.bench.map((item, index) => (
             <Seat 
               key={item}
@@ -18,6 +27,7 @@ class Bench extends Component {
               paddler={this.props.paddlers}
               />
           ))}
+      </div>
       </div>
       )}}
 

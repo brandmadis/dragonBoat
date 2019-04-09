@@ -74,18 +74,18 @@ class Boats extends Component {
         
         return (
             <div>
-                <form onSubmit={this.createBoat2}>
+                <form className="form-inline" onSubmit={this.createBoat2}>
                     <input type='text' 
                         placeholder='new boat name'
                         value={this.state.value} 
                         onChange={this.handleChange}
+                        className="form-control"
                         />
-                    <input type='submit' value="create new boat" />
+                    <input 
+                        type='submit' value="create new boat" 
+                        className="btn btn-default" 
+                        />
                 </form>
-                <button 
-                    className="btn btn-default" 
-                    onClick={() => this.createBoat()}>Create new boat
-                </button>
                 <table className="table table-hover" id="boats">
                     <thead>
                         <tr>

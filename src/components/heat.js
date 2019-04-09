@@ -222,7 +222,7 @@ class Heat extends Component {
             <div>
                   {this.state.loaded ? 
             <div>
-                <div className="row">
+                <div>
                     <Weights 
                       boat={boat}
                       paddlers={paddlers}

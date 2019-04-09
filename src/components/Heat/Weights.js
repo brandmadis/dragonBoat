@@ -56,7 +56,7 @@ class Weights extends Component {
   // onStart={() => console.log('Started! 💨')}
 />
       <span>    </span>
-        {right > left ? `right: ` :`left: ` }
+        {right > left ? `Right: ` :`Left: ` }
 <CountUp
   start={this.props.prevFrontRear}
   end={right > left ? right-left : left-right} 

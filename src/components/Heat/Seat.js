@@ -73,14 +73,30 @@ class Seat extends Component {
     const divStyle = {
       // border: '1px solid black',
       position: 'relative',
+      
       // display: 'inline',       
     }
     const userImage = {
       position: 'relative',
-      
       borderRadius: '15px',
       cursor: 'pointer',      
     }
+    const selected = {
+      border: '2px solid black',
+      borderRadius: '15px',
+      boxShadow: '10px 10px 5px grey',
+      width: '85px',
+      height: '85px',
+      position: 'absolute',
+      zIndex: '10000',
+      cursor: 'pointer',   
+      top: '-15px',
+      left: '-15px'
+      
+    }
+
+
+
       const paddler = this.props.paddler.filter(obj => {
         return obj.id === this.props.item
       })[0]
@@ -91,8 +107,7 @@ class Seat extends Component {
               onClick={() => this.props.onClick(this.props.item, this.props.seat)}
           >
             <img 
-              style={userImage}
-              className={this.props.selected === paddler.id ? "selected" : ""}
+              style={this.props.selected === paddler.id ? selected : userImage}
               src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${paddler.image}?alt=media`} 
               alt="" width="60px" height="60px"
               />
