@@ -45,19 +45,19 @@ class Seat extends Component {
     
     // occupied seat
     else {
-    const buttonStyleFilled = {
-      width: '60px', 
-      height: '60px', 
-      textAlign: 'left', 
-      // display: 'inline-flex',
-      borderRadius: '15px',
-      cursor: 'pointer',
-      position: 'absolute',
+    // const buttonStyleFilled = {
+    //   width: '60px', 
+    //   height: '60px', 
+    //   textAlign: 'left', 
+    //   // display: 'inline-flex',
+    //   borderRadius: '15px',
+    //   cursor: 'pointer',
+    //   position: 'absolute',
       // display: 'inline',      
       
       // backgroundImage: 'url({paddler.Image})',
       // backgroundRepeat: 'no-repeat'
-    }
+    // }
     const imgStyleLeft = {
       position: 'absolute',
       zIndex: '100',
@@ -113,7 +113,9 @@ class Seat extends Component {
               />
           {/*
             */}
-{paddler.Pref === 'either'? '' : 
+{this.props.selected === paddler.id ? '' :
+  
+  paddler.Pref === 'either'? '' : 
                     paddler.Pref === 'left' ?   
             <img
               style={imgStyleLeft}
