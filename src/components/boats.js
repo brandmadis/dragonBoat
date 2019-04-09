@@ -42,14 +42,14 @@ class Boats extends Component {
             'name': this.state.value,
             'boat': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }
-        let dataToSubmit = {}
-        for(let key in data){
-            dataToSubmit[key] = data[key]
-            console.log("data: ", data[key] )
-        }
-        console.log("datatosubmit: ", dataToSubmit)
+        // let dataToSubmit = {}
+        // for(let key in data){
+        //     dataToSubmit[key] = data[key]
+        //     console.log("data: ", data[key] )
+        // }
+        // console.log("datatosubmit: ", dataToSubmit)
         newRef.set(data)
-        // console.log("data: ", data)
+        console.log("data: ", data)
         this.props.history.push(`/boats/${key}`);
         
     }
@@ -65,7 +65,7 @@ class Boats extends Component {
         const boatList = this.state.boats.map((item, i) => {
             return (
                 <tr key={i} onClick={() => this.redirect(item.id)}>
-                    <td>{item.name}</td>
+                    <td>{item.name} </td>
                     <td>{item.id} </td>
                     <td></td>
                 </tr>

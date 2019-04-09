@@ -8,7 +8,7 @@ import { firebaseDB,
           firebaseBoats, 
           firebaseLooper, 
           firebaseLooper2 
-} from '../firebase'
+        } from '../firebase'
 
 class Heat extends Component {
     constructor(props){
@@ -50,7 +50,7 @@ class Heat extends Component {
             })
         }
         if(this.state.boat.length < 1){
-            let refUrl = "boat/" + this.props.match.params.id
+            let refUrl = `boat/${this.props.match.params.id}/boat`
             await firebaseDB.ref(refUrl).once('value')
             .then((snapshot) => {
               const boat = firebaseLooper2(snapshot)
@@ -171,8 +171,8 @@ class Heat extends Component {
   }
   
     removeFromBoat(){
-      if(this.state.selected !== null){
         console.log("remove from boat")
+      if(this.state.selected !== null){
         const newState = Object.assign({}, this.state)
         let sel = this.state.selected   
         newState.boat[this.state.boat.indexOf(sel)] = 0
@@ -180,28 +180,29 @@ class Heat extends Component {
         newState.selSeat = -1
         this.setState(newState)
         
-        let refUrl = `boat/${this.props.match.params.id}`
+        let refUrl = `boat/${this.props.match.params.id}/boat`
         firebaseDB.ref(refUrl).set(this.state.boat)
       }
     }
     
     updateBoat(marker){
       console.log("updateBoat func", marker)
-      let refUrl = `boat/${this.props.match.params.id}`
+      let refUrl = `boat/${this.props.match.params.id}/boat`
       firebaseDB.ref(refUrl).set(this.state.boat)
     }
 
-    saveBoat(data, id, history){
-      let refUrl = `boat/${id}`
-      firebaseDB.ref(refUrl).set(data)
-        .then(() => {
-          history.push(`/boats`);
+    // saveBoat(data, id, history){
+    //   console.log("saveBoat")
+    //   let refUrl = `boat/${id}`
+    //   firebaseDB.ref(refUrl).set(data)
+    //     .then(() => {
+    //       history.push(`/boats`);
           
-        })
-        .catch((e) => {
-          console.log("error: ", e)
-        })
-    }
+    //     })
+    //     .catch((e) => {
+    //       console.log("error: ", e)
+    //     })
+    // }
     render(){
         let paddlers = JSON.parse(JSON.stringify(this.state.paddlers));
         let boat = JSON.parse(JSON.stringify(this.state.boat));
@@ -233,7 +234,6 @@ class Heat extends Component {
                         {...this.state}
                         onClick={this.handleClick}
                         removeFromBoat={this.removeFromBoat}
-                        saveBoat={this.saveBoat}
                         boatId={this.props.match.params.id}
                         history={this.props.history}
                         />

@@ -10,17 +10,6 @@ class Boat extends Component {
       display: 'grid',
       gridTemplateColumns: '75px 75px'      
     }
-    // console.log("paddlers: ", this.props.paddlers)
-        // <button 
-        //   className="btn btn-success" 
-        //   onClick={() => this.props.saveBoat(this.props.boat, this.props.boatId, this.props.history)}>
-        //   Save Boat
-        // </button>
-        // <Button 
-        //   secondary  
-        //   onClick={() => this.props.removeFromBoat()}>
-        //   Remove Paddler
-        // </Button>
     return(
       <div style={divStyle}>
         <div style={divContainer}>

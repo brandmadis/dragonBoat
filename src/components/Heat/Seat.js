@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import iconLeft from '../../assets/icon-left.png'
+import iconRight from '../../assets/icon-right.png'
 
 class Seat extends Component {
   render() {
     // console.log("this.props.paddlers: ", this.props.paddler)
     const buttonStyleEmpty = {
-      width: '75px', 
-      height: '75px', 
+      width: '60px', 
+      height: '60px', 
       textAlign: 'left', 
       display: 'inline-flex',
       // border: '1px black solid',
@@ -34,31 +36,77 @@ class Seat extends Component {
     // occupied seat
     else {
     const buttonStyleFilled = {
-      width: '75px', 
-      height: '75px', 
+      width: '60px', 
+      height: '60px', 
       textAlign: 'left', 
-      display: 'inline-flex',
+      // display: 'inline-flex',
       borderRadius: '15px',
-      cursor: 'pointer'
-      
+      cursor: 'pointer',
+      position: 'relative',
+      display: 'inline',      
       
       // backgroundImage: 'url({paddler.Image})',
       // backgroundRepeat: 'no-repeat'
     }
-    
+    const imgStyleLeft = {
+      position: 'absolute',
+      top: 25,
+      left: 0
+    }
+    const imgStyleRight = {
+      position: 'absolute',
+      top: 0,
+      right: 0
+    }    
+    const divStyle = {
+      position: 'relative',
+      display: 'inline',       
+    }
+    const userImage = {
+      borderRadius: '15px',
+      cursor: 'pointer',      
+    }
       const paddler = this.props.paddler.filter(obj => {
         return obj.id === this.props.item
       })[0]
             // { isNaN(this.props.seat) ? "" : -this.props.seat }
       return (
         <div>
+          <div style={divStyle}>
             <img 
+              style={userImage}
               className={this.props.selected === paddler.id ? "selected" : ""}
-              style={buttonStyleFilled}
-              src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${paddler.image}?alt=media`} alt="" width="75px" height="75px"
+              src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${paddler.image}?alt=media`} 
+              alt="" width="60px" height="60px"
               onClick={() => this.props.onClick(this.props.item, this.props.seat)}
               />
+          {/*
+            */}
+{paddler.Pref === 'either'? '' : 
+                    paddler.Pref === 'left' ?   
+          <div>
+            <img
+              style={imgStyleLeft}
+              src={iconLeft}
+              alt=""
+              width="25px"
+              height="25px"
+            />
+          </div>
+            : 
+          <div>
+            <img
+              style={imgStyleRight}
+              src={iconRight}
+              alt=""
+              width="25px"
+              height="25px"
+            /> 
+          </div>
+}
         </div>
+        </div>
+        
         )
         
         

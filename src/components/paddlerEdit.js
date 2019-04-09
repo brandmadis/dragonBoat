@@ -7,6 +7,8 @@ import {
 } from '../firebase'
 import { Redirect } from 'react-router-dom'
 import Uploader from '../widgets/FileUploader/fileUploaderEdit'
+import { Button, Icon } from 'semantic-ui-react'
+
 
 
 
@@ -143,6 +145,7 @@ class PaddlerEdit extends Component {
             newState.lastName.value = data.val().lastName
             newState.Weight.value = data.val().Weight
             newState.image.value = data.val().image
+            newState.Pref.value = data.val().Pref
             curr_this.setState({formData: newState})
         })
 
@@ -212,7 +215,12 @@ class PaddlerEdit extends Component {
         this.state.loading ? 
             'loading...' :
             <div>
-                <button type="submit"> Submit</button>
+                <Button animated>
+                    <Button.Content visible>Submit</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='arrow right' />
+                    </Button.Content>
+                </Button>
             </div>
     )  
     showError = () => (
@@ -225,6 +233,11 @@ class PaddlerEdit extends Component {
         this.updateForm({id: 'image'}, filename)
         
     }    
+    cancel() {
+        console.log("cancel")
+        this.props.history.push(`/paddlers`);
+        
+    }
     render() {
     const { redirect } = this.state;
 
@@ -271,7 +284,14 @@ class PaddlerEdit extends Component {
                     change={(element) => this.updateForm(element)}
                 />                 
                 { this.submitButton() }
-                { this.showError() }            
+                <div>
+                    <Button animated onClick={()=>this.cancel()}>
+                        <Button.Content visible>Cancel</Button.Content>
+                        <Button.Content hidden>
+                            <Icon name='arrow right' />
+                        </Button.Content>
+                    </Button>
+                </div>
             </form>
             
         </div>

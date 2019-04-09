@@ -52,8 +52,8 @@ class Weights extends Component {
   decimal="."
   // prefix="EUR "
   // suffix=" left"
-  onEnd={() => console.log('Ended! 👏')}
-  onStart={() => console.log('Started! 💨')}
+  // onEnd={() => console.log('Ended! 👏')}
+  // onStart={() => console.log('Started! 💨')}
 />
       <span>    </span>
         {right > left ? `right: ` :`left: ` }
@@ -66,8 +66,8 @@ class Weights extends Component {
   decimal="."
   // prefix="EUR "
   // suffix=" left"
-  onEnd={() => console.log('Ended! 👏')}
-  onStart={() => console.log('Started! 💨')}
+  // onEnd={() => console.log('Ended! 👏')}
+  // onStart={() => console.log('Started! 💨')}
 />          
       </p>
       </div>
