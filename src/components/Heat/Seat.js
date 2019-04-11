@@ -61,16 +61,32 @@ class Seat extends Component {
     // }
     const imgStyleLeft = {
       position: 'absolute',
-      zIndex: '100',
+      zIndex: '101',
       bottom: '0px',
-      left: '0px'
+      left: '0px',
+      cursor: 'pointer'
+    }
+    const imgStyleLeftSelected = {
+      position: 'absolute',
+      zIndex: '103',
+      top: '43px',
+      right: '48px',
+      cursor: 'pointer'      
     }
     const imgStyleRight = {
       position: 'absolute',
-      zIndex: '100',
+      zIndex: '101',
       bottom: '0px',
-      right: '0px'
-    }    
+      right: '0px',
+      cursor: 'pointer'
+    }   
+    const imgStyleRightSelected = {
+      position: 'absolute',
+      zIndex: '103',
+      top: '43px',
+      left: '43px',
+      cursor: 'pointer'      
+    }
     const divStyle = {
       // border: '1px solid black',
       position: 'relative',
@@ -89,10 +105,11 @@ class Seat extends Component {
       width: '85px',
       height: '85px',
       position: 'absolute',
-      zIndex: '10000',
+      zIndex: '102',
       cursor: 'pointer',   
       top: '-15px',
-      left: '-15px'
+      left: '-15px',
+      backgroundColor: 'lightgray'
       
     }
 
@@ -102,24 +119,41 @@ class Seat extends Component {
         return obj.id === this.props.item
       })[0]
             // { isNaN(this.props.seat) ? "" : -this.props.seat }
-      return (
-        <div id="1" style={divStyle}>
-          <div id="2" style={divStyle}
-              onClick={() => this.props.onClick(this.props.item, this.props.seat)}
-          >
+      const selectedPaddler = this.props.selected
+      
+      const paddlerImage = (
+        <div>
             <img 
               style={this.props.selected === paddler.id ? selected : userImage}
               src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${paddler.image}?alt=media`} 
               alt="" width="60px" height="60px"
               />
-          {/*
-            */}
-{this.props.selected === paddler.id ? '' :
-  
-  paddler.Pref === 'either'? '' : 
+
+        </div>
+        )
+      const noImageStyle = {
+       border: '1px solid black' 
+      }
+      const paddlerNoImage = (
+        <div style={this.props.selected === paddler.id ? selected : buttonStyleEmpty}>
+          {paddler.firstName} {paddler.lastName}
+        </div>
+        
+        )
+      return (
+        <div id="1" style={divStyle}>
+          <div id="2" style={divStyle}
+              onClick={() => this.props.onClick(this.props.item, this.props.seat)}
+          >
+{paddler.image.length > 0 ?
+paddlerImage
+: 
+paddlerNoImage}
+        
+        {paddler.Pref === 'either'? '' : 
                     paddler.Pref === 'left' ?   
             <img
-              style={imgStyleLeft}
+              style={this.props.selected === paddler.id ? imgStyleLeftSelected : imgStyleLeft}
               src={iconLeft}
               alt=""
               width="25px"
@@ -127,13 +161,14 @@ class Seat extends Component {
             />
             : 
             <img
-              style={imgStyleRight}
+              style={this.props.selected === paddler.id ? imgStyleRightSelected : imgStyleRight}
               src={iconRight}
               alt=""
               width="25px"
               height="25px"
             /> 
-}
+        }
+
         </div>
         </div>
         
