@@ -8,7 +8,7 @@ import * as firebase from 'firebase'
         storageBucket: "dragon-d50ad.appspot.com",
         messagingSenderId: "939316999209"
     };
-if (window.location.href === "https://dragonprod-7a670.firebaseapp.com/") {
+if (window.location.hostname === "dragonprod-7a670.firebaseapp.com") {
     config = {
         apiKey: "AIzaSyDE-p3xPwJ_2BCT__rin94Mz9Cejfrpc4U",
         authDomain: "dragonprod-7a670.firebaseapp.com",
