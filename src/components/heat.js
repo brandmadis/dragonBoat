@@ -7,7 +7,8 @@ import { firebaseDB,
           firebasePaddlers, 
           firebaseBoats, 
           firebaseLooper, 
-          firebaseLooper2 
+          firebaseLooper2,
+          config
         } from '../firebase'
 
 class Heat extends Component {
@@ -222,6 +223,7 @@ class Heat extends Component {
             <div>
                   {this.state.loaded ? 
             <div>
+
                 <div>
                     <Weights 
                       boat={boat}

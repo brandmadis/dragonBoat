@@ -1,13 +1,24 @@
 import * as firebase from 'firebase'
-
-var config = {
-    apiKey: "AIzaSyCnwoSrU0pBR6OjXFwBeaqN-I27nY65kOw",
-    authDomain: "dragon-d50ad.firebaseapp.com",
-    databaseURL: "https://dragon-d50ad.firebaseio.com",
-    projectId: "dragon-d50ad",
-    storageBucket: "dragon-d50ad.appspot.com",
-    messagingSenderId: "939316999209"
+// let config = {}
+    let config = {
+        apiKey: "AIzaSyCnwoSrU0pBR6OjXFwBeaqN-I27nY65kOw",
+        authDomain: "dragon-d50ad.firebaseapp.com",
+        databaseURL: "https://dragon-d50ad.firebaseio.com",
+        projectId: "dragon-d50ad",
+        storageBucket: "dragon-d50ad.appspot.com",
+        messagingSenderId: "939316999209"
+    };
+if (window.location.href === "https://dragonprod-7a670.firebaseapp.com/") {
+    config = {
+        apiKey: "AIzaSyDE-p3xPwJ_2BCT__rin94Mz9Cejfrpc4U",
+        authDomain: "dragonprod-7a670.firebaseapp.com",
+        databaseURL: "https://dragonprod-7a670.firebaseio.com",
+        projectId: "dragonprod-7a670",
+        storageBucket: "dragonprod-7a670.appspot.com",
+        messagingSenderId: ""
+    }
 };
+
 firebase.initializeApp(config);
  
 const firebaseDB = firebase.database()
@@ -40,5 +51,6 @@ export {
     firebaseBoats,
     firebaseDB,
     firebaseLooper,
-    firebaseLooper2
+    firebaseLooper2,
+    config
 }

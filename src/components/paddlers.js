@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { firebaseDB, firebasePaddlers, firebaseLooper } from '../firebase'
+import { firebaseDB, firebasePaddlers, firebaseLooper, config } from '../firebase'
 
 
   
@@ -38,7 +38,7 @@ class Paddlers extends Component {
             return (
                 // <tr key={i} onClick={() => this.editPaddler(item.id)}> 
                 <tr key={i}>
-                    <td><img src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${item.image}?alt=media`} alt="" width="75" height="75"/></td>
+                    <td><img src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} alt="" width="75" height="75"/></td>
                     <td>{item.firstName} {item.lastName} <br></br>
                         {item.Weight} <br></br>
                         {item.Pref}
@@ -63,7 +63,7 @@ class Paddlers extends Component {
         })
     return (
         <div>
-            Paddlers<br/>
+            Paddlers<br></br>  
             <Link to='/paddlerAdd2' className="nav-link"><button className="btn btn-default">Add New Paddler</button></Link><br />
             <table className="table">
                 <thead>

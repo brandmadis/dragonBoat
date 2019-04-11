@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import iconLeft from '../../assets/icon-left.png'
 import iconRight from '../../assets/icon-right.png'
+import { config } from '../../firebase'
 
 class Seat extends Component {
   render() {
@@ -108,7 +109,7 @@ class Seat extends Component {
           >
             <img 
               style={this.props.selected === paddler.id ? selected : userImage}
-              src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${paddler.image}?alt=media`} 
+              src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${paddler.image}?alt=media`} 
               alt="" width="60px" height="60px"
               />
           {/*

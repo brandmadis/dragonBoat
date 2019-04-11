@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FormFields from '../widgets/Forms/formFields2'
 import { 
     firebaseDB, 
+    config
     // firebasePaddlers, 
     // firebaseLooper 
 } from '../firebase'
@@ -136,6 +137,8 @@ class PaddlerEdit extends Component {
     }
     componentWillMount(){
         console.log("newState: " , this.state.formData)
+        console.log("paddleredit config: ", config.storageBucket)
+        
         var newState = {...this.state.formData}
         var curr_this = this
         let refUrl = "paddlers/" + this.props.match.params.id
@@ -255,10 +258,9 @@ class PaddlerEdit extends Component {
                 // <button type='submit' className="btn btn-default">Submit</button>
     return (
         <div>
-            Edit paddler
-            
+            <p>Edit paddler</p>
             <form onSubmit={this.submitForm}>
-                <img src={`https://firebasestorage.googleapis.com/v0/b/dragon-d50ad.appspot.com/o/images%2F${this.state.formData.image.value}?alt=media`} alt="" width="100" height="100"/>
+                <img src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${this.state.formData.image.value}?alt=media`} alt="" width="100" height="100"/>
             
                 <Uploader 
                     filename={(filename)=>this.storeFilename(filename)}
