@@ -1,13 +1,35 @@
 import React, { Component } from 'react'
 // import { Link, withRouter } from 'react-router-dom'
 import { firebaseBoats, firebaseLooper } from '../firebase'
+import FormFields from '../widgets/Forms/formFields2'
 
 class Boats extends Component {
     constructor(props){
         super(props)
         this.state = {
+            postError: '',
             boats: [],
-            value:''
+            value:'',
+            formData: {
+                boatName: {
+                    element: 'input',
+                    value: '',
+                    label: false,
+                    labelText: 'Boat Name',
+                    config: {
+                        name: 'boatName_input',
+                        type: 'text',
+                        placeholder: 'New Boat Name'
+                    },
+                    validation: {
+                        required: true,
+                        minLen: 1
+                    },
+                    valid: false,
+                    touched: true,
+                    validationMessage: ''
+                },
+            }
         }
         this.handleChange = this.handleChange.bind(this)
         this.createBoat2 = this.createBoat2.bind(this)
@@ -35,22 +57,25 @@ class Boats extends Component {
     }
     createBoat2(event){
         event.preventDefault()
-        console.log("create boat 2", this.state.value)
-        var newRef = firebaseBoats.push()
-        var key = newRef.key
-        var data = {
-            'name': this.state.value,
-            'boat': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        console.log("create boat 2", this.state.formData.boatName.value)
+        
+        if(this.state.formData.boatName.valid === true){
+            
+            var newRef = firebaseBoats.push()
+            var key = newRef.key
+            var data = {
+                'name': this.state.formData.boatName.value,
+                'boat': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }
+            newRef.set(data)
+            console.log("data: ", data)
+            this.props.history.push(`/boats/${key}`);
+        } else {
+            console.log("form not valid")
         }
-        // let dataToSubmit = {}
-        // for(let key in data){
-        //     dataToSubmit[key] = data[key]
-        //     console.log("data: ", data[key] )
-        // }
-        // console.log("datatosubmit: ", dataToSubmit)
-        newRef.set(data)
-        console.log("data: ", data)
-        this.props.history.push(`/boats/${key}`);
+        
+        
+        
         
     }
     handleChange(event){
@@ -61,6 +86,55 @@ class Boats extends Component {
         this.props.history.push(`/boats/${id}`);
 
     }
+    updateForm = (element, content = '') => {
+        console.log("updateform")
+        const newformData = {
+            ...this.state.formData
+        }
+        const newElement = {
+            ...newformData[element.id]
+        }
+        if(content === ''){
+            newElement.value = element.event.target.value
+        } else {
+            newElement.value = content
+        }
+        
+        if(element.blur){
+            let validData = this.validate(newElement)
+            newElement.valid = validData[0]
+            newElement.validationMessage = validData[1]
+        }
+        newElement.touched = element.blur
+        
+        newformData[element.id] = newElement
+        
+        this.setState({
+            formData: newformData
+        })        
+        
+    }
+    validate = (element) => {
+        console.log("validate error")
+        let error = [true, '']
+        if(element.validation.required){
+            const valid = element.value.trim() !==''
+            const message = `${!valid ? 'This field is required':''}`
+            error = !valid ? [valid, message]: error
+        }
+        if(element.validation.minLen){
+            const valid = element.value.length >= element.validation.minLen
+            const message = `${ !valid ? 'Length must be at least '+ element.validation.minLen  : ''}`
+            error = !valid ? [valid, message] : error
+        }        
+        return error
+    }    
+    showError = () => (
+        this.state.postError !== '' ?
+            <div>{this.state.postError} </div> :
+            ''
+    )     
+    
     render() {
         const boatList = this.state.boats.map((item, i) => {
             return (
@@ -72,20 +146,29 @@ class Boats extends Component {
                 )
         })
         
+                    // <input type='text' 
+                    //     placeholder='new boat name'
+                    //     value={this.state.value} 
+                    //     onChange={this.handleChange}
+                    //     className="form-control"
+                    //     />
         return (
             <div>
                 <form className="form-inline" onSubmit={this.createBoat2}>
-                    <input type='text' 
-                        placeholder='new boat name'
-                        value={this.state.value} 
-                        onChange={this.handleChange}
-                        className="form-control"
-                        />
+                <FormFields 
+                    id={'boatName'}
+                    formData={this.state.formData.boatName}
+                    change={(element) => this.updateForm(element)}
+                />    
+                <div>
                     <input 
                         type='submit' value="create new boat" 
                         className="btn btn-default" 
                         />
+                { this.showError() }
+                </div>
                 </form>
+                
                 <table className="table table-hover" id="boats">
                     <thead>
                         <tr>

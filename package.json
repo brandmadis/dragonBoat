@@ -14,7 +14,8 @@
     "react-number-easing": "0.0.4",
     "react-router-dom": "^4.2.0",
     "react-scripts": "2.1.5",
-    "semantic-ui-react": "^0.86.0"
+    "semantic-ui-react": "^0.86.0",
+    "strip": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

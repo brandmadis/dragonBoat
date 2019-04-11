@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "prod": "dragonprod-7a670",
+    "deb": "dragon-d50ad"
+  }
+}
