@@ -1,7 +1,7 @@
 import * as firebase from 'firebase'
 // let config = {}
     let config = {
-        apiKey: "AIzaSyCnwoSrU0pBR6OjXFwBeaqN-I27nY65kOw",
+        apiKey: process.env.devApiKey,
         authDomain: "dragon-d50ad.firebaseapp.com",
         databaseURL: "https://dragon-d50ad.firebaseio.com",
         projectId: "dragon-d50ad",
@@ -10,7 +10,7 @@ import * as firebase from 'firebase'
     };
 if (window.location.hostname === "dragonprod-7a670.firebaseapp.com") {
     config = {
-        apiKey: "AIzaSyDE-p3xPwJ_2BCT__rin94Mz9Cejfrpc4U",
+        apiKey: process.env.prodApiKey,
         authDomain: "dragonprod-7a670.firebaseapp.com",
         databaseURL: "https://dragonprod-7a670.firebaseio.com",
         projectId: "dragonprod-7a670",
