@@ -42,7 +42,7 @@ class Weights extends Component {
         // </div>
     return (
       <div>
-      <p> {front > rear ? 'Front: ' : 'Rear: '} 
+      <p> <h2><i>{front > rear ? 'Front: ' : 'Rear: '} 
 <CountUp
   start={this.props.prevFrontRear}
   end={front > rear ? front-rear : rear-front} 
@@ -69,6 +69,7 @@ class Weights extends Component {
   // onEnd={() => console.log('Ended! 👏')}
   // onStart={() => console.log('Started! 💨')}
 />          
+</i></h2>
       </p>
       </div>
       )
