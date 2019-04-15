@@ -54,7 +54,9 @@ class Paddlers extends Component {
                     
                         <button 
                             className="btn btn-default" 
-                            onClick={() => {if (window.confirm("Are you sure you want to delete this paddler?")) this.deletePaddler(item.id, i)}}>
+                            onClick={() => {
+                            if (
+                                window.confirm("Are you sure you want to delete this paddler?")) this.deletePaddler(item.id, i)}}>
                             delete
                         </button>
                     </td>

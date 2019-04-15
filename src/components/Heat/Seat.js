@@ -138,18 +138,24 @@ class Seat extends Component {
         <div style={this.props.selected === paddler.id ? selected : buttonStyleEmpty}>
           <i>{paddler.firstName} {paddler.lastName}</i>
         </div>
-        
         )
+        console.log("paddler.image: ", paddler.image)
+        
+        
+        
       return (
         <div id="1" style={divStyle}>
           <div id="2" style={divStyle}
               onClick={() => this.props.onClick(this.props.item, this.props.seat)}
-          >
-{paddler.image.length > 0 ?
+          > 
+{paddler.image !== "" 
+?
 paddlerImage
 : 
-paddlerNoImage}
-        
+paddlerNoImage
+}
+        {/*
+*/}
         {paddler.Pref === 'either'? '' : 
                     paddler.Pref === 'left' ?   
             <img
@@ -168,8 +174,9 @@ paddlerNoImage}
               height="25px"
             /> 
         }
-
         </div>
+        
+        
         </div>
         
         )

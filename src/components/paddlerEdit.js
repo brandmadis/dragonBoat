@@ -179,6 +179,7 @@ class PaddlerEdit extends Component {
         }
     }
     updateForm = (element, content = '') => {
+        console.log("e: ", element)
         const newformData = {
             ...this.state.formData
         }
@@ -193,6 +194,8 @@ class PaddlerEdit extends Component {
         }
         
         if(element.blur){
+            console.log("newE: ", newElement)
+            
             let validData = this.validate(newElement)
             newElement.valid = validData[0]
             newElement.validationMessage = validData[1]
@@ -206,6 +209,7 @@ class PaddlerEdit extends Component {
         })
     }
     validate = (element) => {
+        console.log("element: ", element)
         let error = [true, '']
         if(element.validation.required){
             const valid = element.value.trim() !==''

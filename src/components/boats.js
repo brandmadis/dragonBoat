@@ -33,6 +33,7 @@ class Boats extends Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.createBoat2 = this.createBoat2.bind(this)
+        this.deleteBoat = this.deleteBoat.bind(this)
     }
     componentWillMount(){
         if(this.state.boats.length < 1){
@@ -136,22 +137,31 @@ class Boats extends Component {
     )     
     
     deleteBoat = (id, index) => {
-        console.log("delete boat")
+        console.log("delete boat", id, index)
         firebaseDB.ref('boat/' + id).remove()
         this.setState({
-            boats: this.state.boats.filter((_, i) => i !== index)
+            boats: this.state.boats.filter((_, i)=> i !== index)
+
         })
     }
-    
+    editName = (id) => {
+        console.log("edit name")
+        this.props.history.push(`/boats/edit/${id}`);
+        
+    }
     render() {
         const boatList = this.state.boats.map((item, i) => {
             return (
                 <tr key={i}>
                     <td>{item.name} </td>
-                    <td><button onClick={() => this.redirect(item.id)}>Edit</button></td>
-                    <td><button onClick={() => {if (window.confirm("Are you sure you want to delete?")) this.deleteBoat(item.id, i)}}>Delete</button></td>
-               
-               
+                    <td>{item.id} </td>
+                    <td><button onClick={ () => this.editName(item.id)}>
+                        Edit Name</button></td>
+                    <td><button onClick={ () => this.redirect(item.id)}>Edit Seating</button></td>
+                    <td><button onClick={ () => {
+                        if(window.confirm('Are you sure?'))
+                        this.deleteBoat(item.id, i)}}
+                    >Delete</button></td>
                 </tr>
                 )
         })
@@ -183,7 +193,9 @@ class Boats extends Component {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Edit</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Seating</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
