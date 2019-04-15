@@ -57,19 +57,10 @@ class BoatEdit extends Component {
     submitForm = (event) => {
         console.log("submit", this.state.formData)
         event.preventDefault()
-        let dataToSubmit = {}
         let formIsValid = true
-        var updates = {}
-        for(let key in this.state.formData){
-            dataToSubmit[key] = this.state.formData[key].value
-            console.log("formIsValid: ", formIsValid)
-        }
-        for(let key in this.state.formData){
-            formIsValid = this.state.formData[key].valid && formIsValid
-        }
-        updates[this.props.match.params.id] = dataToSubmit
         if(formIsValid){
-            firebaseDB.ref('boat/').update(updates)
+            firebaseDB.ref('boat/'+this.props.match.params.id+"/name")
+                .set(this.state.formData.name.value)
                 .then(() => {
                     console.log("boat updated")
                     this.setState({ redirect: true })
