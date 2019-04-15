@@ -95,7 +95,26 @@ class PaddlerEdit extends Component {
                     valid: true,
                     touched: true,
                     validationMessage: ''
-                },   
+                },  
+                gender: {
+                    element: 'select',
+                    value: 'female',
+                    label: true,
+                    labelText: 'Gender',
+                    config: {
+                        name: 'gender_input',
+                        options: [
+                            {val: 'female', text: 'Female'},
+                            {val: 'male', text: 'Male'}
+                            ]
+                    },
+                    validation: {
+                        required: true,
+                    },
+                    valid: true,
+                    touched: true,
+                    validationMessage: ''
+                },                 
                 image: {
                     element: 'input',
                     value: '',
@@ -149,6 +168,7 @@ class PaddlerEdit extends Component {
             newState.Weight.value = data.val().Weight
             newState.image.value = data.val().image
             newState.Pref.value = data.val().Pref
+            newState.gender.value = data.val().gender
             curr_this.setState({formData: newState})
         })
 
@@ -287,6 +307,11 @@ class PaddlerEdit extends Component {
                 <FormFields 
                     id={'Pref'}
                     formData={this.state.formData.Pref}
+                    change={(element) => this.updateForm(element)}
+                />                 
+                <FormFields 
+                    id={'gender'}
+                    formData={this.state.formData.gender}
                     change={(element) => this.updateForm(element)}
                 />                 
                 { this.submitButton() }

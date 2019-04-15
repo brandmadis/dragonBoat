@@ -84,6 +84,25 @@ class PaddlerAdd extends Component {
                 touched: true,
                 validationMessage: ''
             },   
+            gender: {
+                element: 'select',
+                value: 'female',
+                label: true,
+                labelText: 'Gender',
+                config: {
+                    name: 'gender_input',
+                    option: [
+                        {val: 'female', text: 'Female'},
+                        {val: 'male', text: 'Male'}
+                        ]
+                },
+                validation: {
+                    required: true,
+                },
+                valid: true,
+                touched: true,
+                validationMessage: ''
+            },             
             // Image: {
             //     element: 'input',
             //     value: '',

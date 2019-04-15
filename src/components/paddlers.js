@@ -41,6 +41,7 @@ class Paddlers extends Component {
                     <td><img src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} alt="" width="75" height="75"/></td>
                     <td>{item.firstName} {item.lastName} <br></br>
                         {item.Weight} <br></br>
+                        {item.gender} <br></br>
                         {item.Pref}
                     </td>
                     <td>

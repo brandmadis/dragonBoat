@@ -84,6 +84,25 @@ class PaddlerAdd extends Component {
                 touched: true,
                 validationMessage: ''
             },   
+            gender: {
+                element: 'select',
+                value: 'female',
+                label: true,
+                labelText: 'Gender',
+                config: {
+                    name: 'gender_input',
+                    options: [
+                        {val: 'female', text: 'Female'},
+                        {val: 'male', text: 'Male'}
+                        ]
+                },
+                validation: {
+                    required: true,
+                },
+                valid: true,
+                touched: true,
+                validationMessage: ''
+            },            
             image: {
               element: 'image',
               value: '',
@@ -253,6 +272,11 @@ class PaddlerAdd extends Component {
                     formData={this.state.formData.Pref}
                     change={(element) => this.updateForm(element)}
                 />   
+                <FormFields 
+                    id={'gender'}
+                    formData={this.state.formData.gender}
+                    change={(element) => this.updateForm(element)}
+                />                 
                 Upload Image
                 <Uploader 
                     filename={(filename)=>this.storeFilename(filename)}

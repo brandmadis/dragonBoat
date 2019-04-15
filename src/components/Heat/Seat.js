@@ -23,9 +23,15 @@ class Seat extends Component {
       // position: 'absolute',
       // display: 'inline',       
     }    
+    const rowNum = (-this.props.seat + 1) / 2
+    const seatNum = { right: '80px', position: 'relative'}
+    const seatNumImage = {right: '80px', position: 'relative', bottom: '60px'}
+    const seatNum10 = {right: '92px', position: 'relative', bottom: '60px'}
+
+
+
     // empty seat
     if(this.props.item === 0 || (this.props.paddler.length === 0 && this.props.paddler[this.props.item] === undefined)){
-      const seatNum = { textAlign: 'right'}
       return (
         <div style={divStyle}>
           <div
@@ -34,11 +40,6 @@ class Seat extends Component {
             style={buttonStyleEmpty}
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
             >
-            <div style={seatNum}>
-            <h1><i>
-              {-this.props.seat} </i>
-            </h1>
-            </div>
             </div>
         </div>
         )
@@ -128,16 +129,19 @@ class Seat extends Component {
               src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${paddler.image}?alt=media`} 
               alt="" width="60px" height="60px"
               />
-
         </div>
         )
       const noImageStyle = {
        border: '1px solid black' 
       }
+      const noNameStyle = { marginLeft: '75px' }
       const paddlerNoImage = (
         <div style={this.props.selected === paddler.id ? selected : buttonStyleEmpty}>
-          <i>{paddler.firstName} {paddler.lastName}</i>
+            <div>
+              <i>{paddler.firstName} {paddler.lastName}</i>
+            </div>
         </div>
+        
         )
         console.log("paddler.image: ", paddler.image)
         
@@ -175,6 +179,7 @@ paddlerNoImage
             /> 
         }
         </div>
+     
         
         
         </div>
