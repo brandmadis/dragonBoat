@@ -233,9 +233,6 @@ class PaddlerAdd extends Component {
         <div> 
             Add new paddler
             <form onSubmit={this.submitForm}>
-                <Uploader 
-                    filename={(filename)=>this.storeFilename(filename)}
-                    />
                 <FormFields 
                     id={'firstName'}
                     formData={this.state.formData.firstName}
@@ -255,7 +252,11 @@ class PaddlerAdd extends Component {
                     id={'Pref'}
                     formData={this.state.formData.Pref}
                     change={(element) => this.updateForm(element)}
-                />                
+                />   
+                Upload Image
+                <Uploader 
+                    filename={(filename)=>this.storeFilename(filename)}
+                    />
                 
                 <br></br>
                 { this.submitButton() }

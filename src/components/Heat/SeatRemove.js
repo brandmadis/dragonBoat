@@ -24,7 +24,7 @@ class SeatRemove extends Component {
                 
                 >
                 
-            Remove Paddler
+            <i>Remove Paddler</i>
             </div>
         )
     }
