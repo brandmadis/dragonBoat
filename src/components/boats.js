@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import { Link, withRouter } from 'react-router-dom'
-import { firebaseBoats, firebaseLooper } from '../firebase'
+import { firebaseBoats, firebaseLooper, firebaseDB } from '../firebase'
 import FormFields from '../widgets/Forms/formFields2'
 
 class Boats extends Component {
@@ -135,13 +135,23 @@ class Boats extends Component {
             ''
     )     
     
+    deleteBoat = (id, index) => {
+        console.log("delete boat")
+        firebaseDB.ref('boat/' + id).remove()
+        this.setState({
+            boats: this.state.boats.filter((_, i) => i !== index)
+        })
+    }
+    
     render() {
         const boatList = this.state.boats.map((item, i) => {
             return (
-                <tr key={i} onClick={() => this.redirect(item.id)}>
+                <tr key={i}>
                     <td>{item.name} </td>
-                    <td>{item.id} </td>
-                    <td></td>
+                    <td><button onClick={() => this.redirect(item.id)}>Edit</button></td>
+                    <td><button onClick={() => {if (window.confirm("Are you sure you want to delete?")) this.deleteBoat(item.id, i)}}>Delete</button></td>
+               
+               
                 </tr>
                 )
         })
@@ -173,8 +183,8 @@ class Boats extends Component {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>ID</th>
-                            <th>Seating</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
