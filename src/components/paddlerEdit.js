@@ -280,11 +280,16 @@ class PaddlerEdit extends Component {
                 // /><br></br>
                 
                 // <button type='submit' className="btn btn-default">Submit</button>
+        const imgStyle = { borderRadius: '15px'}
+        
     return (
         <div>
             <p>Edit paddler</p>
             <form onSubmit={this.submitForm}>
-                <img src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${this.state.formData.image.value}?alt=media`} alt="" width="100" height="100"/>
+                <img 
+                    src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${this.state.formData.image.value}?alt=media`} 
+                    style={ imgStyle }
+                    alt="" width="100" height="100"/>
             
                 <Uploader 
                     filename={(filename)=>this.storeFilename(filename)}

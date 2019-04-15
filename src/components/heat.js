@@ -223,7 +223,11 @@ class Heat extends Component {
             <div>
                   {this.state.loaded ? 
             <div>
-
+                <h1><i>
+                  
+                  Boat: {this.props.match.params.name}
+                  
+                </i></h1>
                 <div>
                     <Weights 
                       boat={boat}

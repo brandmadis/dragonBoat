@@ -33,12 +33,17 @@ class Paddlers extends Component {
     }
     render(){
         // console.log("request: ", this.state.paddlers)
+        const imgStyle = { borderRadius: '15px'}
         const padList = this.state.paddlers.map((item, i) => {
             // console.log("item: ", item, "i: ", i)
             return (
                 // <tr key={i} onClick={() => this.editPaddler(item.id)}> 
                 <tr key={i}>
-                    <td><img src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} alt="" width="75" height="75"/></td>
+                    <td>
+                        <img 
+                            src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} 
+                            style={ imgStyle }
+                            alt="" width="75" height="75"/></td>
                     <td>{item.firstName} {item.lastName} <br></br>
                         {item.Weight} <br></br>
                         {item.gender} <br></br>

@@ -22,7 +22,7 @@ const Routes = () => {
                 <Route path="/profile" component={Profile}/>
                 <Route path="/heat" component={Heat}/>
                 <Route path="/boats" exact component={Boats}/>
-                <Route path="/boats/:id" exact component={Heat}/>
+                <Route path="/boats/:id/:name" exact component={Heat}/>
                 <Route path="/boats/edit/:id" exact component={BoatEdit}/>
                 <Route path="/" exact component={Home}/>
                 <Route path="/paddlerAdd" exact component={PaddlerAdd}/>

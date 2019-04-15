@@ -82,9 +82,9 @@ class Boats extends Component {
     handleChange(event){
         this.setState({value: event.target.value});
     }
-    redirect(id){
+    redirect(id, name){
         console.log("redirect", id)
-        this.props.history.push(`/boats/${id}`);
+        this.props.history.push(`/boats/${id}/${name}`);
 
     }
     updateForm = (element, content = '') => {
@@ -157,7 +157,7 @@ class Boats extends Component {
                     <td>{item.id} </td>
                     <td><button onClick={ () => this.editName(item.id)}>
                         Edit Name</button></td>
-                    <td><button onClick={ () => this.redirect(item.id)}>Edit Seating</button></td>
+                    <td><button onClick={ () => this.redirect(item.id, item.name)}>Edit Seating</button></td>
                     <td><button onClick={ () => {
                         if(window.confirm('Are you sure?'))
                         this.deleteBoat(item.id, i)}}
