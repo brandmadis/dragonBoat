@@ -145,6 +145,34 @@ class Boats extends Component {
         this.props.history.push(`/boatedit/${id}`);
         
     }
+    clone = (originalName, originalId) => {
+        console.log("clone")
+        let boatData = []
+        let refUrl = `boat/${originalId}/boat`
+        // await firebaseDB.ref(refUrl).once('value')
+        //     .then((snapshot) => {
+        //         console.log("snap: ", snapshot)
+        //     })
+        
+        
+        // let boatDataGet = firebaseDB.ref(`boat/${originalId}/boat`).on("value", function(snapshot){
+        //     console.log("hit: ",snapshot.val())
+        //     this.boatData.push(snapshot.val())
+        // })
+        // console.log("boatData: ", boatData)
+        
+        let newRef = firebaseBoats.push()
+        let key = newRef.key
+        let name = `${originalName}-clone`
+        let data = {
+            'name': name,
+            'boat': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+        newRef.set(data)
+        console.log("data: ", data)
+        this.props.history.push(`/heat/${key}/${name}`);
+        
+    }
     render() {
         const boatList = this.state.boats.map((item, i) => {
             return (
@@ -154,6 +182,8 @@ class Boats extends Component {
                     <td><button onClick={ () => this.editName(item.id)}>
                         Edit Name</button></td>
                     <td><button onClick={ () => this.redirect(item.id, item.name)}>Edit Seating</button></td>
+                    <td><button onClick={ ()=> this.clone(item.name, item.id)}>Clone</button>
+                    </td>
                     <td><button onClick={ () => {
                         if(window.confirm('Are you sure?'))
                         this.deleteBoat(item.id, i)}}
@@ -192,6 +222,7 @@ class Boats extends Component {
                             <th>ID</th>
                             <th>Name</th>
                             <th>Seating</th>
+                            <th>Clone</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
