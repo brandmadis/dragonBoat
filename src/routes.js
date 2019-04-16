@@ -20,10 +20,9 @@ const Routes = () => {
                 <Route path="/paddlers" exact component={Paddlers}/>
                 <Route path="/paddlers/:id" exact component={PaddlerEdit}/>
                 <Route path="/profile" component={Profile}/>
-                <Route path="/heat" component={Heat}/>
                 <Route path="/boats" exact component={Boats}/>
-                <Route path="/boats/:id/:name" exact component={Heat}/>
-                <Route path="/boats/edit/:id" exact component={BoatEdit}/>
+                <Route path="/heat/:id/:name" exact component={Heat}/>
+                <Route path="/boatedit/:id" exact component={BoatEdit}/>
                 <Route path="/" exact component={Home}/>
                 <Route path="/paddlerAdd" exact component={PaddlerAdd}/>
                 <Route path="/paddlerAdd2" exact component={PaddlerAdd2}/>

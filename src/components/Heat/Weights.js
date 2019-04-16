@@ -15,45 +15,30 @@ class Weights extends Component {
     let right = 0
     let front = 0
     let rear = 0
+    let femaleCount = 0
     for (let i = 0; i < this.props.boat.length; i++){
       let seat = this.props.boat[i]
+      console.log("seat: ",seat)
       let paddler = this.props.paddlers.filter(pad => { return pad.id === seat})
-      // console.log("seat paddler: ", paddler)
       if(this.props.boat[i] !== 0){
         let weight = parseInt(paddler[0].Weight)
-        // console.log("weight type: ", typeof weight)
         if(i%2 === 0){left += weight} 
         else {right += weight} 
         if(i<6){front += weight}
         else if(i>13){rear += weight}
+        if(paddler[0].gender === "female"){femaleCount++}
       }
     }
-    // let divStyle = {border: '1px black solid', width: '160px'}
-    // let alignRight = {textAlign: 'right'}
-    // let alignLeft = {textAlign: 'left'}
-    // let alignCenter = {textAlign: 'center'}
-        // <div style={divStyle}>
-        //   <div style={right === left 
-        //     ? alignCenter : 
-        //     right > left ? alignRight : alignLeft}>
-        //     {right === left ? "0" : right > left ? right-left : left-right }
-        //   </div>
-          
-        // </div>
+    
     return (
       <div>
-      <h2><i>{front > rear ? 'Front: ' : 'Rear: '} 
+      <h5><i>{front > rear ? 'Front: ' : 'Rear: '} 
 <CountUp
   start={this.props.prevFrontRear}
   end={front > rear ? front-rear : rear-front} 
   duration={.5}
-  // separator=" "
   decimals={0}
   decimal="."
-  // prefix="EUR "
-  // suffix=" left"
-  // onEnd={() => console.log('Ended! 👏')}
-  // onStart={() => console.log('Started! 💨')}
 />
       <span>    </span>
         {right > left ? `Right: ` :`Left: ` }
@@ -61,16 +46,13 @@ class Weights extends Component {
   start={this.props.prevFrontRear}
   end={right > left ? right-left : left-right} 
   duration={.5}
-  // separator=" "
   decimals={0}
   decimal="."
-  // prefix="EUR "
-  // suffix=" left"
-  // onEnd={() => console.log('Ended! 👏')}
-  // onStart={() => console.log('Started! 💨')}
 />          
-</i></h2>
-    
+</i></h5>
+    <h5>
+      Female: {femaleCount}
+    </h5>
       </div>
       )
   }  

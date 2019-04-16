@@ -70,21 +70,17 @@ class Boats extends Component {
             }
             newRef.set(data)
             console.log("data: ", data)
-            this.props.history.push(`/boats/${key}`);
+            this.props.history.push(`/heat/${key}/${this.state.formData.boatName.value}`);
         } else {
             console.log("form not valid")
         }
-        
-        
-        
-        
     }
     handleChange(event){
         this.setState({value: event.target.value});
     }
     redirect(id, name){
         console.log("redirect", id)
-        this.props.history.push(`/boats/${id}/${name}`);
+        this.props.history.push(`/heat/${id}/${name}`);
 
     }
     updateForm = (element, content = '') => {
@@ -146,7 +142,7 @@ class Boats extends Component {
     }
     editName = (id) => {
         console.log("edit name")
-        this.props.history.push(`/boats/edit/${id}`);
+        this.props.history.push(`/boatedit/${id}`);
         
     }
     render() {

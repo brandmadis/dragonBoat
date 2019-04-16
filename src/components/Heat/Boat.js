@@ -11,7 +11,7 @@ class Boat extends Component {
       gridTemplateColumns: '60px 60px' ,
     }
     var seat = {
-      marginBottom: '4px',
+      
     }
     return(
       <div style={divStyle}>

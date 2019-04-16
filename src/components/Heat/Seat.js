@@ -19,7 +19,8 @@ class Seat extends Component {
       
       
     }
-    const divStyle = {
+    const emptySeatStyle = {
+      height: '60px'
       // position: 'absolute',
       // display: 'inline',       
     }    
@@ -33,10 +34,10 @@ class Seat extends Component {
     // empty seat
     if(this.props.item === 0 || (this.props.paddler.length === 0 && this.props.paddler[this.props.item] === undefined)){
       return (
-        <div style={divStyle}>
+        <div style={emptySeatStyle}>
           <div
             className={this.props.selSeat === this.props.emptySeat ? "selected" : ""}
-          
+            id={`empty_seat_${this.props.seat}`}
             style={buttonStyleEmpty}
             onClick={() => this.props.onClick(this.props.item, this.props.seat)}
             >
@@ -90,6 +91,8 @@ class Seat extends Component {
     }
     const divStyle = {
       // border: '1px solid black',
+      width: '60px',
+      height: '60px',      
       position: 'relative',
       
       // display: 'inline',       
@@ -143,7 +146,6 @@ class Seat extends Component {
         </div>
         
         )
-        console.log("paddler.image: ", paddler.image)
         
         
         

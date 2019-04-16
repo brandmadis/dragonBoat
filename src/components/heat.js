@@ -38,6 +38,7 @@ class Heat extends Component {
           })
         }
     async componentDidMount(){
+      
         if(this.state.paddlers.length < 1){
             firebasePaddlers.once('value')
             .then((snapshot) => {
@@ -52,6 +53,7 @@ class Heat extends Component {
         }
         if(this.state.boat.length < 1){
             let refUrl = `boat/${this.props.match.params.id}/boat`
+            console.log("heat if boat")
             await firebaseDB.ref(refUrl).once('value')
             .then((snapshot) => {
               const boat = firebaseLooper2(snapshot)
@@ -60,7 +62,7 @@ class Heat extends Component {
               })
 
             })
-            await this.paddlerCheck()
+            // await this.paddlerCheck()
         }
         else {
         }
@@ -74,9 +76,15 @@ class Heat extends Component {
           ){
         }
         else{
+          console.log("paddlerIds: ", this.state.paddlerIds)
           var updates = {}
-          updates[this.props.match.params.id + "/" + this.state.boat.indexOf(this.state.boat[seat]) ] = 0
-          firebaseBoats.update(updates)                
+          updates[
+            this.props.match.params.id + 
+            "/" + 
+            "/boat/" +
+            this.state.boat.indexOf(this.state.boat[seat])
+            ] = 0
+          // firebaseBoats.update(updates)                
           // this.setState({boat.seat: 0})
           const newBoat = this.state.boat.slice()
           newBoat[seat] = 0
@@ -216,16 +224,21 @@ class Heat extends Component {
                   })   
         let divGrid = {
           display: 'grid',
-          gridTemplateColumns: '120px 10px 60px' ,          
+          gridTemplateColumns: '40px 120px 10px 60px' ,          
         }
         // let border = { border: '1px solid black' }
+        const numStyle = {
+          height:'60px', 
+          textAlign: 'right',
+          fontStyle: 'italic'
+        }
         return (
             <div>
                   {this.state.loaded ? 
             <div>
                 <h1><i>
                   
-                  Boat: {this.props.match.params.name}
+                  {this.props.match.params.name}
                   
                 </i></h1>
                 <div>
@@ -237,6 +250,38 @@ class Heat extends Component {
                       
                   </div>
                 <div style={divGrid}>
+                    <div>
+                      <div style={numStyle}>
+                        <h1>1</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>2</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>3</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>4</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>5</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>6</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>7</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>8</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>9</h1>
+                      </div>
+                      <div style={numStyle}>
+                        <h1>10</h1>
+                      </div>
+                    </div>
                       
                     <Boat 
                         {...this.state}
