@@ -1,5 +1,6 @@
 import React from 'react' 
 import { config } from '../firebase'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Home = () => {
     let key = process.env.REACT_APP_devApiKey
@@ -7,6 +8,8 @@ const Home = () => {
     return (
         <div>
             <p>Home</p>
+            <FontAwesomeIcon icon="stroopwafel" />  
+
         </div>
             
     )

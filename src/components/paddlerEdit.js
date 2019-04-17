@@ -84,9 +84,11 @@ class PaddlerEdit extends Component {
                     config: {
                         name: 'pref_input',
                         options: [
-                            {val: 'either', text: 'Either'},
-                            {val: 'left', text: 'Left'},
-                            {val: 'right', text: 'Right'}
+                            {val: 'Strong Left', text: 'Strong Left'},
+                            {val: 'Left', text: 'Left'},
+                            {val: 'Either', text: 'Either'},
+                            {val: 'Right', text: 'Right'},
+                            {val: 'Strong Right', text: 'Strong Right'}
                             ]
                     },
                     validation: {

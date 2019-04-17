@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import iconLeft from '../../assets/icon-left.png'
 import iconRight from '../../assets/icon-right.png'
 import { config } from '../../firebase'
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
+
 
 class Seat extends Component {
   render() {
@@ -116,6 +118,23 @@ class Seat extends Component {
       backgroundColor: 'lightgray'
       
     }
+    const arrowLeft = {
+      left: '0px',
+      position: 'absolute',
+      color: 'white',
+      fontSize: 'xx-large',
+      bottom: '-5px',
+
+    }
+    const arrowRight = {
+      right: '0px',
+      position: 'absolute',
+      color: 'white',
+      fontSize: 'xx-large',
+      bottom: '-5px'
+
+    }
+  
 
 
 
@@ -160,30 +179,29 @@ paddlerImage
 : 
 paddlerNoImage
 }
-        {/*
-*/}
-        {paddler.Pref === 'either'? '' : 
-                    paddler.Pref === 'left' ?   
-            <img
-              style={this.props.selected === paddler.id ? imgStyleLeftSelected : imgStyleLeft}
-              src={iconLeft}
-              alt=""
-              width="25px"
-              height="25px"
-            />
-            : 
-            <img
-              style={this.props.selected === paddler.id ? imgStyleRightSelected : imgStyleRight}
-              src={iconRight}
-              alt=""
-              width="25px"
-              height="25px"
-            /> 
-        }
-        </div>
+   <div>
+    {paddler.Pref === 'Left' ? 
+        <div style={arrowLeft}>
+        <FontAwesomeIcon icon="angle-left" />  
+      </div> : ""}
+      {paddler.Pref === 'Strong Left' ? 
+        <div style={arrowLeft}>
+        <FontAwesomeIcon icon="angle-double-left" />  
+      </div> : ""}
+      {paddler.Pref === 'Right' ? 
+        <div style={arrowRight}>
+          <FontAwesomeIcon icon="angle-right" />  
+        </div> : ""}
+      {paddler.Pref === 'Strong Right' ? 
+      <div style={arrowRight}>
+        <FontAwesomeIcon icon="angle-double-right" />  
+      </div> : ""}
+          
+    </div>  
      
         
         
+          </div>
         </div>
         
         )
