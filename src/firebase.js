@@ -1,21 +1,21 @@
 import * as firebase from 'firebase'
-// let config = {}
+
     let config = {
-        apiKey: process.env.devApiKey,
-        authDomain: "dragon-d50ad.firebaseapp.com",
-        databaseURL: "https://dragon-d50ad.firebaseio.com",
-        projectId: "dragon-d50ad",
-        storageBucket: "dragon-d50ad.appspot.com",
-        messagingSenderId: "939316999209"
+        apiKey: process.env.REACT_APP_devApiKey,
+        authDomain: process.env.REACT_APP_devauthDomain,
+        databaseURL: process.env.REACT_APP_devdatabaseURL,
+        projectId: process.env.REACT_APP_devprojectId,
+        storageBucket: process.env.REACT_APP_devstorageBucket,
+        messagingSenderId: process.env.REACT_APP_devmessagingSenderId,
     };
 if (window.location.hostname === "dragonprod-7a670.firebaseapp.com") {
     config = {
-        apiKey: process.env.prodApiKey,
-        authDomain: "dragonprod-7a670.firebaseapp.com",
-        databaseURL: "https://dragonprod-7a670.firebaseio.com",
-        projectId: "dragonprod-7a670",
-        storageBucket: "dragonprod-7a670.appspot.com",
-        messagingSenderId: ""
+        apiKey: process.env.REACT_APP_prodApiKey,
+        authDomain: process.env.REACT_APP_prodauthDomain,
+        databaseURL: process.env.REACT_APP_proddatabaseURL,
+        projectId: process.env.REACT_APP_prodprojectId,
+        storageBucket: process.env.REACT_APP_prodstorageBucket,
+        messagingSenderId: process.env.REACT_APP_prodmessagingSenderId,
     }
 };
 

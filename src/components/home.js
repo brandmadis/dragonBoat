@@ -1,9 +1,9 @@
 import React from 'react' 
-// const functions = require('firebase-functions');
 import { config } from '../firebase'
 
-            // {functions.config().someservice.key}
 const Home = () => {
+    let key = process.env.REACT_APP_devApiKey
+    let test = "test"
     return (
         <div>
             <p>Home</p>
