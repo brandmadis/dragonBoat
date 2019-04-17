@@ -8,7 +8,7 @@ import * as firebase from 'firebase'
         storageBucket: process.env.REACT_APP_devstorageBucket,
         messagingSenderId: process.env.REACT_APP_devmessagingSenderId,
     };
-if (window.location.hostname === "dragonprod-7a670.firebaseapp.com") {
+if (window.location.hostname === process.env.REACT_APP_prodauthDomain) {
     config = {
         apiKey: process.env.REACT_APP_prodApiKey,
         authDomain: process.env.REACT_APP_prodauthDomain,
@@ -23,7 +23,6 @@ firebase.initializeApp(config);
  
 const firebaseDB = firebase.database()
 const firebasePaddlers = firebaseDB.ref('paddlers')
-const firebaseBoat = firebaseDB.ref('boat/-LaXxOo3qx_qNFcCCmqd')
 const firebaseBoats = firebaseDB.ref('boat')
 
 const firebaseLooper = (snapshot) => {
@@ -47,7 +46,6 @@ const firebaseLooper2 = (snapshot) => {
 export {
     firebase,
     firebasePaddlers,
-    firebaseBoat,
     firebaseBoats,
     firebaseDB,
     firebaseLooper,
