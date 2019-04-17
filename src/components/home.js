@@ -6,7 +6,7 @@ import { config } from '../firebase'
 const Home = () => {
     return (
         <div>
-            <p>Home1</p>
+            <p>Home</p>
         </div>
             
     )
