@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { firebaseDB, firebasePaddlers, firebaseLooper, config } from '../firebase'
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 
 
   
@@ -33,6 +34,81 @@ class Paddlers extends Component {
     }
     render(){
         // console.log("request: ", this.state.paddlers)
+        const arrowLeft = {
+            right: '78px',
+            display: 'inline',
+            zIndex: '110',
+            position: 'relative',
+            color: 'white',
+            fontSize: 'xx-large',
+            top: '33px',
+          }
+          const arrowLeftBack = {
+            right: '93px',
+            display: 'inline',
+            zIndex: '109',
+            position: 'relative',
+            color: 'darkgrey',
+            fontSize: 'xx-large',
+            top: '35px',
+          }          
+          const arrowDoubleLeft = {
+            right: '78px',
+            display: 'inline',
+            zIndex: '110',
+            position: 'relative',
+            color: 'white',
+            fontSize: 'xx-large',
+            top: '33px',
+          }
+          const arrowDoubleLeftBack = {
+            right: '104px',
+            display: 'inline',
+            zIndex: '109',
+            position: 'relative',
+            color: 'darkgrey',
+            fontSize: 'xx-large',
+            top: '35px',
+          }          
+          const arrowRight = {
+            right: '15px',
+            display: 'inline',
+            zIndex: '110',
+            position: 'relative',
+            color: 'white',
+            fontSize: 'xx-large',
+            top: '35px'
+          }    
+          const arrowRightBack = {
+            right: '32px',
+            top: '37px',
+            display: 'inline',
+            zIndex: '109',
+            position: 'relative',
+            color: 'darkgrey',
+            fontSize: 'xx-large',
+          }    
+          const arrowDoubleRight = {
+            right: '25px',
+            display: 'inline',
+            zIndex: '110',
+            position: 'relative',
+            color: 'white',
+            fontSize: 'xx-large',
+            top: '35px'
+          }    
+          const arrowDoubleRightBack = {
+            right: '53px',
+            top: '37px',
+            display: 'inline',
+            zIndex: '109',
+            position: 'relative',
+            color: 'darkgrey',
+            fontSize: 'xx-large',
+          }    
+          const iconParentStyle = {
+              display: 'inline',
+          }    
         const imgStyle = { borderRadius: '15px'}
         const padList = this.state.paddlers.map((item, i) => {
             // console.log("item: ", item, "i: ", i)
@@ -43,11 +119,48 @@ class Paddlers extends Component {
                         <img 
                             src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} 
                             style={ imgStyle }
-                            alt="" width="75" height="75"/></td>
+                            alt="" width="75" height="75"/>
+                            {item.Pref === 'Left' ? 
+                            <div style={iconParentStyle}>
+                                <div style={arrowLeft}>
+                                <FontAwesomeIcon icon="angle-left" />  
+                                </div> 
+                                <div style={arrowLeftBack}>
+                                <FontAwesomeIcon icon="angle-left" />  
+                                </div> 
+                            </div> : ""}
+                            {item.Pref === 'Strong Left' ? 
+                            <div style={iconParentStyle}>
+                                <div style={arrowDoubleLeft}>
+                                <FontAwesomeIcon icon="angle-double-left" />  
+                                </div>
+                                <div style={arrowDoubleLeftBack}>
+                                <FontAwesomeIcon icon="angle-double-left" />  
+                                </div>
+                            </div> : ""}
+                            {item.Pref === 'Right' ? 
+                            <div style={iconParentStyle}>
+                                <div style={arrowRight}>
+                                <FontAwesomeIcon icon="angle-right" />  
+                                </div>
+                                <div style={arrowRightBack}>
+                                <FontAwesomeIcon icon="angle-right" />  
+                                </div>
+                            </div> : ""}
+                            {item.Pref === 'Strong Right' ? 
+                            <div style={iconParentStyle}>                                
+                                <div style={arrowDoubleRight}>
+                                    <FontAwesomeIcon icon="angle-double-right" />  
+                                </div> 
+                                <div style={arrowDoubleRightBack}>
+                                    <FontAwesomeIcon icon="angle-double-right" />  
+                                </div> 
+                            </div> : ""}
+                            
+                            </td>
                     <td>{item.firstName} {item.lastName} <br></br>
                         {item.Weight} <br></br>
                         {item.gender} <br></br>
-                        {item.Pref}
                     </td>
                     <td>
                         <button 
