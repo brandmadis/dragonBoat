@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { firebaseDB, firebasePaddlers, firebaseLooper, config } from '../firebase'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
-
+import Enum from '../widgets/enums';
 
   
 class Paddlers extends Component {
@@ -108,10 +108,12 @@ class Paddlers extends Component {
           }    
           const iconParentStyle = {
               display: 'inline',
-          }    
+          }  
+  
         const imgStyle = { borderRadius: '15px'}
         const padList = this.state.paddlers.map((item, i) => {
             // console.log("item: ", item, "i: ", i)
+
             return (
                 // <tr key={i} onClick={() => this.editPaddler(item.id)}> 
                 <tr key={i}>
@@ -120,7 +122,7 @@ class Paddlers extends Component {
                             src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} 
                             style={ imgStyle }
                             alt="" width="75" height="75"/>
-                            {item.Pref === 'Left' ? 
+                            {item.Pref === Enum.PADDLER_PREF.LEFT ? 
                             <div style={iconParentStyle}>
                                 <div style={arrowLeft}>
                                 <FontAwesomeIcon icon="angle-left" />  
@@ -129,7 +131,7 @@ class Paddlers extends Component {
                                 <FontAwesomeIcon icon="angle-left" />  
                                 </div> 
                             </div> : ""}
-                            {item.Pref === 'Strong Left' ? 
+                            {item.Pref === Enum.PADDLER_PREF.STRONG_LEFT ? 
                             <div style={iconParentStyle}>
                                 <div style={arrowDoubleLeft}>
                                 <FontAwesomeIcon icon="angle-double-left" />  
@@ -138,7 +140,7 @@ class Paddlers extends Component {
                                 <FontAwesomeIcon icon="angle-double-left" />  
                                 </div>
                             </div> : ""}
-                            {item.Pref === 'Right' ? 
+                            {item.Pref === Enum.PADDLER_PREF.RIGHT ? 
                             <div style={iconParentStyle}>
                                 <div style={arrowRight}>
                                 <FontAwesomeIcon icon="angle-right" />  
@@ -147,7 +149,7 @@ class Paddlers extends Component {
                                 <FontAwesomeIcon icon="angle-right" />  
                                 </div>
                             </div> : ""}
-                            {item.Pref === 'Strong Right' ? 
+                            {item.Pref === Enum.PADDLER_PREF.STRONG_RIGHT ? 
                             <div style={iconParentStyle}>                                
                                 <div style={arrowDoubleRight}>
                                     <FontAwesomeIcon icon="angle-double-right" />  

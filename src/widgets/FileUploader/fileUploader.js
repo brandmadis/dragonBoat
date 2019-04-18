@@ -39,7 +39,10 @@ class Uploader extends Component {
     render(){
         return (
             <div>
+                <label style={{backgroundColor: 'steelblue', color: 'white', padding: 10, borderRadius: 4, cursor: 'pointer'}}>
+                Browse for image...
                 <FileUploader
+                    hidden
                     accept='image/*'
                     name='image'
                     randomizeFilename
@@ -58,6 +61,7 @@ class Uploader extends Component {
                         src={this.state.fileURL }
                         alt=""/>
                     : null }
+                </label>
             </div>
             
         )

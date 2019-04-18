@@ -40,6 +40,7 @@ const FormFields = ({formData, change, id}) => {
                             name={formData.config.name}
                             onBlur={(event)=> change({event, id, blur:true})}
                             onChange={(event)=> change({event, id, blur:false})}
+                            className="form-control"
                             >
                                 { formData.config.options.map((item, i) => (
                                     <option key={i} value={item.val}>{item.text}</option>

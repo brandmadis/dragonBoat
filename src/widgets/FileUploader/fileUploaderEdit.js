@@ -39,16 +39,20 @@ class Uploader extends Component {
     render(){
         return (
             <div>
-                <FileUploader
-                    accept='image/*'
-                    name='image'
-                    randomizeFilename
-                    storageRef={firebase.storage().ref('images')}
-                    onUploadStart={this.handleUploadStart}
-                    onUploadError={this.handleUploadError}
-                    onUploadSuccess={this.handleUploadSuccesss}
-                    onProgress={this.handleProgress}
-                    />
+                <label style={{backgroundColor: 'steelblue', color: 'white', padding: 10, borderRadius: 4, cursor: 'pointer'}}>
+                    Browse for image...
+                    <FileUploader
+                        hidden
+                        accept='image/*'
+                        name='image'
+                        randomizeFilename
+                        storageRef={firebase.storage().ref('images')}
+                        onUploadStart={this.handleUploadStart}
+                        onUploadError={this.handleUploadError}
+                        onUploadSuccess={this.handleUploadSuccesss}
+                        onProgress={this.handleProgress}
+                        />
+                </label>
                 { this.state.isUploading ?
                     <p>Progress: {this.state.progress} </p>
                     : null }

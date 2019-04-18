@@ -3,6 +3,7 @@ import iconLeft from '../../assets/icon-left.png'
 import iconRight from '../../assets/icon-right.png'
 import { config } from '../../firebase'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
+import Enum from '../../widgets/enums';
 
 
 class Seat extends Component {
@@ -180,19 +181,19 @@ paddlerImage
 paddlerNoImage
 }
    <div>
-    {paddler.Pref === 'Left' ? 
+    {paddler.Pref === Enum.PADDLER_PREF.LEFT ? 
         <div style={arrowLeft}>
         <FontAwesomeIcon icon="angle-left" />  
       </div> : ""}
-      {paddler.Pref === 'Strong Left' ? 
+      {paddler.Pref === Enum.PADDLER_PREF. STRONG_LEFT ? 
         <div style={arrowLeft}>
         <FontAwesomeIcon icon="angle-double-left" />  
       </div> : ""}
-      {paddler.Pref === 'Right' ? 
+      {paddler.Pref === Enum.PADDLER_PREF.RIGHT ? 
         <div style={arrowRight}>
           <FontAwesomeIcon icon="angle-right" />  
         </div> : ""}
-      {paddler.Pref === 'Strong Right' ? 
+      {paddler.Pref === Enum.PADDLER_PREF.STRONG_RIGHT ? 
       <div style={arrowRight}>
         <FontAwesomeIcon icon="angle-double-right" />  
       </div> : ""}
