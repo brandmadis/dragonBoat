@@ -14,6 +14,9 @@ import {
     faCaretSquareLeft,
     faArrowCircleLeft,
     faChevronCircleLeft,
+    faFemale,
+    faAngleDown,
+    faAngleUp,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -25,6 +28,9 @@ library.add(
     faCaretSquareLeft,
     faArrowCircleLeft,
     faChevronCircleLeft,
+    faFemale,
+    faAngleDown,
+    faAngleUp,
 
     )
 require('dotenv').config()

@@ -159,7 +159,7 @@ class Seat extends Component {
       const noNameStyle = { marginLeft: '75px' }
       const paddlerNoImage = (
         <div style={this.props.selected === paddler.id ? selected : buttonStyleEmpty}>
-            <div>
+            <div className="noSelect">
               <i>{paddler.firstName} {paddler.lastName}</i>
             </div>
         </div>

@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 import Seat from './Seat';
 import SeatRemove from './SeatRemove'
+import WeightsBench from './WeightsBench'
 
 class Bench extends Component {
   render() {
-    var seat = {
-      marginBottom: '4px',
-    }    
-    var divContainer = {
+    var seatContainer = {
       display: 'grid',
       gridTemplateColumns: '60px 60px' ,
     }    
+    const dataContainer = {
+      display: 'grid',
+      gridTemplateColumns: '60px 60px'
+    }
     return (
-      <div style={seat}>
+      <div>
         <SeatRemove
           removeFromBoat={this.props.removeFromBoat}
         />
-                <div style={divContainer}>
+        <WeightsBench 
+          boat={this.props.boat}
+          paddlers={this.props.paddlers}
+          prevFrontRear={this.props.prevFrontRear}
+        />
+      <div style={seatContainer}>
 
       {this.props.bench.map((item, index) => (
             <Seat 

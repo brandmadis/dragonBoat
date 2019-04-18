@@ -33,26 +33,34 @@ class Weights extends Component {
     
     return (
       <div>
-      <h5><i>{front > rear ? 'Front: ' : 'Rear: '} 
+      <h5><i>{front > rear ?
+         <FontAwesomeIcon icon="angle-up"/>
+          :
+          <FontAwesomeIcon icon="angle-down"/>
+           } 
 <CountUp
   start={this.props.prevFrontRear}
   end={front > rear ? front-rear : rear-front} 
   duration={.5}
   decimals={0}
   decimal="."
-/>
+/><br></br>
       <span>    </span>
-        {right > left ? `Right: ` :`Left: ` }
+        {right > left ? 
+          <FontAwesomeIcon icon="angle-right"/> 
+          :
+          <FontAwesomeIcon icon="angle-left"/>
+          }
 <CountUp
   start={this.props.prevFrontRear}
   end={right > left ? right-left : left-right} 
   duration={.5}
   decimals={0}
   decimal="."
-/>          
-</i></h5>
-    <h5>
-      <FontAwesomeIcon icon="female" />: {femaleCount}
+/>   
+<br></br>       
+</i>
+          <FontAwesomeIcon icon="female" />: {femaleCount}
     </h5>
       </div>
       )

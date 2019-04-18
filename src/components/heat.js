@@ -232,6 +232,7 @@ class Heat extends Component {
           textAlign: 'right',
           fontStyle: 'italic'
         }
+        
         return (
             <div>
                   {this.state.loaded ? 
@@ -242,11 +243,13 @@ class Heat extends Component {
                   
                 </i></h1>
                 <div>
+                  {/*
                     <Weights 
                       boat={boat}
                       paddlers={paddlers}
                       prevFrontRear={this.state.prevFrontRear}
                       />
+                    */}
                       
                   </div>
                 <div style={divGrid}>
@@ -296,6 +299,9 @@ class Heat extends Component {
                         onClick={this.handleClick}
                         bench={bench}
                         removeFromBoat={this.removeFromBoat}
+                        boat={boat}
+                        paddlers={paddlers}
+                        prevFrontRear={this.state.prevFrontRear}                        
                         
                         />
                 </div>
