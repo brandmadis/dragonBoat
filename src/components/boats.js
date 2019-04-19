@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // import { Link, withRouter } from 'react-router-dom'
 import { firebaseBoats, firebaseLooper, firebaseDB } from '../firebase'
 import FormFields from '../widgets/Forms/formFields2'
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 
 class Boats extends Component {
     constructor(props){
@@ -56,30 +57,23 @@ class Boats extends Component {
 
     }
     createBoat2(event){
-        event.preventDefault()
-        console.log("create boat 2", this.state.formData.boatName.value)
-        
-        if(this.state.formData.boatName.valid === true){
-            
             var newRef = firebaseBoats.push()
             var key = newRef.key
             var data = {
-                'name': this.state.formData.boatName.value,
+                'name': 'Unnamed',
                 'boat': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             }
             newRef.set(data)
             console.log("data: ", data)
-            this.props.history.push(`/heat/${key}/${this.state.formData.boatName.value}`);
-        } else {
-            console.log("form not valid")
-        }
+            this.props.history.push(`/heat/${key}`);
+       
     }
     handleChange(event){
         this.setState({value: event.target.value});
     }
-    redirect(id, name){
+    redirect(id){
         console.log("redirect", id)
-        this.props.history.push(`/heat/${id}/${name}`);
+        this.props.history.push(`/heat/${id}`);
 
     }
     updateForm = (element, content = '') => {
@@ -176,7 +170,7 @@ class Boats extends Component {
         const boatList = this.state.boats.map((item, i) => {
             return (
                 <tr key={i}
-                    onClick={()=> this.redirect(item.id, item.name)}
+                    onClick={()=> this.redirect(item.id)}
                     >
                     <td>{item.name} </td>
                     <td>{item.id} </td>
@@ -214,7 +208,13 @@ class Boats extends Component {
                 <table className="table table-hover" id="boats">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>
+                                <div onClick={()=>this.createBoat2()}
+                                    style={{display:'inline', marginRight: '10px'}}>
+
+                                    <FontAwesomeIcon icon={'plus'} />
+                                </div>
+                                Name</th>
                             <th>ID</th>
                             <th>Name</th>
                             <th>Clone</th>
