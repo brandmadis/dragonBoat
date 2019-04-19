@@ -17,8 +17,13 @@ import {
     faFemale,
     faAngleDown,
     faAngleUp,
+    faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
+import {
+    faClone,
+    faTrashAlt,
 
+    } from '@fortawesome/free-regular-svg-icons'
 library.add(
     faAngleLeft,
     faAngleRight,
@@ -31,6 +36,9 @@ library.add(
     faFemale,
     faAngleDown,
     faAngleUp,
+    faClone,
+    faTrashAlt,
+    faPencilAlt,
 
     )
 require('dotenv').config()

@@ -3,6 +3,7 @@ import FormFields from '../widgets/Forms/formFields2'
 import { firebasePaddlers } from '../firebase'
 import { Redirect } from 'react-router-dom'
 import Uploader from '../widgets/FileUploader/fileUploader'
+import { Button, Icon } from 'semantic-ui-react'
 
 class PaddlerAdd extends Component {
     state = {
@@ -229,8 +230,13 @@ class PaddlerAdd extends Component {
     submitButton = () => (
         this.state.loading ? 
             'loading...' :
-            <div>
-                <button className="btn btn-default" type="submit"> Submit</button>
+            <div style={{display:'inline'}}>
+                <Button animated>
+                    <Button.Content visible>Submit</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='arrow right' />
+                    </Button.Content>
+                </Button>
             </div>
     )  
     showError = () => (
@@ -285,6 +291,14 @@ class PaddlerAdd extends Component {
                 
                 <br></br>
                 { this.submitButton() }
+                <div style={{display: 'inline'}}>
+                    <Button animated onClick={()=>this.cancel()}>
+                        <Button.Content visible>Cancel</Button.Content>
+                        <Button.Content hidden>
+                            <Icon name='arrow left' />
+                        </Button.Content>
+                    </Button>
+                </div>                
                 { this.showError() }
             </form>
         </div>

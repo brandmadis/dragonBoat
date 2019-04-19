@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Boat from './Heat/Boat'
 import Bench from './Heat/Bench'
 import Weights from './Heat/Weights'
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 import { firebaseDB, 
           firebasePaddlers, 
           firebaseBoats, 
@@ -10,6 +11,7 @@ import { firebaseDB,
           firebaseLooper2,
           config
         } from '../firebase'
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 class Heat extends Component {
     constructor(props){
@@ -199,19 +201,17 @@ class Heat extends Component {
       let refUrl = `boat/${this.props.match.params.id}/boat`
       firebaseDB.ref(refUrl).set(this.state.boat)
     }
-
-    // saveBoat(data, id, history){
-    //   console.log("saveBoat")
-    //   let refUrl = `boat/${id}`
-    //   firebaseDB.ref(refUrl).set(data)
-    //     .then(() => {
-    //       history.push(`/boats`);
-          
-    //     })
-    //     .catch((e) => {
-    //       console.log("error: ", e)
-    //     })
-    // }
+    clone(id){
+      console.log("clone hit", id)
+    }
+    delete(id){
+      console.log("delete hit", id)
+      firebaseDB.ref('boat/' + id).remove()
+      this.props.history.push('/boats')
+    }
+    edit(id){
+      console.log("edit hit", id)
+    }
     render(){
         let paddlers = JSON.parse(JSON.stringify(this.state.paddlers));
         let boat = JSON.parse(JSON.stringify(this.state.boat));
@@ -224,7 +224,7 @@ class Heat extends Component {
                   })   
         let divGrid = {
           display: 'grid',
-          gridTemplateColumns: '40px 120px 10px 60px' ,          
+          gridTemplateColumns: '30px 5px 120px 10px 60px' ,          
         }
         // let border = { border: '1px solid black' }
         const numStyle = {
@@ -232,7 +232,11 @@ class Heat extends Component {
           textAlign: 'right',
           fontStyle: 'italic'
         }
-        
+        const buttonStyle = {
+          cursor: 'pointer',
+          display: 'inline',
+          marginLeft: '10px',
+        }
         return (
             <div>
                   {this.state.loaded ? 
@@ -240,18 +244,29 @@ class Heat extends Component {
                 <h1><i>
                   
                   {this.props.match.params.name}
-                  
-                </i></h1>
-                <div>
-                  {/*
-                    <Weights 
-                      boat={boat}
-                      paddlers={paddlers}
-                      prevFrontRear={this.state.prevFrontRear}
-                      />
-                    */}
-                      
+                  <div 
+                    onClick={()=>this.edit(this.props.match.params.id)}
+                    style={buttonStyle}
+                    >
+                    <FontAwesomeIcon icon={'pencil-alt'} />
+                  </div>                  
+                  <div 
+                    onClick={()=>this.clone(this.props.match.params.id)}
+                    style={buttonStyle}
+                    >
+
+                    <FontAwesomeIcon icon={['far', 'clone']} />
                   </div>
+                  <div 
+                    onClick={()=>{
+                      if(window.confirm('Are you sure?'))
+                      this.delete(this.props.match.params.id)
+                    }}
+                    style={buttonStyle}
+                    >
+                    <FontAwesomeIcon icon={['far', 'trash-alt']} />
+                  </div>
+                </i></h1>
                 <div style={divGrid}>
                     <div>
                       <div style={numStyle}>
@@ -285,7 +300,7 @@ class Heat extends Component {
                         <h1>10</h1>
                       </div>
                     </div>
-                      
+                    <div></div>
                     <Boat 
                         {...this.state}
                         onClick={this.handleClick}

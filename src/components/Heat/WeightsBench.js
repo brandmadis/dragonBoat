@@ -19,7 +19,6 @@ class Weights extends Component {
     let femaleCount = 0
     for (let i = 0; i < this.props.boat.length; i++){
       let seat = this.props.boat[i]
-      console.log("seat: ",seat)
       let paddler = this.props.paddlers.filter(pad => { return pad.id === seat})
       if(this.props.boat[i] !== 0){
         let weight = parseInt(paddler[0].Weight)

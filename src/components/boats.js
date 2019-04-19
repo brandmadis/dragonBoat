@@ -33,7 +33,6 @@ class Boats extends Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.createBoat2 = this.createBoat2.bind(this)
-        this.deleteBoat = this.deleteBoat.bind(this)
     }
     componentWillMount(){
         if(this.state.boats.length < 1){
@@ -132,14 +131,14 @@ class Boats extends Component {
             ''
     )     
     
-    deleteBoat = (id, index) => {
-        console.log("delete boat", id, index)
-        firebaseDB.ref('boat/' + id).remove()
-        this.setState({
-            boats: this.state.boats.filter((_, i)=> i !== index)
+    // deleteBoat = (id, index) => {
+    //     console.log("delete boat", id, index)
+    //     firebaseDB.ref('boat/' + id).remove()
+    //     this.setState({
+    //         boats: this.state.boats.filter((_, i)=> i !== index)
 
-        })
-    }
+    //     })
+    // }
     editName = (id) => {
         console.log("edit name")
         this.props.history.push(`/boatedit/${id}`);
@@ -176,18 +175,15 @@ class Boats extends Component {
     render() {
         const boatList = this.state.boats.map((item, i) => {
             return (
-                <tr key={i}>
+                <tr key={i}
+                    onClick={()=> this.redirect(item.id, item.name)}
+                    >
                     <td>{item.name} </td>
                     <td>{item.id} </td>
                     <td><button onClick={ () => this.editName(item.id)}>
                         Edit Name</button></td>
-                    <td><button onClick={ () => this.redirect(item.id, item.name)}>Edit Seating</button></td>
                     <td><button onClick={ ()=> this.clone(item.name, item.id)}>Clone</button>
                     </td>
-                    <td><button onClick={ () => {
-                        if(window.confirm('Are you sure?'))
-                        this.deleteBoat(item.id, i)}}
-                    >Delete</button></td>
                 </tr>
                 )
         })
@@ -221,9 +217,7 @@ class Boats extends Component {
                             <th>Name</th>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Seating</th>
                             <th>Clone</th>
-                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>

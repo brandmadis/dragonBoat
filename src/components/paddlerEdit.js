@@ -243,7 +243,7 @@ class PaddlerEdit extends Component {
     submitButton = () => (
         this.state.loading ? 
             'loading...' :
-            <div>
+            <div style={{display:'inline'}}>
                 <Button animated>
                     <Button.Content visible>Submit</Button.Content>
                     <Button.Content hidden>
@@ -322,11 +322,11 @@ class PaddlerEdit extends Component {
                     change={(element) => this.updateForm(element)}
                 />                 
                 { this.submitButton() }
-                <div>
+                <div style={{display: 'inline'}}>
                     <Button animated onClick={()=>this.cancel()}>
                         <Button.Content visible>Cancel</Button.Content>
                         <Button.Content hidden>
-                            <Icon name='arrow right' />
+                            <Icon name='arrow left' />
                         </Button.Content>
                     </Button>
                 </div>
