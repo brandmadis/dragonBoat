@@ -65,7 +65,7 @@ class Boats extends Component {
             }
             newRef.set(data)
             console.log("data: ", data)
-            this.props.history.push(`/heat/${key}`);
+            this.props.history.push(`/heat/${key}/Unnamed`);
        
     }
     handleChange(event){
@@ -195,8 +195,9 @@ class Boats extends Component {
                                         display:'inline', 
                                         marginRight: '10px'}}>
                                     <FontAwesomeIcon icon={'plus'} />
+                                <span>    </span>Add Heat
                                 </div>
-                                Add Heat</th>
+                                </th>
                             <th>ID</th>
                         </tr>
                     </thead>
