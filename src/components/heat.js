@@ -24,7 +24,9 @@ class Heat extends Component {
             selSeat: -1,
             loaded: false,
             prevFrontRear: 0,
-            prevLeftRight: 0            
+            prevLeftRight: 0,
+            name: this.props.match.params.name,
+            editName: false           
         }
     this.handleClick = this.handleClick.bind(this);
     this.removeFromBoat = this.removeFromBoat.bind(this);
@@ -55,7 +57,6 @@ class Heat extends Component {
         }
         if(this.state.boat.length < 1){
             let refUrl = `boat/${this.props.match.params.id}/boat`
-            console.log("heat if boat")
             await firebaseDB.ref(refUrl).once('value')
             .then((snapshot) => {
               const boat = firebaseLooper2(snapshot)
@@ -94,7 +95,6 @@ class Heat extends Component {
         }
       }      
     }
-    
     handleClick(user, seat){
         const newState = Object.assign({}, this.state)
         let sel = this.state.selected
@@ -179,8 +179,7 @@ class Heat extends Component {
     }
     console.log("-------------------------") // logic iteration separator
     this.setState(newState)
-  }
-  
+    }
     removeFromBoat(){
         console.log("remove from boat")
       if(this.state.selected !== null){
@@ -195,7 +194,6 @@ class Heat extends Component {
         firebaseDB.ref(refUrl).set(this.state.boat)
       }
     }
-    
     updateBoat(marker){
       console.log("updateBoat func", marker)
       let refUrl = `boat/${this.props.match.params.id}/boat`
@@ -211,6 +209,26 @@ class Heat extends Component {
     }
     edit(id){
       console.log("edit hit", id)
+      this.setState({editName: !this.state.editName})
+    }
+    updateName(element){
+      console.log("e: ", element.event.target.value)
+      console.log("blur: ", element.blur)
+      const newName = this.state.name
+      if(element.blur){
+        console.log("clicked off, save")
+        let refUrl = `boat/${this.props.match.params.id}/name`
+        firebaseDB.ref(refUrl).set(this.state.name)   
+        this.setState({
+          name: element.event.target.value,
+          editName: false
+        })
+      }
+      this.setState({
+        name: element.event.target.value,
+      })   
+      
+
     }
     render(){
         let paddlers = JSON.parse(JSON.stringify(this.state.paddlers));
@@ -232,41 +250,54 @@ class Heat extends Component {
           textAlign: 'right',
           fontStyle: 'italic'
         }
-        const buttonStyle = {
+        const editButtonStyle = {
           cursor: 'pointer',
           display: 'inline',
-          marginLeft: '10px',
+          marginRight: '15px',
+          fontSize: '20px',
         }
+        const cloneTrashStyle = {
+          cursor: 'pointer',
+          display: 'inline',
+          marginLeft: '18px',
+          fontSize: '40px',
+        }
+        const renderName = (
+          <div 
+            onClick={()=>this.edit(this.props.match.params.id)}
+            style={editButtonStyle}
+          >{this.state.name}            
+        </div>
+        )
+      
+        const editName = (
+          <div className="form-group row">
+
+          <div className="col-xs-2">
+            <input 
+              className="form-control" 
+              value={this.state.name} 
+              onChange={(event) => this.updateName({event, blur:false})}
+              onBlur={(event) => this.updateName({event, blur: true})}
+              autoFocus
+              style={{fontSize:'20px'}} />
+          </div>
+          </div>
+        )
         return (
             <div>
                   {this.state.loaded ? 
             <div>
-                <h1><i>
-                  
-                  {this.props.match.params.name}
-                  <div 
-                    onClick={()=>this.edit(this.props.match.params.id)}
-                    style={buttonStyle}
-                    >
-                    <FontAwesomeIcon icon={'pencil-alt'} />
-                  </div>                  
-                  <div 
-                    onClick={()=>this.clone(this.props.match.params.id)}
-                    style={buttonStyle}
-                    >
+              <div style={{marginLeft:'20px'}}>
+ 
+                    {this.state.editName === true ? 
+                    editName
+                    : 
+                    renderName 
+                  }
 
-                    <FontAwesomeIcon icon={['far', 'clone']} />
-                  </div>
-                  <div 
-                    onClick={()=>{
-                      if(window.confirm('Are you sure?'))
-                      this.delete(this.props.match.params.id)
-                    }}
-                    style={buttonStyle}
-                    >
-                    <FontAwesomeIcon icon={['far', 'trash-alt']} />
-                  </div>
-                </i></h1>
+
+                </div>
                 <div style={divGrid}>
                     <div>
                       <div style={numStyle}>
@@ -301,13 +332,34 @@ class Heat extends Component {
                       </div>
                     </div>
                     <div></div>
-                    <Boat 
-                        {...this.state}
-                        onClick={this.handleClick}
-                        removeFromBoat={this.removeFromBoat}
-                        boatId={this.props.match.params.id}
-                        history={this.props.history}
-                        />
+                    <div>
+
+                      <Boat 
+                          {...this.state}
+                          onClick={this.handleClick}
+                          removeFromBoat={this.removeFromBoat}
+                          boatId={this.props.match.params.id}
+                          history={this.props.history}
+                          />
+                      <div style={{marginTop: '10px'}}>
+                        <div 
+                          onClick={()=>this.clone(this.props.match.params.id)}
+                          style={cloneTrashStyle}
+                          >
+
+                          <FontAwesomeIcon icon={['far', 'clone']} />
+                        </div>
+                        <div 
+                          onClick={()=>{
+                            if(window.confirm('Are you sure?'))
+                            this.delete(this.props.match.params.id)
+                          }}
+                          style={cloneTrashStyle}
+                          >
+                          <FontAwesomeIcon icon={['far', 'trash-alt']} />
+                          </div>                        
+                          </div>                        
+                    </div>
                     <div></div>
                     <Bench
                         {...this.state}

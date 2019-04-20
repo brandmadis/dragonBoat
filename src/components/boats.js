@@ -71,9 +71,9 @@ class Boats extends Component {
     handleChange(event){
         this.setState({value: event.target.value});
     }
-    redirect(id){
+    redirect(id, name){
         console.log("redirect", id)
-        this.props.history.push(`/heat/${id}`);
+        this.props.history.push(`/heat/${id}/${name}`);
 
     }
     updateForm = (element, content = '') => {
@@ -170,7 +170,7 @@ class Boats extends Component {
         const boatList = this.state.boats.map((item, i) => {
             return (
                 <tr key={i}
-                    onClick={()=> this.redirect(item.id)}
+                    onClick={()=> this.redirect(item.id, item.name)}
                     >
                     <td>{item.name} </td>
                     <td>{item.id} </td>
@@ -190,21 +190,6 @@ class Boats extends Component {
                     //     />
         return (
             <div>
-                <form className="form-inline" onSubmit={this.createBoat2}>
-                <FormFields 
-                    id={'boatName'}
-                    formData={this.state.formData.boatName}
-                    change={(element) => this.updateForm(element)}
-                />    
-                <div>
-                    <input 
-                        type='submit' value="create new boat" 
-                        className="btn btn-default" 
-                        />
-                { this.showError() }
-                </div>
-                </form>
-                
                 <table className="table table-hover" id="boats">
                     <thead>
                         <tr>

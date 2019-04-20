@@ -21,7 +21,7 @@ const Routes = () => {
                 <Route path="/paddlers/:id" exact component={PaddlerEdit}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path="/boats" exact component={Boats}/>
-                <Route path="/heat/:id" exact component={Heat}/>
+                <Route path="/heat/:id/:name" exact component={Heat}/>
                 <Route path="/boatedit/:id" exact component={BoatEdit}/>
                 <Route path="/" exact component={Home}/>
                 <Route path="/paddlerAdd" exact component={PaddlerAdd}/>
