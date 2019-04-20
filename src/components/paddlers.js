@@ -32,6 +32,13 @@ class Paddlers extends Component {
     editPaddler(id){
         this.props.history.push(`/paddlers/${id}`)
     }
+    createPaddler(){
+        console.log("createPaddler")
+        this.props.history.push('/paddlerAdd2')
+    }
+    redirect(id){
+        console.log(id)
+    }
     render(){
         // console.log("request: ", this.state.paddlers)
         const arrowLeft = {
@@ -116,7 +123,9 @@ class Paddlers extends Component {
 
             return (
                 // <tr key={i} onClick={() => this.editPaddler(item.id)}> 
-                <tr key={i}>
+                <tr key={i}
+                    onClick={()=> this.editPaddler(item.id)}
+                    style={{cursor: 'pointer'}}>
                     <td>
                         <img 
                             src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} 
@@ -164,37 +173,37 @@ class Paddlers extends Component {
                         {item.Weight} <br></br>
                         {item.gender} <br></br>
                     </td>
-                    <td>
-                        <button 
-                            className="btn btn-default" 
-                            onClick={() => this.editPaddler(item.id)}>
-                            edit
-                        </button>
-                    </td>
-                    <td>
+                    {/* <td>
                     
                         <button 
                             className="btn btn-default" 
                             onClick={() => {
                             if (
-                                window.confirm("Are you sure you want to delete this paddler?")) this.deletePaddler(item.id, i)}}>
+                                window.confirm("Are you sure you want to delete this paddler?"))
+                                 this.deletePaddler(item.id, i)}}>
                             delete
                         </button>
-                    </td>
+                    </td> */}
                 </tr>        
                 )    
         })
     return (
         <div>
-            Paddlers<br></br>  
-            <Link to='/paddlerAdd2' className="nav-link"><button className="btn btn-default">Add New Paddler</button></Link><br />
-            <table className="table">
+            <table className="table table-hover">
                 <thead>
                     <tr>
-                        <th>Paddler</th>
-                        <th></th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>
+                            <div 
+                                onClick={()=>this.createPaddler()}
+                                style={{
+                                    display: 'inline',
+                                    marginRight: '10px',
+                                    cursor: 'pointer'}}>
+                                <FontAwesomeIcon icon={'plus'} />
+                            <span>  </span>Add Paddler
+                            </div>
+                            </th>
+                            <th></th>
                     </tr>
                 </thead>
                 <tbody>

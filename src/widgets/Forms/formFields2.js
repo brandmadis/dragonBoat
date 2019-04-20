@@ -27,6 +27,7 @@ const FormFields = ({formData, change, id}) => {
                             onBlur={(event) => change({event, id, blur:true})}
                             onChange={(event) => change({event, id, blur:false})}
                             className="form-control"
+                            
                             />
                         {showError()}
                     </div>

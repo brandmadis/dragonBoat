@@ -174,10 +174,6 @@ class Boats extends Component {
                     >
                     <td>{item.name} </td>
                     <td>{item.id} </td>
-                    <td><button onClick={ () => this.editName(item.id)}>
-                        Edit Name</button></td>
-                    <td><button onClick={ ()=> this.clone(item.name, item.id)}>Clone</button>
-                    </td>
                 </tr>
                 )
         })
@@ -195,14 +191,13 @@ class Boats extends Component {
                         <tr>
                             <th>
                                 <div onClick={()=>this.createBoat2()}
-                                    style={{display:'inline', marginRight: '10px'}}>
-
+                                    style={{
+                                        display:'inline', 
+                                        marginRight: '10px'}}>
                                     <FontAwesomeIcon icon={'plus'} />
                                 </div>
-                                Name</th>
+                                Add Heat</th>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Clone</th>
                         </tr>
                     </thead>
                     <tbody>

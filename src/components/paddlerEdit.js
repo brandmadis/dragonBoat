@@ -163,7 +163,7 @@ class PaddlerEdit extends Component {
         var newState = {...this.state.formData}
         var curr_this = this
         let refUrl = "paddlers/" + this.props.match.params.id
-        firebaseDB.ref(refUrl).on('value', function(data){
+        firebaseDB.ref(refUrl).once('value', function(data){
             console.log("data: ", data.val().firstName)
             newState.firstName.value = data.val().firstName
             newState.lastName.value = data.val().lastName
@@ -267,6 +267,11 @@ class PaddlerEdit extends Component {
         this.props.history.push(`/paddlers`);
         
     }
+    deletePaddler(id){
+        console.log("delete Paddler")
+        firebaseDB.ref('paddlers/' + id).remove()
+        this.props.history.push(`/paddlers`);
+    }
     render() {
     const { redirect } = this.state;
 
@@ -331,6 +336,21 @@ class PaddlerEdit extends Component {
                     </Button>
                 </div>
             </form>
+                <div style={{display: 'inline'}}>
+                    <Button 
+                        color="red"
+                        type="button"
+                        animated onClick={()=>{
+                            if(window.confirm('Are you sure you want to delete this paddler?'))
+                        this.deletePaddler(this.props.match.params.id)}}>
+                        <Button.Content visible>Delete</Button.Content>
+                        <Button.Content hidden><Icon name='delete' /></Button.Content>
+                    </Button>
+                </div>
+                {/* <button
+                onClick={
+                    ()=>this.deletePaddler(this.props.match.params.id)}>
+                    Delete</button> */}
             
         </div>
         )
