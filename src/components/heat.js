@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 // import { Link } from 'react-router-dom'
 import Boat from './Heat/Boat'
 import Bench from './Heat/Bench'
-import Weights from './Heat/Weights'
+// import Weights from './Heat/Weights'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 import { firebaseDB, 
           firebasePaddlers, 
-          firebaseBoats, 
+          // firebaseBoats, 
           firebaseLooper, 
           firebaseLooper2,
-          config
+          // config
         } from '../firebase'
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+// import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 class Heat extends Component {
     constructor(props){
