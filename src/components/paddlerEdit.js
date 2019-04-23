@@ -77,7 +77,45 @@ class PaddlerEdit extends Component {
                     valid: true,
                     touched: true,
                     validationMessage: ''
-                },   
+                },  
+                Time: {
+                    element: 'input',
+                    value: '',
+                    label: true,
+                    labelText: 'Time',
+                    config: {
+                        name: 'time_input',
+                        type: 'text',
+                        placeholder: 'Time'
+                    },
+                    validation: {
+                        required: true,
+                        minLen: 2,
+                        number: true
+                    },
+                    valid: true,
+                    touched: true,
+                    validationMessage: ''
+                },             
+                Attendance: {
+                    element: 'input',
+                    value: '',
+                    label: true,
+                    labelText: 'Attendance',
+                    config: {
+                        name: 'attendance_input',
+                        type: 'number',
+                        placeholder: 'Attendance'
+                    },
+                    validation: {
+                        required: true,
+                        minLen: 2,
+                        number: true
+                    },
+                    valid: true,
+                    touched: true,
+                    validationMessage: ''
+                },                  
                 Pref: {
                     element: 'select',
                     value: 'either',
@@ -174,6 +212,8 @@ class PaddlerEdit extends Component {
             newState.image.value = data.val().image
             newState.Pref.value = data.val().Pref
             newState.gender.value = data.val().gender
+            newState.Time.value = data.val().Time
+            newState.Attendance.value = data.val().Attendance
             if(
                 newState.gender.value === 'female' ||
                 newState.gender.value === 'Female' ||
@@ -350,6 +390,16 @@ class PaddlerEdit extends Component {
                     formData={this.state.formData.Weight}
                     change={(element) => this.updateForm(element)}
                 />
+                <FormFields 
+                    id={'Time'}
+                    formData={this.state.formData.Time}
+                    change={(element) => this.updateForm(element)}
+                /> 
+                <FormFields 
+                    id={'Attendance'}
+                    formData={this.state.formData.Attendance}
+                    change={(element) => this.updateForm(element)}
+                />                
                 <FormFields 
                     id={'Pref'}
                     formData={this.state.formData.Pref}

@@ -9,6 +9,7 @@ import Heat from './components/heat'
 import PaddlerAdd from './components/paddlerAdd'
 import PaddlerAdd2 from './components/paddlerAdd2'
 import Boats from './components/boats'
+import Heats from './components/heats'
 import BoatEdit from './components/boatEdit'
 
 
@@ -21,6 +22,7 @@ const Routes = () => {
                 <Route path="/paddlers/:id" exact component={PaddlerEdit}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path="/boats" exact component={Boats}/>
+                <Route path="/heats" exact component={Heats}/>
                 <Route path="/heat/:id/:name" exact component={Heat}/>
                 <Route path="/boatedit/:id" exact component={BoatEdit}/>
                 <Route path="/" exact component={Home}/>

@@ -26,7 +26,7 @@ class Weights extends Component {
         else {right += weight} 
         if(i<6){front += weight}
         else if(i>13){rear += weight}
-        if(paddler[0].gender === "female"){femaleCount++}
+        if(paddler[0].gender === "1"){femaleCount++}
       }
     }
     

@@ -24,7 +24,7 @@ const FormFields = ({formData, change, id, selectedGender}) => {
         switch(formData.element){
             case('input'):
                 formTemplate = (
-                    <div>
+                    <div className="form-group">
                         <input 
                             {...formData.config}
                             value={formData.value}
@@ -67,8 +67,11 @@ const FormFields = ({formData, change, id, selectedGender}) => {
                             <input
                                 key={i}
                                 type="radio"
+                                name={item.id}
+                                value={item.val}
                                 checked={selectedGender=== item.val}
                                 onChange={()=>change(item.val)}
+                                className="form-check-input"
                                 />
                                 {item.text}
                         </div>

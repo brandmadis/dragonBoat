@@ -66,7 +66,45 @@ class PaddlerAdd extends Component {
                 valid: false,
                 touched: true,
                 validationMessage: ''
-            },   
+            },  
+            Time: {
+                element: 'input',
+                value: '',
+                label: true,
+                labelText: 'Time',
+                config: {
+                    name: 'time_input',
+                    type: 'text',
+                    placeholder: 'Time'
+                },
+                validation: {
+                    required: true,
+                    minLen: 2,
+                    number: true
+                },
+                valid: true,
+                touched: true,
+                validationMessage: ''
+            },             
+            Attendance: {
+                element: 'input',
+                value: '',
+                label: true,
+                labelText: 'Attendance',
+                config: {
+                    name: 'attendance_input',
+                    type: 'number',
+                    placeholder: 'Attendance'
+                },
+                validation: {
+                    required: true,
+                    minLen: 2,
+                    number: true
+                },
+                valid: true,
+                touched: true,
+                validationMessage: ''
+            },             
             Pref: {
                 element: 'select',
                 value: 'either',
@@ -275,7 +313,7 @@ class PaddlerAdd extends Component {
        return <Redirect to='/paddlers'/>;
      }
     return (
-        <div> 
+        <div className="form-group"> 
             Add new paddler
             <form onSubmit={this.submitForm}>
                 <FormFields 
@@ -294,6 +332,16 @@ class PaddlerAdd extends Component {
                     change={(element) => this.updateForm(element)}
                 />
                 <FormFields 
+                    id={'Time'}
+                    formData={this.state.formData.Time}
+                    change={(element) => this.updateForm(element)}
+                /> 
+                <FormFields 
+                    id={'Attendance'}
+                    formData={this.state.formData.Attendance}
+                    change={(element) => this.updateForm(element)}
+                />                               
+                <FormFields 
                     id={'Pref'}
                     formData={this.state.formData.Pref}
                     change={(element) => this.updateForm(element)}
@@ -301,7 +349,7 @@ class PaddlerAdd extends Component {
                 <FormFields 
                     id={'gender'}
                     formData={this.state.formData.gender}
-                    selectedOption={this.state.selectedGender}
+                    selectedGender={this.state.selectedGender}
                     change={(element) => this.updateRadio(element)}
                 />                 
                 <Uploader 
