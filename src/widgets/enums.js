@@ -5,8 +5,13 @@ const PADDLER_PREF= {
     RIGHT: "4",
     STRONG_RIGHT: "5"
 }
+const PADDLER_GENDER = {
+    FEMALE: "1",
+    MALE: "2"
+}
 class Enum {}
 
 Enum.PADDLER_PREF = PADDLER_PREF
+Enum.PADDLER_GENDER = PADDLER_GENDER
 
 export default Enum

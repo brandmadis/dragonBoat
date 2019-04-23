@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FormFields = ({formData, change, id}) => {
+const FormFields = ({formData, change, id, selectedGender}) => {
 
     const showError = () => {
         let errorMessage = null
@@ -12,6 +12,10 @@ const FormFields = ({formData, change, id}) => {
                 )
         }
         return errorMessage
+    }
+    const ConsoleLog = ({children}) => {
+        console.log(children)
+        return false
     }
     const renderTemplate = () => {
         // console.log("data: ", data.id)
@@ -32,10 +36,10 @@ const FormFields = ({formData, change, id}) => {
                         {showError()}
                     </div>
                     )
-                break
-            case('select'):
-                formTemplate = (
-                    <div>
+                    break
+                    case('select'):
+                    formTemplate = (
+                        <div>
                         <select
                             value={formData.value}
                             name={formData.config.name}
@@ -45,12 +49,35 @@ const FormFields = ({formData, change, id}) => {
                             >
                                 { formData.config.options.map((item, i) => (
                                     <option key={i} value={item.val}>{item.text}</option>
-                                ))}
+                                    ))}
                         </select>
                     </div>
                 )   
                 break
-             default: 
+                case('radio'):
+                formTemplate = (
+                    <div>
+
+                        { formData.config.options.map((item, i)=>(
+                            <div key={i+"i"}>
+                            <ConsoleLog>
+                            selectedGender{selectedGender}
+                            item.val {item.val}</ConsoleLog>
+
+                            <input
+                                key={i}
+                                type="radio"
+                                checked={selectedGender=== item.val}
+                                onChange={()=>change(item.val)}
+                                />
+                                {item.text}
+                        </div>
+                        ))}
+                    </div>
+
+                )
+                break
+            default: 
                 console.log("case default")
                 formTemplate = null        }
         return formTemplate

@@ -9,6 +9,8 @@ class PaddlerAdd extends Component {
     state = {
         redirect: false,
         loading: false,
+        selectedGender: '1',
+
         formData: {
             firstName: {
                 element: 'input',
@@ -88,15 +90,16 @@ class PaddlerAdd extends Component {
                 validationMessage: ''
             },   
             gender: {
-                element: 'select',
+                element: 'radio',
                 value: 'female',
                 label: true,
                 labelText: 'Gender',
                 config: {
                     name: 'gender_input',
+                    type: 'radio',
                     options: [
-                        {val: 'Female', text: 'Female'},
-                        {val: 'Male', text: 'Male'}
+                        {val: '1', text: 'Female', checked: 'True'},
+                        {val: '2', text: 'Male', checked: 'False'}
                         ]
                 },
                 validation: {
@@ -148,6 +151,21 @@ class PaddlerAdd extends Component {
             //     validationMessage: ''
             // },             
         }
+    }
+    updateRadio = (item) => {
+        console.log("update radio hit", item)
+        const newformData = {
+            ...this.state.formData
+        }
+        const newElement = {
+            ...newformData['gender']
+        }
+        newElement.value = item
+        newformData['gender'] = newElement
+        this.setState({
+            selectedGender: item,
+            formData: newformData
+        })
     }
     updateForm = (element, content = '') => {
         const newformData = {
@@ -283,7 +301,8 @@ class PaddlerAdd extends Component {
                 <FormFields 
                     id={'gender'}
                     formData={this.state.formData.gender}
-                    change={(element) => this.updateForm(element)}
+                    selectedOption={this.state.selectedGender}
+                    change={(element) => this.updateRadio(element)}
                 />                 
                 <Uploader 
                     filename={(filename)=>this.storeFilename(filename)}

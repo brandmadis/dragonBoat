@@ -20,10 +20,12 @@ class PaddlerEdit extends Component {
             paddlers: {},
             snapshot: {},
             redirect: false,
+            
+            selectedGender: '',
             formData: {
                 firstName: {
                     element: 'input',
-                    value: 'test',
+                    value: '',
                     label: true,
                     labelText: 'First Name',
                     config: {
@@ -41,7 +43,7 @@ class PaddlerEdit extends Component {
                 },
                 lastName: {
                     element: 'input',
-                    value: 'test lastName',
+                    value: '',
                     label: true,
                     labelText: 'Last Name',
                     config: {
@@ -59,7 +61,7 @@ class PaddlerEdit extends Component {
                 },    
                 Weight: {
                     element: 'input',
-                    value: '150',
+                    value: '',
                     label: true,
                     labelText: 'Weight',
                     config: {
@@ -99,19 +101,19 @@ class PaddlerEdit extends Component {
                     validationMessage: ''
                 },  
                 gender: {
-                    element: 'select',
-                    value: 'female',
+                    element: 'radio',
+                    value: '',
                     label: true,
                     labelText: 'Gender',
                     config: {
                         name: 'gender_input',
                         options: [
-                            {val: 'female', text: 'Female'},
-                            {val: 'male', text: 'Male'}
+                            {val: '1', text: 'Female'},
+                            {val: '2', text: 'Male'}
                             ]
                     },
                     validation: {
-                        required: true,
+                        required: false,
                     },
                     valid: true,
                     touched: true,
@@ -163,6 +165,7 @@ class PaddlerEdit extends Component {
         var newState = {...this.state.formData}
         var curr_this = this
         let refUrl = "paddlers/" + this.props.match.params.id
+        let selectedGender = null
         firebaseDB.ref(refUrl).once('value', function(data){
             console.log("data: ", data.val().firstName)
             newState.firstName.value = data.val().firstName
@@ -171,10 +174,38 @@ class PaddlerEdit extends Component {
             newState.image.value = data.val().image
             newState.Pref.value = data.val().Pref
             newState.gender.value = data.val().gender
-            curr_this.setState({formData: newState})
+            if(
+                newState.gender.value === 'female' ||
+                newState.gender.value === 'Female' ||
+                newState.gender.value === '1' 
+                ){
+                selectedGender = '1'
+            } else {
+                selectedGender = '2'
+            }
+            
+            curr_this.setState({
+                formData: newState,
+                selectedGender
+            })
         })
 
     }
+    updateRadio = (item) => {
+        console.log("update radio hit", item)
+        const newformData = {
+            ...this.state.formData
+        }
+        const newElement = {
+            ...newformData['gender']
+        }
+        newElement.value = item
+        newformData['gender'] = newElement
+        this.setState({
+            selectedGender: item,
+            formData: newformData
+        })
+    }    
     submitForm = (event) => {
         console.log("submit", this.state.formData)
         event.preventDefault()
@@ -183,19 +214,22 @@ class PaddlerEdit extends Component {
         var updates = {}
         for(let key in this.state.formData){
             dataToSubmit[key] = this.state.formData[key].value
-            console.log(formIsValid)
+            console.log("form valid: ", formIsValid)
         }
         for(let key in this.state.formData){
             formIsValid = this.state.formData[key].valid && formIsValid
         }
         updates[this.props.match.params.id] = dataToSubmit
+        console.log("hit 1", formIsValid)
         if(formIsValid){
+            console.log("before firebase update")
             firebaseDB.ref('paddlers').update(updates)
                 .then(() => {
                     console.log("paddler updated")
                     this.setState({ redirect: true })
                 })
                 .catch((e) => {
+
                     console.log("error: ", e)
                 })
         }
@@ -320,12 +354,13 @@ class PaddlerEdit extends Component {
                     id={'Pref'}
                     formData={this.state.formData.Pref}
                     change={(element) => this.updateForm(element)}
-                />                 
+                />    
                 <FormFields 
                     id={'gender'}
                     formData={this.state.formData.gender}
-                    change={(element) => this.updateForm(element)}
-                />                 
+                    selectedGender={this.state.selectedGender}
+                    change={(element) => this.updateRadio(element)}
+                    />     
                 { this.submitButton() }
                 <div style={{display: 'inline'}}>
                     <Button animated onClick={()=>this.cancel()}>
