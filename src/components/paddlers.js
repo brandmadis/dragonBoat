@@ -127,12 +127,16 @@ class Paddlers extends Component {
                     onClick={()=> this.editPaddler(item.id)}
                     style={{cursor: 'pointer'}}>
                     <td>
+                    {item.image === "" ? 
+                        <FontAwesomeIcon icon="dragon" size="3x" />
+                    :
                         <img 
-                            src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} 
-                            style={ imgStyle }
-                            alt="" width="75" height="75"/>
+                        src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${item.image}?alt=media`} 
+                        style={ imgStyle }
+                        alt="" width="75" height="75"/>
+                    }
                             {item.Pref === Enum.PADDLER_PREF.LEFT ? 
-                            <div style={iconParentStyle}>
+                                <div style={iconParentStyle}>
                                 <div style={arrowLeft}>
                                 <FontAwesomeIcon icon="angle-left" />  
                                 </div> 

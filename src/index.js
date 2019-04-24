@@ -18,7 +18,8 @@ import {
     faAngleDown,
     faAngleUp,
     faPencilAlt,
-    faPlus
+    faPlus,
+    faDragon,
 } from '@fortawesome/free-solid-svg-icons'
 import {
     faClone,
@@ -40,8 +41,8 @@ library.add(
     faClone,
     faTrashAlt,
     faPencilAlt,
-    faPlus
-
+    faPlus,
+    faDragon
     )
 require('dotenv').config()
 

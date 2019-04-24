@@ -36,32 +36,49 @@ class HeatList extends Component {
     }    
     delete(id){
         console.log("delete hit", id)
-        firebaseDB.ref(`heats/${id}`).remove()
+        // remove from heats
+        firebaseDB.ref(`heats/${id}`).remove() 
+
+        // remove from boats
         let heat = firebaseDB.ref(
             `boats/${this.props.match.params.id}/heats/`)
-            .equalTo(id)
-            .once('value')
-            .remove()
-        console.log("delete heat: ", heat)
-        this.setState({
-            heats: this.state.heats.filter((_, i) => i !== id)
-        })        
+        // .once('value')
+        //     .remove()
+        console.log("delete heat: ", heat.key)
+
+        // update state
+        let heats = [...this.state.heats]
+        let index = heats.indexOf(id)
+        console.log("index:" , index)
+        heats.splice(index, 1)
+        // this.setState({
+        //     heats
+        // })        
     }
     createHeat(){
         console.log('createHeat')
         let heatRef = firebaseHeats.push()
         let heatKey = heatRef.key
+        
+        let boatRef = firebaseDB.ref(
+            `boats/${this.props.match.params.id}/heats`)
+        
+        boatRef.push({"heatKey": "test"})
+        let boatHeatKey = boatRef.key
         let heatData = {
             'heatName': 'New heat name',
+            'boatHeatKey': boatHeatKey,
             'boat': this.props.match.params.id
         }
         heatRef.set(heatData)
 
-        let boatRef = firebaseDB.ref(`boats/${this.props.match.params.id}/heats`)
-        
-        boatRef.push()
+        const newHeatData = {
+            ...this.state.heats
+        }
+        this.setState({
+            heats: [...this.state.heats, heatKey]
+        })
     }           
-
     render(){
         const heatList = this.state.heats.map((item, i) => {
             return (

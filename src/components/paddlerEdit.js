@@ -9,6 +9,7 @@ import {
 import { Redirect } from 'react-router-dom'
 import Uploader from '../widgets/FileUploader/fileUploaderEdit'
 import { Button, Icon } from 'semantic-ui-react'
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 
 
 
@@ -365,13 +366,17 @@ class PaddlerEdit extends Component {
         
     return (
         <div>
-            <p>Edit paddler</p>
+            <h1><i>Edit paddler</i></h1>
             <form onSubmit={this.submitForm}>
+                {this.state.formData.image.value === "" ? 
+                            <FontAwesomeIcon icon="dragon" size="3x" />
+                        :            
                 <img 
                     src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${this.state.formData.image.value}?alt=media`} 
                     style={ imgStyle }
                     alt="" width="100" height="100"/>
-            
+                }
+                <div style={{ marginBottom: '10px'}}></div>
                 <Uploader 
                     filename={(filename)=>this.storeFilename(filename)}
                     />
@@ -420,18 +425,18 @@ class PaddlerEdit extends Component {
                         </Button.Content>
                     </Button>
                 </div>
-            </form>
                 <div style={{display: 'inline'}}>
                     <Button 
                         color="red"
                         type="button"
                         animated onClick={()=>{
                             if(window.confirm('Are you sure you want to delete this paddler?'))
-                        this.deletePaddler(this.props.match.params.id)}}>
+                            this.deletePaddler(this.props.match.params.id)}}>
                         <Button.Content visible>Delete</Button.Content>
                         <Button.Content hidden><Icon name='delete' /></Button.Content>
                     </Button>
                 </div>
+            </form>
                 {/* <button
                 onClick={
                     ()=>this.deletePaddler(this.props.match.params.id)}>

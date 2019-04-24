@@ -305,6 +305,11 @@ class PaddlerAdd extends Component {
         this.updateForm({id: 'image'}, filename)
         
     }
+    cancel() {
+        console.log("cancel")
+        this.props.history.push(`/paddlers`);
+        
+    }    
     render() {
     const { redirect } = this.state;
 
@@ -314,7 +319,7 @@ class PaddlerAdd extends Component {
      }
     return (
         <div className="form-group"> 
-            Add new paddler
+            <h1><i>Add new paddler</i></h1>
             <form onSubmit={this.submitForm}>
                 <FormFields 
                     id={'firstName'}
