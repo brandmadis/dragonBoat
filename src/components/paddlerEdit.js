@@ -247,6 +247,21 @@ class PaddlerEdit extends Component {
             formData: newformData
         })
     }    
+    updateGenderButton = (item) => {
+        console.log("updateGenderButton:" , item)
+        const newformData = {
+            ...this.state.formData
+        }
+        const newElement = {
+            ...newformData['gender']
+        }
+        newElement.value = item
+        newformData['gender'] = newElement
+        this.setState({
+            selectedGender: item,
+            formData: newformData
+        })        
+    }    
     submitForm = (event) => {
         console.log("submit", this.state.formData)
         event.preventDefault()
@@ -415,6 +430,7 @@ class PaddlerEdit extends Component {
                     formData={this.state.formData.gender}
                     selectedGender={this.state.selectedGender}
                     change={(element) => this.updateRadio(element)}
+                    click={(element) => this.updateGenderButton(element)}
                     />     
                 { this.submitButton() }
                 <div style={{display: 'inline'}}>

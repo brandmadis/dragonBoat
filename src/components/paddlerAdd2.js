@@ -3,7 +3,7 @@ import FormFields from '../widgets/Forms/formFields2'
 import { firebasePaddlers } from '../firebase'
 import { Redirect } from 'react-router-dom'
 import Uploader from '../widgets/FileUploader/fileUploader'
-import { Button, Icon } from 'semantic-ui-react'
+import { Button, Icon, CardContent } from 'semantic-ui-react'
 
 class PaddlerAdd extends Component {
     state = {
@@ -205,6 +205,21 @@ class PaddlerAdd extends Component {
             formData: newformData
         })
     }
+    updateGenderButton = (item) => {
+        console.log("updateGenderButton:" , item)
+        const newformData = {
+            ...this.state.formData
+        }
+        const newElement = {
+            ...newformData['gender']
+        }
+        newElement.value = item
+        newformData['gender'] = newElement
+        this.setState({
+            selectedGender: item,
+            formData: newformData
+        })        
+    }
     updateForm = (element, content = '') => {
         const newformData = {
             ...this.state.formData
@@ -356,12 +371,16 @@ class PaddlerAdd extends Component {
                     formData={this.state.formData.gender}
                     selectedGender={this.state.selectedGender}
                     change={(element) => this.updateRadio(element)}
-                />                 
+                    click={(element) => this.updateGenderButton(element)}
+                />   
+                <div style={{marginBottom: '10px'}}></div>
+
                 <Uploader 
                     filename={(filename)=>this.storeFilename(filename)}
                     />
                 
                 <br></br>
+                <div style={{marginBottom: '10px'}}></div>
                 { this.submitButton() }
                 <div style={{display: 'inline'}}>
                     <Button animated onClick={()=>this.cancel()}>

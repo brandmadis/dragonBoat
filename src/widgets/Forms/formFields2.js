@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FormFields = ({formData, change, id, selectedGender}) => {
+const FormFields = ({formData, change, id, selectedGender, click}) => {
 
     const showError = () => {
         let errorMessage = null
@@ -56,9 +56,9 @@ const FormFields = ({formData, change, id, selectedGender}) => {
                 break
                 case('radio'):
                 formTemplate = (
-                    <div>
+                    <div style={{paddingTop:"10px", paddingBottom:'10px'}}>
 
-                        { formData.config.options.map((item, i)=>(
+                        {/* { formData.config.options.map((item, i)=>(
                             <div key={i+"i"}>
                             <ConsoleLog>
                             selectedGender{selectedGender}
@@ -75,7 +75,32 @@ const FormFields = ({formData, change, id, selectedGender}) => {
                                 />
                                 {item.text}
                         </div>
-                        ))}
+                        ))} */}
+                            <ConsoleLog>{formData.config.options}</ConsoleLog>
+                        { formData.config.options.map((item, i)=>(
+                            
+                            <button 
+                                key={i}
+                                type="button"
+                                className={i === 0 ?
+                                    (parseInt(formData.value) === (i + 1) ? 
+                                        "ui left attached button primary" :
+                                        `${typeof (i+1)} ${typeof parseInt(formData.value)} ui left attached button`
+                                    )
+                                    
+                                    :
+                                    (parseInt(formData.value) === (i + 1) ? 
+                                        "ui right attached button primary" :
+                                        "ui right attached button"
+                                    )
+
+                                }
+                                onChange={()=>change(item.val)}
+                                onClick={()=>click(item.val)}
+                                >
+                                {item.text}
+                            </button>
+                            ))}                        
                     </div>
 
                 )
