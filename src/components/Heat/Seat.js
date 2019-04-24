@@ -112,30 +112,93 @@ class Seat extends Component {
       width: '85px',
       height: '85px',
       position: 'absolute',
-      zIndex: '102',
+      zIndex: '111',
       cursor: 'pointer',   
       top: '-15px',
       left: '-15px',
-      backgroundColor: 'lightgray'
+      backgroundColor: 'lightgray',
+      display: 'inline',
+
       
     }
+
+
     const arrowLeft = {
-      left: '0px',
-      position: 'absolute',
+      // right: '78px',
+      display: 'inline',
+      zIndex: '110',
+      position: 'relative',
       color: 'white',
       fontSize: 'xx-large',
-      bottom: '-5px',
-
+      bottom: '26px',
     }
+    const arrowLeftBack = {
+      right: '18px',
+      display: 'inline',
+      zIndex: '109',
+      position: 'relative',
+      color: 'darkgrey',
+      fontSize: 'xx-large',
+      bottom: '26px',
+    }          
+    const arrowDoubleLeft = {
+      // right: '78px',
+      display: 'inline',
+      zIndex: '110',
+      position: 'relative',
+      color: 'white',
+      fontSize: 'xx-large',
+      bottom: '26px',
+    }
+    const arrowDoubleLeftBack = {
+      right: '30px',
+      display: 'inline',
+      zIndex: '109',
+      position: 'relative',
+      color: 'darkgrey',
+      fontSize: 'xx-large',
+      bottom: '26px',
+    }          
     const arrowRight = {
-      right: '0px',
-      position: 'absolute',
+      left: '44px',
+      display: 'inline',
+      zIndex: '110',
+      position: 'relative',
       color: 'white',
       fontSize: 'xx-large',
-      bottom: '-5px'
+      bottom: '27px'
+    }    
+    const arrowRightBack = {
+      left: '30px',
+      bottom: '26px',
+      display: 'inline',
+      zIndex: '109',
+      position: 'relative',
+      color: 'darkgrey',
+      fontSize: 'xx-large',
+    }    
+    const arrowDoubleRight = {
+      left: '32px',
+      display: 'inline',
+      zIndex: '110',
+      position: 'relative',
+      color: 'white',
+      fontSize: 'xx-large',
+      bottom: '26px'
+    }    
+    const arrowDoubleRightBack = {
+      left: '7px',
+      bottom: '26px',
+      display: 'inline',
+      zIndex: '109',
+      position: 'relative',
+      color: 'darkgrey',
+      fontSize: 'xx-large',
+    }    
+    const iconParentStyle = {
+        display: 'inline',
+    }  
 
-    }
-  
 
 
 
@@ -181,28 +244,47 @@ paddlerImage
 paddlerNoImage
 }
    <div>
-    {paddler.Pref === Enum.PADDLER_PREF.LEFT ? 
-        <div style={arrowLeft}>
-        <FontAwesomeIcon icon="angle-left" />  
+   {paddler.Pref === Enum.PADDLER_PREF.LEFT ? 
+      <div style={iconParentStyle}>
+          <div style={arrowLeft}>
+          <FontAwesomeIcon icon="angle-left" />  
+          </div> 
+          <div style={arrowLeftBack}>
+          <FontAwesomeIcon icon="angle-left" />  
+          </div> 
       </div> : ""}
-      {paddler.Pref === Enum.PADDLER_PREF. STRONG_LEFT ? 
-        <div style={arrowLeft}>
-        <FontAwesomeIcon icon="angle-double-left" />  
+      {paddler.Pref === Enum.PADDLER_PREF.STRONG_LEFT ? 
+      <div style={iconParentStyle}>
+          <div style={arrowDoubleLeft}>
+          <FontAwesomeIcon icon="angle-double-left" />  
+          </div>
+          <div style={arrowDoubleLeftBack}>
+          <FontAwesomeIcon icon="angle-double-left" />  
+          </div>
       </div> : ""}
       {paddler.Pref === Enum.PADDLER_PREF.RIGHT ? 
-        <div style={arrowRight}>
+      <div style={iconParentStyle}>
+          <div style={arrowRight}>
           <FontAwesomeIcon icon="angle-right" />  
-        </div> : ""}
-      {paddler.Pref === Enum.PADDLER_PREF.STRONG_RIGHT ? 
-      <div style={arrowRight}>
-        <FontAwesomeIcon icon="angle-double-right" />  
+          </div>
+          <div style={arrowRightBack}>
+          <FontAwesomeIcon icon="angle-right" />  
+          </div>
       </div> : ""}
-          
-    </div>  
+      {paddler.Pref === Enum.PADDLER_PREF.STRONG_RIGHT ? 
+      <div style={iconParentStyle}>                                
+          <div style={arrowDoubleRight}>
+              <FontAwesomeIcon icon="angle-double-right" />  
+          </div> 
+          <div style={arrowDoubleRightBack}>
+              <FontAwesomeIcon icon="angle-double-right" />  
+          </div> 
+      </div> : ""}
      
         
         
-          </div>
+      </div>
+      </div>
         </div>
         
         )

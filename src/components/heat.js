@@ -347,7 +347,9 @@ class Heat extends Component {
                           style={cloneTrashStyle}
                           >
 
-                          <FontAwesomeIcon icon={['far', 'clone']} />
+                          <FontAwesomeIcon 
+                            color="lightgrey"
+                            icon={['far', 'clone']} />
                         </div>
                         <div 
                           onClick={()=>{
@@ -356,7 +358,9 @@ class Heat extends Component {
                           }}
                           style={cloneTrashStyle}
                           >
-                          <FontAwesomeIcon icon={['far', 'trash-alt']} />
+                          <FontAwesomeIcon
+                            color="lightgrey"
+                            icon={['far', 'trash-alt']} />
                           </div>                        
                           </div>                        
                     </div>

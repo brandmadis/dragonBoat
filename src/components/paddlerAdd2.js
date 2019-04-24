@@ -78,7 +78,7 @@ class PaddlerAdd extends Component {
                     placeholder: 'Time'
                 },
                 validation: {
-                    required: true,
+                    required: false,
                     minLen: 2,
                     number: true
                 },

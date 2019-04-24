@@ -9,10 +9,10 @@ class Bench extends Component {
       display: 'grid',
       gridTemplateColumns: '60px 60px' ,
     }    
-    const dataContainer = {
-      display: 'grid',
-      gridTemplateColumns: '60px 60px'
-    }
+    // const dataContainer = {
+    //   display: 'grid',
+    //   gridTemplateColumns: '60px 60px'
+    // }
     return (
       <div>
         <SeatRemove

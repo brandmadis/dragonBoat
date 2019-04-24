@@ -23,7 +23,10 @@ firebase.initializeApp(config);
  
 const firebaseDB = firebase.database()
 const firebasePaddlers = firebaseDB.ref('paddlers')
-const firebaseBoats = firebaseDB.ref('boat')
+const firebaseBoats = firebaseDB.ref('boats')
+const firebaseHeats = firebaseDB.ref('heats')
+const firebaseSeats = firebaseDB.ref('seats')
+const firebaseBoat = firebaseDB.ref('boat')
 
 const firebaseLooper = (snapshot) => {
     const data = []
@@ -46,9 +49,13 @@ const firebaseLooper2 = (snapshot) => {
 export {
     firebase,
     firebasePaddlers,
+    firebaseBoat,
     firebaseBoats,
+    firebaseHeats,
+    firebaseSeats,
     firebaseDB,
     firebaseLooper,
     firebaseLooper2,
+
     config
 }

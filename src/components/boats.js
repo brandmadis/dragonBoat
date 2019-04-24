@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import { Link, withRouter } from 'react-router-dom'
-import { firebaseBoats, firebaseLooper, firebaseDB } from '../firebase'
+import { firebaseBoat, firebaseLooper, firebaseDB } from '../firebase'
 import FormFields from '../widgets/Forms/formFields2'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 
@@ -37,7 +37,7 @@ class Boats extends Component {
     }
     componentWillMount(){
         if(this.state.boats.length < 1){
-            firebaseBoats.once('value')
+            firebaseBoat.once('value')
             .then((snapshot) => {
                 const boats = firebaseLooper(snapshot)
                 this.setState({
@@ -48,16 +48,16 @@ class Boats extends Component {
     }
     createBoat(){
         console.log("create boat")
-        var newRef = firebaseBoats.push()
+        var newRef = firebaseBoat.push()
         var key = newRef.key
         var data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         newRef.set(data)
-        this.props.history.push(`/boats/${key}`);
+        this.props.history.push(`/boat/${key}`);
         console.log("key: ", key)
 
     }
     createBoat2(event){
-            var newRef = firebaseBoats.push()
+            var newRef = firebaseBoat.push()
             var key = newRef.key
             var data = {
                 'name': 'Unnamed',
@@ -154,7 +154,7 @@ class Boats extends Component {
         // })
         // console.log("boatData: ", boatData)
         
-        let newRef = firebaseBoats.push()
+        let newRef = firebaseBoat.push()
         let key = newRef.key
         let name = `${originalName}-clone`
         let data = {
