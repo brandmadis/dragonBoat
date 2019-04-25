@@ -1,2 +1,1 @@
-https://dragon-bm.herokuapp.com/
-mod
+Development: https://dragon-d50ad.firebaseapp.com/
