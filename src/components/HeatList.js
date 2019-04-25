@@ -43,24 +43,16 @@ class HeatList extends Component {
     }    
     delete(id){
         console.log("delete hit", id)
-        // remove from heats
-        
-        // remove from boats
         let boatID = this.props.match.params.id
         let boatHeatKey = firebaseDB.ref(`/heats/${id}/boatHeatKey`)
         .once('value')
         .then(function(snapshot) {
             let bhkey = (snapshot.val())
-            console.log("boatHeatKey: " , bhkey)
+            // remove from boats
             firebaseDB.ref(`/boats/${boatID}/heats/${bhkey}`).remove()
+            // remove from heats
             firebaseDB.ref(`heats/${id}`).remove() 
         })
-        let heat = firebaseDB.ref(
-            `boats/${this.props.match.params.id}/heats/`)
-            //     .remove()
-            // console.log("delete heat: ", heat.key)
-            
-        // update state
         let heats = [...this.state.heats]
         let index = heats.indexOf(id)
         heats.splice(index, 1)
