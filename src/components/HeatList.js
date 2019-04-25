@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { firebaseBoats, firebaseLooper2, firebaseDB, firebaseHeats, firebaseSeats } from '../firebase'
+import { 
+    firebaseBoats,
+    firebaseLooper,
+    firebaseLooper2, 
+    firebaseDB, 
+    firebaseHeats, 
+    firebaseSeats } from '../firebase'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 import { CardContent } from 'semantic-ui-react';
 import { createCipher } from 'crypto';
@@ -32,45 +38,57 @@ class HeatList extends Component {
                     boatName: snapshot.val()
                 })
             })
+                   
         }
     }    
     delete(id){
         console.log("delete hit", id)
         // remove from heats
-        firebaseDB.ref(`heats/${id}`).remove() 
-
+        
         // remove from boats
+        let boatID = this.props.match.params.id
+        let boatHeatKey = firebaseDB.ref(`/heats/${id}/boatHeatKey`)
+        .once('value')
+        .then(function(snapshot) {
+            let bhkey = (snapshot.val())
+            console.log("boatHeatKey: " , bhkey)
+            firebaseDB.ref(`/boats/${boatID}/heats/${bhkey}`).remove()
+            firebaseDB.ref(`heats/${id}`).remove() 
+        })
         let heat = firebaseDB.ref(
             `boats/${this.props.match.params.id}/heats/`)
-        // .once('value')
-        //     .remove()
-        console.log("delete heat: ", heat.key)
-
+            //     .remove()
+            // console.log("delete heat: ", heat.key)
+            
         // update state
         let heats = [...this.state.heats]
         let index = heats.indexOf(id)
-        console.log("index:" , index)
         heats.splice(index, 1)
-        // this.setState({
-        //     heats
-        // })        
+        this.setState({
+            heats
+        })        
     }
     createHeat(){
         console.log('createHeat')
         let heatRef = firebaseHeats.push()
         let heatKey = heatRef.key
         
+        // add heat to boat
         let boatRef = firebaseDB.ref(
             `boats/${this.props.match.params.id}/heats`)
         
-        boatRef.push({"heatKey": "test"})
-        let boatHeatKey = boatRef.key
-        let heatData = {
-            'heatName': 'New heat name',
-            'boatHeatKey': boatHeatKey,
-            'boat': this.props.match.params.id
-        }
-        heatRef.set(heatData)
+        boatRef.push(heatKey)
+            .then((snap) => {
+                const key = snap.key
+                console.log('boatref: ', boatRef)
+                let boatHeatKey = boatRef.name
+                let heatData = {
+                    'heatName': 'New heat name',
+                    'boatHeatKey': key,
+                    'boat': this.props.match.params.id
+                }
+                heatRef.set(heatData)
+            })
 
         const newHeatData = {
             ...this.state.heats
@@ -108,7 +126,8 @@ class HeatList extends Component {
                             <span>    </span>Add New Heat
                             </div>
                             </th>
-                        <th>ID</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -46,8 +46,18 @@ class Boats2 extends Component {
             'boatName': 'boat name',
             // 'heats': null
         }
+        let newBoatState = {
+            'boatName': 'boat name',
+            'id': boatKey
+        }
         newRef.set(boatData)
         // seatRef.set(seatData)
+        const newBoatData = {
+            ...this.state.boats
+        }
+        this.setState({
+            boats: [...this.state.boats, newBoatState]
+        })
     }
     redirect(id){
         console.log('redirect', id)
