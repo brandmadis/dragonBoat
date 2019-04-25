@@ -7,18 +7,27 @@ import Enum from '../widgets/enums';
   
 class Paddlers extends Component {
     state = {
-        paddlers: []
+        paddlers: [],
+        t0: 0
     }
     componentWillMount(){
+        let t0 = performance.now()
         if(this.state.paddlers.length < 1){
             firebasePaddlers.once('value')
             .then((snapshot) => {
                 const paddlers = firebaseLooper(snapshot)
+
                 this.setState({
-                    paddlers
+                    paddlers,
+                    t0
                 })
             })
         }
+    }
+    componentDidMount(){
+
+        let t1 = performance.now()
+        console.log(`/paddlers Mount time: ${t1-this.state.t0}`)
     }
     deletePaddler(id, index){
 
