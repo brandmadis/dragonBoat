@@ -26,7 +26,8 @@ const Routes = () => {
                 <Route path="/boats" exact component={Boats}/>
                 <Route path="/boats2" exact component={Boats2}/>
                 <Route path="/heats" exact component={Heats}/>
-                <Route path="/heat/:id/:name" exact component={Heat}/>
+                {/* <Route path="/heat/:id/:name" exact component={Heat}/> */}
+                <Route path="/heat/:id/" exact component={Heat}/>
                 <Route path="/heatList/:id" exact component={HeatList}/>
                 <Route path="/boatedit/:id" exact component={BoatEdit}/>
                 <Route path="/" exact component={Home}/>

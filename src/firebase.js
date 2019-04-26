@@ -48,21 +48,17 @@ const firebaseLooper2 = (snapshot) => {
     return data2
 }
 const firebaseLooper3 = (snapshot, boatID) => {
-    console.log("headData: ", boatID)
     const data3 = []
     const out = []
     snapshot.forEach((childSnapshot) => {
-        console.log("snapshot: ", childSnapshot.val())
         data3.push(childSnapshot.val())
     })
     data3.forEach((item) => {
-        console.log("boat: ", item.boat)
         if(item.boat === boatID){
+            console.log("item.key", item.key)
             out.push(item)
         }
     })
-    console.log("data3: ", data3)
-    console.log("out: ", out)
     return out
 }
 export {

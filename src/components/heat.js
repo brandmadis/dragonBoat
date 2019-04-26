@@ -56,7 +56,7 @@ class Heat extends Component {
             })
         }
         if(this.state.boat.length < 1){
-            let refUrl = `boat/${this.props.match.params.id}/boat`
+            let refUrl = `heats/${this.props.match.params.id}/seating`
             await firebaseDB.ref(refUrl).once('value')
             .then((snapshot) => {
               const boat = firebaseLooper2(snapshot)
@@ -190,13 +190,13 @@ class Heat extends Component {
         newState.selSeat = -1
         this.setState(newState)
         
-        let refUrl = `boat/${this.props.match.params.id}/boat`
+        let refUrl = `heats/${this.props.match.params.id}/seating`
         firebaseDB.ref(refUrl).set(this.state.boat)
       }
     }
     updateBoat(marker){
       console.log("updateBoat func", marker)
-      let refUrl = `boat/${this.props.match.params.id}/boat`
+      let refUrl = `heats/${this.props.match.params.id}/seating`
       firebaseDB.ref(refUrl).set(this.state.boat)
     }
     clone(id){
@@ -217,7 +217,7 @@ class Heat extends Component {
       const newName = this.state.name
       if(element.blur){
         console.log("clicked off, save")
-        let refUrl = `boat/${this.props.match.params.id}/name`
+        let refUrl = `heats/${this.props.match.params.id}/heatName`
         firebaseDB.ref(refUrl).set(this.state.name)   
         this.setState({
           name: element.event.target.value,

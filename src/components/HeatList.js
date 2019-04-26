@@ -84,7 +84,9 @@ class HeatList extends Component {
                 heatData = {
                     'heatName': this.state.heatInput,
                     'boatHeatKey': key,
-                    'boat': this.props.match.params.id
+                    'boat': this.props.match.params.id,
+                    'seating': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'heatKey': heatKey
                 }
                 heatRef.set(heatData)
             })
@@ -111,7 +113,11 @@ class HeatList extends Component {
         this.setState({
             heatInput: newheatInput
         })
-    }      
+    }     
+    redirect = (item) => {
+        console.log("redirect" , item)
+        this.props.history.push(`/heat/${item.heatKey}`)
+    } 
     render(){
         const heatList = this.state.heats.map((item, i) => {
             return (
