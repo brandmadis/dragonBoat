@@ -128,10 +128,8 @@ class Paddlers extends Component {
   
         const imgStyle = { borderRadius: '15px'}
         const padList = this.state.paddlers.map((item, i) => {
-            // console.log("item: ", item, "i: ", i)
 
             return (
-                // <tr key={i} onClick={() => this.editPaddler(item.id)}> 
                 <tr key={i}
                     onClick={()=> this.editPaddler(item.id)}
                     style={{cursor: 'pointer'}}>

@@ -3,6 +3,7 @@ import {
     firebaseBoats,
     firebaseLooper,
     firebaseLooper2, 
+    firebaseLooper3, 
     firebaseDB, 
     firebaseHeats, 
     firebaseSeats } from '../firebase'
@@ -24,20 +25,26 @@ class HeatList extends Component {
     componentWillMount(){
         console.log("cwm:", this.props.match.params.id)
         if(this.state.heats.length < 1){
-            firebaseDB.ref(`/boats/${this.props.match.params.id}/heats`).once('value')
-            .then((snapshot) => {
-                const heats = firebaseLooper2(snapshot)
-                console.log('heats: ', heats)
-                this.setState({
-                    heats
-                })
-            })
+            // firebaseDB.ref(`/boats/${this.props.match.params.id}/heats`).once('value')
+            // .then((snapshot) => {
+            //     const heats = firebaseLooper2(snapshot)
+            //     this.setState({
+            //         heats
+            //     })
+            // })
             firebaseDB.ref(`/boats/${this.props.match.params.id}/boatName`).once('value')
             .then((snapshot) => {
                 this.setState({
                     boatName: snapshot.val()
                 })
             })
+            firebaseHeats.once('value')
+            .then((snapshot) => {
+                const heats = firebaseLooper3(snapshot, this.props.match.params.id)
+                this.setState({
+                    heats
+                })
+            })            
                    
         }
     }    
@@ -95,7 +102,7 @@ class HeatList extends Component {
                 <tr key={i}
                     >
                     <td onClick={() => this.redirect(item)}
-                        >{item}</td>
+                        >{item.heatName}</td>
                     <td>{item.id}</td>
                     <td onClick={() => this.delete(item)}
                         ><button className="btn btn-default">Delete</button></td>
