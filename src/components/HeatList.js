@@ -17,7 +17,8 @@ class HeatList extends Component {
         super(props)
         this.state = {
             heats: [],
-            refresh: false
+            refresh: false,
+            heatInput: ""
 
         }
     }      
@@ -75,27 +76,42 @@ class HeatList extends Component {
         // add heat to boat
         let boatRef = firebaseDB.ref(
             `boats/${this.props.match.params.id}/heats`)
-        
+        let heatData = {}
         boatRef.push(heatKey)
             .then((snap) => {
                 const key = snap.key
-                console.log('boatref: ', boatRef)
                 let boatHeatKey = boatRef.name
-                let heatData = {
-                    'heatName': 'New heat name',
+                heatData = {
+                    'heatName': this.state.heatInput,
                     'boatHeatKey': key,
                     'boat': this.props.match.params.id
                 }
                 heatRef.set(heatData)
             })
-
-        const newHeatData = {
-            ...this.state.heats
+            .then(() => {
+                const newHeatData = {
+                    ...this.state.heats
+                }
+                this.setState({
+                    heats: [...this.state.heats, heatData]
+                })
+            })
+    }  
+    submitForm = (event) => {
+        console.log("submitForm")
+        event.preventDefault()
+        this.createHeat()
+        event.target.reset()
+    }   
+    updateForm = (event) => {
+        let newheatInput = {
+            ...this.state.heatInput
         }
+        newheatInput = event.target.value
         this.setState({
-            heats: [...this.state.heats, heatKey]
+            heatInput: newheatInput
         })
-    }           
+    }      
     render(){
         const heatList = this.state.heats.map((item, i) => {
             return (
@@ -116,14 +132,21 @@ class HeatList extends Component {
                 <thead>
                     <tr>
                         <th>
-                            <div onClick={()=>this.createHeat()}
+                            <form onSubmit={this.submitForm}>
+                                <input 
+                                    type="text"
+                                    onChange={(event)=>this.updateForm(event)}/>
+                                <button>Add Heat</button>
+                            </form>
+                            {/* <div onClick={()=>this.createHeat()}
                                 style={{
                                     display:'inline', 
                                     marginRight: '10px',
                                     cursor: 'pointer'}}>
-                                <FontAwesomeIcon icon={'plus'} />
+                                <FontAwesomeIcon icon={'plus'}
+                                 />
                             <span>    </span>Add New Heat
-                            </div>
+                            </div> */}
                             </th>
                         <th></th>
                         <th></th>

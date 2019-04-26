@@ -9,6 +9,7 @@ class Boats2 extends Component {
         super(props)
         this.state = {
             boats: [],
+            boatInput: ""
 
         }
     }
@@ -27,30 +28,18 @@ class Boats2 extends Component {
         console.log("createBoat")
         let newRef = firebaseBoats.push()
         let boatKey = newRef.key
-        
-        // let heatRef = firebaseHeats.push()
-        // let heatKey = heatRef.key
-        // let heatData = {
-        //     'heatName': 'Heat name',
-        //     'boat': boatKey
-        // }
-        // heatRef.set(heatData)
-        
-        // let seatRef = firebaseSeats.push()
-        // let seatData ={
-        //     'seating': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        //     'boat': boatKey,
-        //     'heat': heatKey
-        // }
+        let name = this.state.boatInput
         let boatData = {
-            'boatName': 'boat name',
+            'boatName': name,
             // 'heats': null
         }
         let newBoatState = {
-            'boatName': 'boat name',
+            'boatName': name,
             'id': boatKey
         }
+        console.log("1")
         newRef.set(boatData)
+        console.log("2")
         // seatRef.set(seatData)
         const newBoatData = {
             ...this.state.boats
@@ -62,6 +51,22 @@ class Boats2 extends Component {
     redirect(id){
         console.log('redirect', id)
         this.props.history.push(`/heatList/${id}`)
+    }
+    submitForm = (event) => {
+        console.log("submitForm")
+        event.preventDefault()
+        this.createBoat()
+        event.target.reset()
+    }
+    updateForm = (event) => {
+        let newboatInput = {
+            ...this.state.boatInput
+        }
+        newboatInput = event.target.value
+        this.setState({
+            boatInput: newboatInput
+        })
+       
     }
     render(){
 
@@ -81,13 +86,19 @@ class Boats2 extends Component {
                 <thead>
                     <tr>
                         <th>
-                            <div onClick={()=>this.createBoat()}
+                            <form onSubmit={this.submitForm}>
+                                <input 
+                                    type='text'
+                                    onChange={(event)=>this.updateForm(event)} />
+                                <button>Add Boat</button>
+                            </form>
+                            {/* <div onClick={()=>this.createBoat()}
                                 style={{
                                     display:'inline', 
                                     marginRight: '10px'}}>
                                 <FontAwesomeIcon icon={'plus'} />
                             <span>    </span>Add Boat
-                            </div>
+                            </div> */}
                             </th>
                         <th>ID</th>
                     </tr>
