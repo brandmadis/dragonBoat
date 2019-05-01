@@ -55,7 +55,6 @@ const firebaseLooper3 = (snapshot, boatID) => {
     })
     data3.forEach((item) => {
         if(item.boat === boatID){
-            console.log("item.key", item.key)
             out.push(item)
         }
     })

@@ -76,7 +76,7 @@ const FormFields = ({formData, change, id, selectedGender, click}) => {
                                 {item.text}
                         </div>
                         ))} */}
-                            <ConsoleLog>{formData.config.options}</ConsoleLog>
+                            {/* <ConsoleLog>{formData.config.options}</ConsoleLog> */}
                         { formData.config.options.map((item, i)=>(
                             
                             <button 

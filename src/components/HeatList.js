@@ -32,6 +32,7 @@ class HeatList extends Component {
             paddlers: [],
             refresh: false,
             heatInput: "",
+            checked: "string",
             // tags: [
             //     { id: "Thailand", text: "Thailand" },
             //     { id: "India", text: "India" }
@@ -48,6 +49,7 @@ class HeatList extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
+        this.handleCheckbox = this.handleCheckbox.bind(this);
     }    
     handleDelete(i) {
         const { tags } = this.state;
@@ -57,7 +59,6 @@ class HeatList extends Component {
     }
  
     handleAddition(tag) {
-        console.log("tag: ", tag)
         // const newformData = {
         //     ...this.state.formData
         // }
@@ -91,7 +92,6 @@ class HeatList extends Component {
     }  
     componentDidMount(){}
     componentWillMount(){
-        console.log("cwm:", this.props.match.params.id)
         if(this.state.heats.length < 1){
             // firebaseDB.ref(`/boats/${this.props.match.params.id}/heats`).once('value')
             // .then((snapshot) => {
@@ -129,7 +129,6 @@ class HeatList extends Component {
         }
     }    
     delete(id){
-        console.log("delete hit", id.heatKey)
         let boatID = this.props.match.params.id
         let boatHeatKey = firebaseDB.ref(`/heats/${id.heatKey}/boatHeatKey`)
         .once('value')
@@ -148,7 +147,6 @@ class HeatList extends Component {
         })        
     }
     createHeat(){
-        console.log('createHeat')
         let heatRef = firebaseHeats.push()
         let heatKey = heatRef.key
         
@@ -166,7 +164,7 @@ class HeatList extends Component {
                     'boat': this.props.match.params.id,
                     'seating': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     'heatKey': heatKey,
-                    'subs': []
+                    'subs': [0]
                 }
                 heatRef.set(heatData)
             })
@@ -180,7 +178,6 @@ class HeatList extends Component {
             })
     }  
     submitForm = (event) => {
-        console.log("submitForm")
         event.preventDefault()
         this.createHeat()
         event.target.reset()
@@ -195,27 +192,55 @@ class HeatList extends Component {
         })
     }     
     redirect = (item) => {
-        console.log("redirect" , item)
         this.props.history.push(`/heat/${item.heatKey}`)
     } 
+    handleCheckbox = (paddler, heat, index) => {
+        console.log("handleCheckbox", paddler, heat, index)
+        const newformData = [
+            ...this.state.heats
+        ]
+        if(newformData[index]['subs'].includes(paddler.id)){
+            let padIndex = newformData[index]['subs'].indexOf(paddler.id)
+            newformData[index]['subs'].splice(padIndex, 1)
+            console.log("remove", padIndex)
+        } else {
+            console.log("add")
+            newformData[index]['subs'].push(paddler.id)
 
+        }
+        
+        
+        
+        console.log("newformData: ", newformData)
+        console.log('this.state.heats', this.state.heats)
+        this.setState({
+            heats: newformData
+        })
+    }
     render(){
         let divGrid = {
             display: 'grid',
-            gridTemplateColumns: `${(this.state.heats.length * 50)+200}px 15px 500px` ,          
+            gridTemplateColumns: `${(this.state.heats.length * 60)+200}px 15px 500px` ,          
           }      
         const rotate = {
             transform: "rotate(305deg)",
             whiteSpace: 'nowrap'
         }
-        const paddlerList = this.state.paddlers.map((item, i) => {
+        const paddlerList = this.state.paddlers.map((paddler, i) => {
             return (
                 <tr key={i}>
-                    <td>{ item.firstName }</td>
-                    <td>{ item.Time }</td>
-                    <td>{ item.Attendance }</td>
-                    {this.state.heats.map((item) => (
-                        <td><input type="checkbox"/></td>
+                    <td>{ paddler.firstName }</td>
+                    <td>{ paddler.Time }</td>
+                    <td>{ paddler.Attendance }</td>
+{this.state.heats.map((heat, j) => (
+    <td key={j}>
+        <input 
+            type="checkbox"
+            checked={
+                    heat.subs.includes(paddler.id) 
+            }
+            onClick={()=>this.handleCheckbox(paddler, heat, j)}
+    /></td>
 
                     ))}
                 </tr>
@@ -223,11 +248,9 @@ class HeatList extends Component {
         })
         const heatList = this.state.heats.map((item, i) => {
             // const { tags, suggestions } = this.state;
-            // console.log(item.tags, i)
             // if(item.tags.length != undefined){
 
             //     item.tags.map((tag) => {
-            //         console.log(tag)
             //     })
             // }
             
@@ -251,7 +274,7 @@ class HeatList extends Component {
                         style={{ cursor: 'pointer'}}
                         >{item.heatName}</td>
                     <td>
-                    <ReactTags 
+                    {/* <ReactTags 
                         id={i}
                         tags={item.tags}
                         suggestions={suggestions}
@@ -259,7 +282,7 @@ class HeatList extends Component {
                         handleAddition={() => this.handleAddition({id:'test', text:'test'})}
 
                         handleDrag={this.handleDrag}
-                        delimiters={delimiters} />
+                        delimiters={delimiters} /> */}
                     </td>
                     {/* <td onClick={() => this.delete(item)}
                         ><button className="btn btn-default">Delete</button></td> */}
@@ -275,11 +298,29 @@ class HeatList extends Component {
                         <table className="table table-hove">
                             <thead>
                                 <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Subs</th>
+                                </tr>
+                                <tr>
                                     <th>Name</th>
                                     <th>Time</th>
                                     <th>Att</th>
-                                    {this.state.heats.map((item)=>(
-                                        <th style={rotate}>{ item.heatName }</th>
+                                    {this.state.heats.map((item, i)=>(
+                                        <th 
+                                            key={i} 
+                                            >
+                                            <button
+                                                style={{ cursor: 'pointer'}}
+                                                onClick={()=>this.redirect(item)}
+                                            >
+                                            { item.heatName }
+                                                
+                                            </button>
+                                        
+                                        
+                                        </th>
                                     ))}
                                 </tr>
                             </thead>
