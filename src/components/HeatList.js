@@ -211,7 +211,10 @@ class HeatList extends Component {
                     <td>{ item.firstName }</td>
                     <td>{ item.Time }</td>
                     <td>{ item.Attendance }</td>
-                    <td><input type="checkbox"/></td>
+                    {this.state.heats.map((item) => (
+                        <td><input type="checkbox"/></td>
+
+                    ))}
                 </tr>
             )
         })
