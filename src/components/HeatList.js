@@ -202,7 +202,7 @@ class HeatList extends Component {
     render(){
         let divGrid = {
             display: 'grid',
-            gridTemplateColumns: '500px 15px 500px' ,          
+            gridTemplateColumns: `${(this.state.heats.length * 50)+200}px 15px 500px` ,          
           }      
           
         const paddlerList = this.state.paddlers.map((item, i) => {
