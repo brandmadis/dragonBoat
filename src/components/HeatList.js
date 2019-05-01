@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import { WithContext as ReactTags } from 'react-tag-input'
 import { 
     firebaseBoats,
     firebaseLooper,
@@ -6,10 +8,20 @@ import {
     firebaseLooper3, 
     firebaseDB, 
     firebaseHeats, 
+    firebasePaddlers,
     firebaseSeats } from '../firebase'
-import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
-import { CardContent } from 'semantic-ui-react';
-import { createCipher } from 'crypto';
+// import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
+// import { CardContent } from 'semantic-ui-react';
+// import { createCipher } from 'crypto';
+// const ReactTags = require('react-tag-autocomplete')
+
+
+const KeyCodes = {
+    comma: 188,
+    enter: 13,
+  };
+   
+  const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 
 class HeatList extends Component {
@@ -17,11 +29,66 @@ class HeatList extends Component {
         super(props)
         this.state = {
             heats: [],
+            paddlers: [],
             refresh: false,
-            heatInput: ""
+            heatInput: "",
+            // tags: [
+            //     { id: "Thailand", text: "Thailand" },
+            //     { id: "India", text: "India" }
+            //  ],
+            // suggestions: [
+            //     { id: 'USA', text: 'USA' },
+            //     { id: 'Germany', text: 'Germany' },
+            //     { id: 'Austria', text: 'Austria' },
+            //     { id: 'Costa Rica', text: 'Costa Rica' },
+            //     { id: 'Sri Lanka', text: 'Sri Lanka' },
+            //     { id: 'Thailand', text: 'Thailand' }
+            //  ]
+            }
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleAddition = this.handleAddition.bind(this);
+        this.handleDrag = this.handleDrag.bind(this);
+    }    
+    handleDelete(i) {
+        const { tags } = this.state;
+        this.setState({
+         tags: tags.filter((tag, index) => index !== i),
+        });
+    }
+ 
+    handleAddition(tag) {
+        console.log("tag: ", tag)
+        // const newformData = {
+        //     ...this.state.formData
+        // }
+        // const newElement = {
+        //     ...newformData['gender']
+        // }
+        // newElement.value = item
+        // newformData['gender'] = newElement
+        // this.setState({
+        //     selectedGender: item,
+        //     formData: newformData
+        // })        
 
-        }
-    }      
+
+        // const heat = getElementBy
+
+        this.setState(state => ({
+             heats: [...state.heats, "test"] 
+            }));
+    }
+ 
+    handleDrag(tag, currPos, newPos) {
+        const tags = [...this.state.tags];
+        const newTags = tags.slice();
+ 
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
+ 
+        // re-render
+        this.setState({ tags: newTags });
+    }  
     componentDidMount(){}
     componentWillMount(){
         console.log("cwm:", this.props.match.params.id)
@@ -33,33 +100,45 @@ class HeatList extends Component {
             //         heats
             //     })
             // })
-            firebaseDB.ref(`/boats/${this.props.match.params.id}/boatName`).once('value')
+            firebaseDB.ref(`/boats/${this.props.match.params.id}/boatName`)
+            .once('value')
             .then((snapshot) => {
                 this.setState({
                     boatName: snapshot.val()
                 })
             })
-            firebaseHeats.once('value')
+            firebaseHeats
+            .once('value')
             .then((snapshot) => {
                 const heats = firebaseLooper3(snapshot, this.props.match.params.id)
                 this.setState({
                     heats
                 })
             })            
+            firebasePaddlers
+            .orderByChild('Time')
+            .once('value')
+            .then((snapshot) => {
+                const paddlers = firebaseLooper(snapshot)
+                this.setState({
+                    paddlers
+                })
+            })
+
                    
         }
     }    
     delete(id){
-        console.log("delete hit", id)
+        console.log("delete hit", id.heatKey)
         let boatID = this.props.match.params.id
-        let boatHeatKey = firebaseDB.ref(`/heats/${id}/boatHeatKey`)
+        let boatHeatKey = firebaseDB.ref(`/heats/${id.heatKey}/boatHeatKey`)
         .once('value')
         .then(function(snapshot) {
             let bhkey = (snapshot.val())
             // remove from boats
             firebaseDB.ref(`/boats/${boatID}/heats/${bhkey}`).remove()
             // remove from heats
-            firebaseDB.ref(`heats/${id}`).remove() 
+            firebaseDB.ref(`heats/${id.heatKey}`).remove() 
         })
         let heats = [...this.state.heats]
         let index = heats.indexOf(id)
@@ -86,7 +165,8 @@ class HeatList extends Component {
                     'boatHeatKey': key,
                     'boat': this.props.match.params.id,
                     'seating': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'heatKey': heatKey
+                    'heatKey': heatKey,
+                    'subs': []
                 }
                 heatRef.set(heatData)
             })
@@ -118,50 +198,124 @@ class HeatList extends Component {
         console.log("redirect" , item)
         this.props.history.push(`/heat/${item.heatKey}`)
     } 
+
     render(){
+        let divGrid = {
+            display: 'grid',
+            gridTemplateColumns: '500px 15px 500px' ,          
+          }      
+          
+        const paddlerList = this.state.paddlers.map((item, i) => {
+            return (
+                <tr key={i}>
+                    <td>{ item.firstName }</td>
+                    <td>{ item.Time }</td>
+                    <td>{ item.Attendance }</td>
+                    <td><input type="checkbox"/></td>
+                </tr>
+            )
+        })
         const heatList = this.state.heats.map((item, i) => {
+            // const { tags, suggestions } = this.state;
+            // console.log(item.tags, i)
+            // if(item.tags.length != undefined){
+
+            //     item.tags.map((tag) => {
+            //         console.log(tag)
+            //     })
+            // }
+            
+            // const tags = [
+            //     { id: "Thailand", text: "Thailand" },
+            //     { id: "India", text: "India" }
+            //  ]
+            // const tags= this.state.heats.tags
+            const suggestions = [
+                { id: 'USA', text: 'USA' },
+                { id: 'Germany', text: 'Germany' },
+                { id: 'Austria', text: 'Austria' },
+                { id: 'Costa Rica', text: 'Costa Rica' },
+                { id: 'Sri Lanka', text: 'Sri Lanka' },
+                { id: 'Thailand', text: 'Thailand' }
+             ]            
             return (
                 <tr key={i}
                     >
                     <td onClick={() => this.redirect(item)}
+                        style={{ cursor: 'pointer'}}
                         >{item.heatName}</td>
-                    <td>{item.id}</td>
-                    <td onClick={() => this.delete(item)}
-                        ><button className="btn btn-default">Delete</button></td>
+                    <td>
+                    <ReactTags 
+                        id={i}
+                        tags={item.tags}
+                        suggestions={suggestions}
+                        handleDelete={this.handleDelete}
+                        handleAddition={() => this.handleAddition({id:'test', text:'test'})}
+
+                        handleDrag={this.handleDrag}
+                        delimiters={delimiters} />
+                    </td>
+                    {/* <td onClick={() => this.delete(item)}
+                        ><button className="btn btn-default">Delete</button></td> */}
                 </tr>
             )
         })
         return(
             <div>
                 <h1><i>{ this.state.boatName }</i></h1>
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                            <form onSubmit={this.submitForm}>
-                                <input 
-                                    type="text"
-                                    onChange={(event)=>this.updateForm(event)}/>
-                                <button>Add Heat</button>
-                            </form>
-                            {/* <div onClick={()=>this.createHeat()}
-                                style={{
-                                    display:'inline', 
-                                    marginRight: '10px',
-                                    cursor: 'pointer'}}>
-                                <FontAwesomeIcon icon={'plus'}
-                                 />
-                            <span>    </span>Add New Heat
-                            </div> */}
-                            </th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                     { heatList }
-                </tbody>
-            </table>
+
+                <div style={divGrid}>
+                    <div style={{border: '1px solid black'}}>
+                        <table className="table table-hove">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Time</td>
+                                    <td>Att</td>
+                                    {this.state.heats.map((item)=>(
+                                        <td>{ item.heatName }</td>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                { paddlerList }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div></div>
+                <div>
+                    
+                        <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <form onSubmit={this.submitForm}>
+                                            <input 
+                                                type="text"
+                                                onChange={(event)=>this.updateForm(event)}/>
+                                            <button>Add Heat</button>
+                                        </form>
+                                        {/* <div onClick={()=>this.createHeat()}
+                                            style={{
+                                                display:'inline', 
+                                                marginRight: '10px',
+                                                cursor: 'pointer'}}>
+                                            <FontAwesomeIcon icon={'plus'}
+                                            />
+                                        <span>    </span>Add New Heat
+                                        </div> */}
+                                        </th>
+                                    <th>Substitutions</th>
+                                </tr>
+                            </thead>
+                    <tbody>
+                        { heatList }
+                    </tbody>
+                </table>
+        
+                </div>
+                </div>
+
         </div>
         )
     }
