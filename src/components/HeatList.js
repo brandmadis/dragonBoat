@@ -204,7 +204,10 @@ class HeatList extends Component {
             display: 'grid',
             gridTemplateColumns: `${(this.state.heats.length * 50)+200}px 15px 500px` ,          
           }      
-          
+        const rotate = {
+            transform: "rotate(305deg)",
+            whiteSpace: 'nowrap'
+        }
         const paddlerList = this.state.paddlers.map((item, i) => {
             return (
                 <tr key={i}>
@@ -272,11 +275,11 @@ class HeatList extends Component {
                         <table className="table table-hove">
                             <thead>
                                 <tr>
-                                    <td>Name</td>
-                                    <td>Time</td>
-                                    <td>Att</td>
+                                    <th>Name</th>
+                                    <th>Time</th>
+                                    <th>Att</th>
                                     {this.state.heats.map((item)=>(
-                                        <td>{ item.heatName }</td>
+                                        <th style={rotate}>{ item.heatName }</th>
                                     ))}
                                 </tr>
                             </thead>
