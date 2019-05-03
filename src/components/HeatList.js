@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
+import Autocomplete from './Autocomplete'
+
 import { WithContext as ReactTags } from 'react-tag-input'
 import { 
     firebaseBoats,
@@ -294,7 +297,23 @@ class HeatList extends Component {
         return(
             <div>
                 <h1><i>{ this.state.boatName }</i></h1>
-
+<div style={{ border: '1px solid black' }}>
+    <p>Autocomplete</p>
+    <Autocomplete
+        suggestions={[
+            "Alligator",
+            "Bask",
+            "Crocodilian",
+            "Death Roll",
+            "Eggs",
+            "Jaws",
+            "Reptile",
+            "Solitary",
+            "Tail",
+            "Wetlands"
+        ]}
+        />
+</div>
                 <div style={divGrid}>
                     <div style={{border: '1px solid black'}}>
                         <table className="table table-hove">
