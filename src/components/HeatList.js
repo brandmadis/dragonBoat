@@ -274,6 +274,7 @@ class HeatList extends Component {
                         style={{ cursor: 'pointer'}}
                         >{item.heatName}</td>
                     <td>
+                            <input type="text" />
                     {/* <ReactTags 
                         id={i}
                         tags={item.tags}
@@ -284,6 +285,7 @@ class HeatList extends Component {
                         handleDrag={this.handleDrag}
                         delimiters={delimiters} /> */}
                     </td>
+                    <td></td>
                     {/* <td onClick={() => this.delete(item)}
                         ><button className="btn btn-default">Delete</button></td> */}
                 </tr>
@@ -352,6 +354,7 @@ class HeatList extends Component {
                                         <span>    </span>Add New Heat
                                         </div> */}
                                         </th>
+                                        <th>Select Subs</th>
                                     <th>Substitutions</th>
                                 </tr>
                             </thead>
