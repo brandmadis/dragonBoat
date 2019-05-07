@@ -9,6 +9,7 @@ import {
     firebaseLooper,
     firebaseLooper2, 
     firebaseLooper3, 
+    firebaseLooper4,
     firebaseDB, 
     firebaseHeats, 
     firebasePaddlers,
@@ -36,6 +37,8 @@ class HeatList extends Component {
             refresh: false,
             heatInput: "",
             checked: "string",
+            suggestions: [],
+            subs: [],
             // tags: [
             //     { id: "Thailand", text: "Thailand" },
             //     { id: "India", text: "India" }
@@ -53,6 +56,7 @@ class HeatList extends Component {
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
         this.handleCheckbox = this.handleCheckbox.bind(this);
+        this.addToSubs = this.addToSubs.bind(this)
     }    
     handleDelete(i) {
         const { tags } = this.state;
@@ -93,7 +97,6 @@ class HeatList extends Component {
         // re-render
         this.setState({ tags: newTags });
     }  
-    componentDidMount(){}
     componentWillMount(){
         if(this.state.heats.length < 1){
             // firebaseDB.ref(`/boats/${this.props.match.params.id}/heats`).once('value')
@@ -123,14 +126,42 @@ class HeatList extends Component {
             .once('value')
             .then((snapshot) => {
                 const paddlers = firebaseLooper(snapshot)
+                console.log('mount', paddlers)
+                let suggestions = []
+                paddlers.map((paddler) => {
+                    let fullName = paddler.firstName + " " + paddler.lastName
+                    suggestions.push({id: paddler.id, fullName: fullName})                    
+                })
                 this.setState({
-                    paddlers
+                    paddlers, suggestions
                 })
             })
+            
+            // firebasePaddlers
+            // .once('value')
+            // .then((snapshot) => {
+            //     const suggestions = firebaseLooper4(snapshot)
+            //     this.setState({
+            //         suggestions
+            //     })
+            // })
 
-                   
+            
+            
         }
     }    
+    
+    // componentDidUpdate(){
+    //     console.log("paddlers mounted: ", this.state.paddlers)
+    //     let suggestions = []
+    //     this.state.paddlers.map((paddler) => {
+    //         let fullName = paddler.firstName + " " + paddler.lastName
+    //         suggestions.push({id: paddler.id, fullName: fullName})
+    //      })
+    //      console.log("suggestions:", suggestions)
+    //     this.setState({ suggestions })
+    // }
+
     delete(id){
         let boatID = this.props.match.params.id
         let boatHeatKey = firebaseDB.ref(`/heats/${id.heatKey}/boatHeatKey`)
@@ -220,73 +251,53 @@ class HeatList extends Component {
             heats: newformData
         })
     }
+    
+    addToSubs = (sub, heatID, i) => {
+        console.log("addToSubs", sub, heatID, i)
+        const newData = [ ...this.state.heats ]
+        newData[i]['subs'].push(sub)
+        this.setState({
+            heats: newData
+        })
+    }
+    
+    addToSubsTest = (sub, heatID, i) => {
+        console.log("addToSubs--- TEST", sub, heatID, i)
+        this.setState({ subs: [...this.state.subs, sub] })
+    }
+
     render(){
         let divGrid = {
             display: 'grid',
             gridTemplateColumns: `${(this.state.heats.length * 60)+200}px 15px 500px` ,          
           }      
-        const rotate = {
-            transform: "rotate(305deg)",
-            whiteSpace: 'nowrap'
-        }
         const paddlerList = this.state.paddlers.map((paddler, i) => {
             return (
                 <tr key={i}>
                     <td>{ paddler.firstName }</td>
                     <td>{ paddler.Time }</td>
                     <td>{ paddler.Attendance }</td>
-{this.state.heats.map((heat, j) => (
-    <td key={j}>
-        <input 
-            type="checkbox"
-            checked={
-                    heat.subs.includes(paddler.id) 
-            }
-            onClick={()=>this.handleCheckbox(paddler, heat, j)}
-    /></td>
-
-                    ))}
                 </tr>
             )
         })
+        const subsList = this.state.subs.map((item, i) => {
+            return(
+                    <li key={i}>
+                        {item}
+                    </li>
+                )
+        })
         const heatList = this.state.heats.map((item, i) => {
-            // const { tags, suggestions } = this.state;
-            // if(item.tags.length != undefined){
-
-            //     item.tags.map((tag) => {
-            //     })
-            // }
-            
-            // const tags = [
-            //     { id: "Thailand", text: "Thailand" },
-            //     { id: "India", text: "India" }
-            //  ]
-            // const tags= this.state.heats.tags
-            const suggestions = [
-                { id: 'USA', text: 'USA' },
-                { id: 'Germany', text: 'Germany' },
-                { id: 'Austria', text: 'Austria' },
-                { id: 'Costa Rica', text: 'Costa Rica' },
-                { id: 'Sri Lanka', text: 'Sri Lanka' },
-                { id: 'Thailand', text: 'Thailand' }
-             ]            
             return (
-                <tr key={i}
-                    >
+                <tr key={i}>
                     <td onClick={() => this.redirect(item)}
                         style={{ cursor: 'pointer'}}
                         >{item.heatName}</td>
                     <td>
-                            <input type="text" />
-                    {/* <ReactTags 
-                        id={i}
-                        tags={item.tags}
-                        suggestions={suggestions}
-                        handleDelete={this.handleDelete}
-                        handleAddition={() => this.handleAddition({id:'test', text:'test'})}
-
-                        handleDrag={this.handleDrag}
-                        delimiters={delimiters} /> */}
+                        <Autocomplete
+                            suggestions={this.state.suggestions}
+                            addToSubs={(sub) => this.addToSubs(sub, item.heatKey, i)}
+                            />
                     </td>
                     <td></td>
                     {/* <td onClick={() => this.delete(item)}
@@ -300,19 +311,14 @@ class HeatList extends Component {
 <div style={{ border: '1px solid black' }}>
     <p>Autocomplete</p>
     <Autocomplete
-        suggestions={[
-            "Alligator",
-            "Bask",
-            "Crocodilian",
-            "Death Roll",
-            "Eggs",
-            "Jaws",
-            "Reptile",
-            "Solitary",
-            "Tail",
-            "Wetlands"
-        ]}
+        suggestions={this.state.suggestions}
+        paddlers={this.state.paddlers}
+        addToSubs={(sub) => this.addToSubsTest(sub)}
         />
+        <p>Sublist</p>
+        <ul>
+            { subsList }
+        </ul>
 </div>
                 <div style={divGrid}>
                     <div style={{border: '1px solid black'}}>
@@ -322,12 +328,12 @@ class HeatList extends Component {
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th>Subs</th>
                                 </tr>
                                 <tr>
                                     <th>Name</th>
                                     <th>Time</th>
                                     <th>Att</th>
+                                    {/* 
                                     {this.state.heats.map((item, i)=>(
                                         <th 
                                             key={i} 
@@ -343,6 +349,7 @@ class HeatList extends Component {
                                         
                                         </th>
                                     ))}
+                                     */}
                                 </tr>
                             </thead>
                             <tbody>

@@ -18,17 +18,22 @@ class Autocomplete extends Component {
              userInput: ''
          }
      }
+    
      onChange = e => {
-         console.log("onChange")
+        console.log("paddlers", this.props.suggestions)
+
+         console.log("onChange", e.currentTarget.value)
          const { suggestions } = this.props
          const userInput = e.currentTarget.value
 
-         // add filter by startsWith
 
          const filteredSuggestions = suggestions.filter(
-             suggestion =>
-                suggestion.toLowerCase().indexOf(userInput.toLowerCase())
+             suggestion =>{
+                console.log("suggestion: ",  suggestion, "userInput: ", userInput)
+                return suggestion.fullName.toLowerCase().startsWith(userInput.toLowerCase())
+            }
          )
+         console.log("filteredSuggestions: ", filteredSuggestions)
          this.setState({
              activeSuggestion: 0,
              filteredSuggestions,
@@ -49,12 +54,14 @@ class Autocomplete extends Component {
          console.log("onKeyDown")
          const { activeSuggestion, filteredSuggestions } = this.state
          // enter key
-         if (e.keyCode === 13){
+         if (e.keyCode === 13 || e.keyCode === 9){
+             this.props.addToSubs(filteredSuggestions[activeSuggestion])
              this.setState({
                  activeSuggestion: 0,
                  showSuggestions: false,
-                 userInput: filteredSuggestions[activeSuggestion]
+                 userInput: ""
              })
+             
          }
          // up arrow
          else if (e.keyCode === 38){
@@ -88,7 +95,7 @@ class Autocomplete extends Component {
          if (showSuggestions && userInput){
              if(filteredSuggestions.length){
                  suggestionsListComponent = (
-                     <ul class="suggestions">
+                     <ul className="suggestions">
                         {filteredSuggestions.map((suggestion, index) => {
                             let className;
                             if(index === activeSuggestion){
@@ -97,10 +104,10 @@ class Autocomplete extends Component {
                             return (
                                 <li
                                     className={className}
-                                    key={suggestion}
+                                    key={index}
                                     onClick={onClick}
                                     >
-                                    {suggestion}
+                                    {suggestion.fullName}
                                 </li>
                             )
                         })}
@@ -110,13 +117,14 @@ class Autocomplete extends Component {
          } else {
              suggestionsListComponent = (
                  <div className="no-suggestions">
-                    <em>No suggestions, you're on your own!</em>
+                    <em>No suggestions!</em>
                  </div>
              )
          }
          return (
              <Fragment>
             <input
+                id="autocomplete"
                 type="text"
                 onChange={onChange}
                 onKeyDown={onKeyDown}

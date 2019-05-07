@@ -214,7 +214,7 @@ class Heat extends Component {
     updateName(element){
       console.log("e: ", element.event.target.value)
       console.log("blur: ", element.blur)
-      const newName = this.state.name
+      // const newName = this.state.name
       if(element.blur){
         console.log("clicked off, save")
         let refUrl = `heats/${this.props.match.params.id}/heatName`

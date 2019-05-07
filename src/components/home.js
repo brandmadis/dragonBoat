@@ -1,6 +1,6 @@
 import React, { Component } from 'react' 
-import { config } from '../firebase'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { config } from '../firebase'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Home extends Component {
     state = {

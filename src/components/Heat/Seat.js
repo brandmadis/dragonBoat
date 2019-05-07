@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import iconLeft from '../../assets/icon-left.png'
-import iconRight from '../../assets/icon-right.png'
+// import iconLeft from '../../assets/icon-left.png'
+// import iconRight from '../../assets/icon-right.png'
 import { config } from '../../firebase'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 import Enum from '../../widgets/enums';
@@ -27,10 +27,10 @@ class Seat extends Component {
       // position: 'absolute',
       // display: 'inline',       
     }    
-    const rowNum = (-this.props.seat + 1) / 2
-    const seatNum = { right: '80px', position: 'relative'}
-    const seatNumImage = {right: '80px', position: 'relative', bottom: '60px'}
-    const seatNum10 = {right: '92px', position: 'relative', bottom: '60px'}
+    // const rowNum = (-this.props.seat + 1) / 2
+    // const seatNum = { right: '80px', position: 'relative'}
+    // const seatNumImage = {right: '80px', position: 'relative', bottom: '60px'}
+    // const seatNum10 = {right: '92px', position: 'relative', bottom: '60px'}
 
 
 

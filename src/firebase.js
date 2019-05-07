@@ -59,6 +59,16 @@ const firebaseLooper3 = (snapshot, boatID) => {
         }
     })
     return out
+
+    
+}
+const firebaseLooper4 = (snapshot) => {
+    const data = []
+    snapshot.forEach((childSnapshot) => {
+        let fullName = childSnapshot.val().firstName + " " + childSnapshot.val().lastName
+        data.push(fullName)
+    })
+    return data
 }
 export {
     firebase,
@@ -71,6 +81,7 @@ export {
     firebaseLooper,
     firebaseLooper2,
     firebaseLooper3,
+    firebaseLooper4,
 
     config
 }

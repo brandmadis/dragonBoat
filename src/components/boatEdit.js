@@ -7,7 +7,7 @@ import {
     // firebaseLooper 
 } from '../firebase'
 import { Redirect } from 'react-router-dom'
-import Uploader from '../widgets/FileUploader/fileUploaderEdit'
+// import Uploader from '../widgets/FileUploader/fileUploaderEdit'
 import { Button, Icon } from 'semantic-ui-react'
 
 

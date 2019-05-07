@@ -13,10 +13,10 @@ const FormFields = ({formData, change, id, selectedGender, click}) => {
         }
         return errorMessage
     }
-    const ConsoleLog = ({children}) => {
-        console.log(children)
-        return false
-    }
+    // const ConsoleLog = ({children}) => {
+    //     console.log(children)
+    //     return false
+    // }
     const renderTemplate = () => {
         // console.log("data: ", data.id)
         let formTemplate = null
