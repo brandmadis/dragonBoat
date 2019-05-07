@@ -126,7 +126,6 @@ class HeatList extends Component {
             .once('value')
             .then((snapshot) => {
                 const paddlers = firebaseLooper(snapshot)
-                console.log('mount', paddlers)
                 let suggestions = []
                 paddlers.map((paddler) => {
                     let fullName = paddler.firstName + " " + paddler.lastName
@@ -198,7 +197,7 @@ class HeatList extends Component {
                     'boat': this.props.match.params.id,
                     'seating': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     'heatKey': heatKey,
-                    'subs': [0]
+                    'subs': ""
                 }
                 heatRef.set(heatData)
             })
@@ -241,10 +240,7 @@ class HeatList extends Component {
             console.log("add")
             newformData[index]['subs'].push(paddler.id)
 
-        }
-        
-        
-        
+        }   
         console.log("newformData: ", newformData)
         console.log('this.state.heats', this.state.heats)
         this.setState({
@@ -253,23 +249,38 @@ class HeatList extends Component {
     }
     
     addToSubs = (sub, heatID, i) => {
-        console.log("addToSubs", sub, heatID, i)
+        console.log("addToSubs", sub.id, heatID, i)
         const newData = [ ...this.state.heats ]
-        newData[i]['subs'].push(sub)
-        this.setState({
-            heats: newData
-        })
+        // const newData = this.state.heats[i]['subs'].slice()
+        newData.push(sub)
+        // this.setState({
+        //     heats: newData
+        // })
+        // let data = [sub]
+        // newData[i]['subs'].push("data")
+        // newData['-LdoW0dib-oXYUgw3RxV'].subs.push(sub)
+        // this.setState({
+        //     heats: [...this.state.heats, sub.id]
+        // })
+        // newData[i].subs.push(sub.id)
+        // this.setState({
+        //     heats: [...this.state.heats[i]['subs'], sub]
+        // })
+        let ref = firebaseDB.ref(`/heats/${heatID}/subs`)
+        ref.push(sub)
     }
-    
-    addToSubsTest = (sub, heatID, i) => {
-        console.log("addToSubs--- TEST", sub, heatID, i)
-        this.setState({ subs: [...this.state.subs, sub] })
+    removeSub = (sub, heatID) => {
+        console.log("revove sub",sub, heatID)
     }
+    // addToSubsTest = (sub, heatID, i) => {
+    //     console.log("addToSubs--- TEST", sub, heatID, i)
+    //     this.setState({ subs: [...this.state.subs, sub] })
+    // }
 
     render(){
         let divGrid = {
             display: 'grid',
-            gridTemplateColumns: `${(this.state.heats.length * 60)+200}px 15px 500px` ,          
+            gridTemplateColumns: `200px 15px 600px` ,          
           }      
         const paddlerList = this.state.paddlers.map((paddler, i) => {
             return (
@@ -280,7 +291,7 @@ class HeatList extends Component {
                 </tr>
             )
         })
-        const subsList = this.state.subs.map((item, i) => {
+        const subsList = (heatKey) => this.state.heats.heatKey.subs.map((item, i) => {
             return(
                     <li key={i}>
                         {item}
@@ -299,7 +310,25 @@ class HeatList extends Component {
                             addToSubs={(sub) => this.addToSubs(sub, item.heatKey, i)}
                             />
                     </td>
-                    <td></td>
+                    <td>
+                        <ul>
+                            {/* {item.subs.products.map((sub, i) =>{ */}
+                            { Object.values(item.subs).map((sub, i) => {
+                                return(
+                                    <li key={i}><button
+                                        // onClick={()=>this.removeSub(sub, item.heatKey)}
+                                    >
+
+                                    {sub.fullName}
+                                    </button></li>
+
+                                )
+                            })
+
+                            }
+                        </ul>
+
+                    </td>
                     {/* <td onClick={() => this.delete(item)}
                         ><button className="btn btn-default">Delete</button></td> */}
                 </tr>
@@ -308,6 +337,7 @@ class HeatList extends Component {
         return(
             <div>
                 <h1><i>{ this.state.boatName }</i></h1>
+    {/* 
 <div style={{ border: '1px solid black' }}>
     <p>Autocomplete</p>
     <Autocomplete
@@ -318,8 +348,9 @@ class HeatList extends Component {
         <p>Sublist</p>
         <ul>
             { subsList }
-        </ul>
+        </ul> 
 </div>
+        */}
                 <div style={divGrid}>
                     <div style={{border: '1px solid black'}}>
                         <table className="table table-hove">

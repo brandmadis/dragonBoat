@@ -7,6 +7,7 @@ import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 import { firebaseDB, 
           firebasePaddlers, 
           // firebaseBoats, 
+          firebaseHeats,
           firebaseLooper, 
           firebaseLooper2,
           // config
@@ -199,9 +200,48 @@ class Heat extends Component {
       let refUrl = `heats/${this.props.match.params.id}/seating`
       firebaseDB.ref(refUrl).set(this.state.boat)
     }
+    
+    
+    
     clone(id){
       console.log("clone hit", id)
+      let newHeatRef = firebaseHeats.push()
+      let data = ""
+      let newHeat = ""
+      firebaseDB.ref(`/heats/${id}`)
+      .once('value')
+      .then((snapshot) => {
+        console.log('snapshot', snapshot.val())
+        data = (snapshot.val())
+        // snapshot.forEach((childSnapshot) => {
+        //   console.log(childSnapshot.key, childSnapshot.val())
+        //     data.push({
+        //       ...childSnapshot.val(),
+        //       id: childSnapshot.key
+        //   })
+        // })
+        console.log("data: ", data)
+
+      })
+      .then(() => {
+        let boatRef = firebaseDB.ref(`boats/${data.boat}/heats`)
+        boatRef.push(newHeatRef.key)
+        newHeat = {
+          'heatName': `${data.heatName}-clone`,
+          'boatHeatKey': boatRef.key,
+          'boat':data.boat,
+          'seating': data.seating,
+          'heatKey': newHeatRef.key,
+          'subs': data.subs
+        }
+        newHeatRef.set(newHeat)        
+        this.props.history.push(`/heatList/${data.boat}`)
+      })
+        // console.log('newHeat: ', newHeat)
     }
+
+
+
     delete(id){
       console.log("delete hit", id)
       firebaseDB.ref('boat/' + id).remove()
