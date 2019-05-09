@@ -30,7 +30,7 @@ const Routes = () => {
                 <Route path="/heat/:id/:name" exact component={Heat}/>
                 <Route path="/heatList/:id" exact component={HeatList}/>
                 <Route path="/boatedit/:id" exact component={BoatEdit}/>
-                <Route path="/" exact component={Home}/>
+                <Route path="/" exact component={Boats2}/>
                 <Route path="/paddlerAdd" exact component={PaddlerAdd}/>
                 <Route path="/paddlerAdd2" exact component={PaddlerAdd2}/>
                 <Route path="/boatAdd" exact component={Heat}/>

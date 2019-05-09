@@ -254,9 +254,11 @@ class Heat extends Component {
 
 
     delete(id){
-      console.log("delete hit", id)
-      firebaseDB.ref('boat/' + id).remove()
-      this.props.history.push('/boats')
+      const boatID = this.props.location.state.heat.boat
+      console.log("delete hit", id, boatID)
+      firebaseDB.ref(`boats/${boatID}/heats/${id}`).remove()
+      firebaseDB.ref(`heats/${id}`).remove()
+      this.props.history.push(`/heatList/${boatID}`)
     }
     edit(id){
       console.log("edit hit", id)

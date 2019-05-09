@@ -68,15 +68,37 @@ class Boats2 extends Component {
         })
        
     }
+    deleteBoat = (boat, index) => {
+        console.log("deleteBoat", `/${boat.id}`)
+        firebaseDB.ref(`/boats/${boat.id}`).remove()
+        let boats = [ ...this.state.boats ]
+        boats.splice(index, 1)
+        this.setState({
+            boats
+        })
+    }
     render(){
 
         const boatList = this.state.boats.map((item, i) => {
             return (
                 <tr key={i}
-                    onClick={() => this.redirect(item.id)}
                 >
-                    <td>{item.boatName}</td>
+                    <td
+                        onClick={() => this.redirect(item.id)}
+                    >{item.boatName}</td>
                     <td>{item.id}</td>
+                    <td>
+                        <div
+                        onClick={()=> {
+                            if(window.confirm('Are you sure?'))
+                            this.deleteBoat(item, i)
+                        }}>
+
+                            <FontAwesomeIcon
+                                color="lightgrey"
+                                icon={['far', 'trash-alt']} />
+                        </div>
+                    </td>
                 </tr>
             )
         })
@@ -86,12 +108,15 @@ class Boats2 extends Component {
                 <thead>
                     <tr>
                         <th>
-                            <form onSubmit={this.submitForm}>
-                                <input 
-                                    type='text'
-                                    onChange={(event)=>this.updateForm(event)} />
-                                <button>Add Boat</button>
-                            </form>
+                            <div className='form-inline'>    
+                                <form onSubmit={this.submitForm}>
+                                    <input 
+                                        type='text'
+                                        className='form-control'
+                                        onChange={(event)=>this.updateForm(event)} />
+                                    <button className='btn btn-default'>Add Boat</button>
+                                </form>
+                            </div>
                             {/* <div onClick={()=>this.createBoat()}
                                 style={{
                                     display:'inline', 
@@ -101,6 +126,7 @@ class Boats2 extends Component {
                             </div> */}
                             </th>
                         <th>ID</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>

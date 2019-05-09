@@ -322,9 +322,11 @@ class HeatList extends Component {
                             {/* {item.subs.products.map((sub, i) =>{ */}
                             { Object.values(item.subs).map((sub, i) => {
                                 return(
-                                    <li key={i}><button
-                                        // onClick={()=>this.removeSub(sub, item.heatKey)}
-                                    >
+                                    <li key={i}>
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={()=>this.removeSub(sub, item.heatKey)}
+                                        >
 
                                     {sub.fullName}
                                     </button></li>
