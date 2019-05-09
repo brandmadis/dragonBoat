@@ -27,6 +27,7 @@ class Heat extends Component {
             prevFrontRear: 0,
             prevLeftRight: 0,
             name: this.props.match.params.name,
+            // name: this.props.location.search,
             editName: false           
         }
     this.handleClick = this.handleClick.bind(this);
@@ -234,8 +235,18 @@ class Heat extends Component {
           'heatKey': newHeatRef.key,
           'subs': data.subs
         }
+        let boatID = this.props.location.state.heat.boat
+        // let boatID = this.props
+        console.log("boatID: ", boatID)
         newHeatRef.set(newHeat)        
-        this.props.history.push(`/heatList/${data.boat}`)
+        // this.props.history.push(`/heatList/${data.boat}`)
+        this.props.history.push({
+          pathname: `/heat/${newHeatRef.key}/${data.heatName}-clone`,
+          state: { heat: {boat: boatID} }
+        })
+        this.setState({
+          name: `${data.heatName}-clone`
+        })
       })
         // console.log('newHeat: ', newHeat)
     }
@@ -251,8 +262,12 @@ class Heat extends Component {
       console.log("edit hit", id)
       this.setState({editName: !this.state.editName})
     }
+    backToHeats = () => {
+      // console.log("this.props: ", this.props.location.state.heat)
+      this.props.history.push(`/heatList/${this.props.location.state.heat.boat}`)
+    }
     updateName(element){
-      console.log("e: ", element.event.target.value)
+      console.log("e: ", element.event)
       console.log("blur: ", element.blur)
       // const newName = this.state.name
       if(element.blur){
@@ -304,7 +319,7 @@ class Heat extends Component {
         }
         const renderName = (
           <div 
-            onClick={()=>this.edit(this.props.match.params.id)}
+            onClick={()=>this.edit(this.props.match.params.query)}
             style={editButtonStyle}
           >{this.state.name}            
         </div>
@@ -336,6 +351,10 @@ class Heat extends Component {
                     renderName 
                   }
 
+                <h4><i><button
+                  className="btn btn-default"
+                  onClick={()=>{this.backToHeats()}}
+                  >Back to Heats</button></i></h4>
 
                 </div>
                 <div style={divGrid}>

@@ -225,8 +225,15 @@ class HeatList extends Component {
         })
     }     
     redirect = (item) => {
-        this.props.history.push(`/heat/${item.heatKey}`)
+        // this.props.history.push()
+        this.props.history.push({
+            pathname: `/heat/${item.heatKey}/${item.heatName}`,
+            // search: `${item.heatName}`,
+            state: { heat: item},
+            // props: { boatID: this.state.boatID }
+          })
     } 
+
     handleCheckbox = (paddler, heat, index) => {
         console.log("handleCheckbox", paddler, heat, index)
         const newformData = [
