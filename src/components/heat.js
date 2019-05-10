@@ -51,9 +51,9 @@ class Heat extends Component {
                 const paddlers = firebaseLooper(snapshot)
                 let subs = []
                 let subNames = []
-                const subList = Object.values(this.props.location.state.heat.subs)
+                const subList = this.props.location.state.heat.subs
                 for (const sub of subList) {
-                  subNames.push(sub.fullName)
+                  subNames.push(sub)
                 }
                 for (const sub of subList) {
                   console.log("sub: ", sub.id)
@@ -61,7 +61,7 @@ class Heat extends Component {
                 }
                 this.setState({subs, subNames})
                 const filteredPaddlers = paddlers.filter(paddler => {
-                  return subs.indexOf(paddler.id) === -1
+                  return subNames.indexOf(paddler.id) === -1
                 })
                 this.setState({
                     paddlers: filteredPaddlers
@@ -301,6 +301,14 @@ class Heat extends Component {
       
 
     }
+    getSubName = (item) => {
+      const paddler = this.props.location.state.paddlers.filter(pad => pad.id === item)
+      return (
+        <div>
+          {paddler.length ? paddler[0].firstName : null}
+        </div>
+      )
+    }
     render(){
         let paddlers = JSON.parse(JSON.stringify(this.state.paddlers));
         let boat = JSON.parse(JSON.stringify(this.state.boat));
@@ -460,11 +468,10 @@ class Heat extends Component {
                     </div>
                     <div></div>
                     <div>Subs
-                      
                       <ul>
                         {this.state.subNames.map((item, i)=>{
                           return (
-                            <li key={i}>{item}</li>
+                            <li key={i}>{this.getSubName(item)}</li>
                           )
                         })}
                       </ul>

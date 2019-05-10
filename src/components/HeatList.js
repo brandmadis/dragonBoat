@@ -226,10 +226,11 @@ class HeatList extends Component {
     }     
     redirect = (item) => {
         // this.props.history.push()
+        const paddlers = this.state.paddlers
         this.props.history.push({
             pathname: `/heat/${item.heatKey}/${item.heatName}`,
             // search: `${item.heatName}`,
-            state: { heat: item},
+            state: { heat: item, paddlers},
             // props: { boatID: this.state.boatID }
           })
     } 
@@ -260,8 +261,13 @@ class HeatList extends Component {
 
 
         // console.log("addToSubs", "sub.id", sub.id, "heatID", heatID, "item: ", item, i)
-        const newData = [ ...this.state.heats ]
-        newData[i]['subs'].push(sub.id)
+        console.log("subs", this.state.heats[i]['subs'][0])
+        let newData = [ ...this.state.heats ]
+        if (this.state.heats[i]['subs'][0] === 0) { // if first sub, replace placeholder
+            newData[i]['subs'][0] = sub.id
+        } else {
+            newData[i]['subs'].push(sub.id)
+        }
         this.setState({
             heats: newData
         })
@@ -270,13 +276,7 @@ class HeatList extends Component {
         // add sub to state
 
         // check if sub is currently seated and remove
-        // console.log("seating: ", item)
         const subState = [...this.state.heats]
-        console.log("subState: ", subState[i]['subs'])
-        // subState[i]['subs'].push(sub.id)
-        // this.setState({
-        //     heats: subState
-        // })
         if(item.seating.includes(sub.id)){
             console.log("remove the paddler", item.seating.indexOf(sub.id))
             const newformData = [...this.state.heats ]
@@ -285,16 +285,32 @@ class HeatList extends Component {
             this.setState({
                 heats: newformData
             })
+            firebaseDB.ref(`/heats/${heatID}/seating`).set(this.state.heats[i]['seating'])
         }
     }
-    removeSub = (sub, heatID) => {
-        console.log("remove sub",sub, heatID)
-    }
-    // addToSubsTest = (sub, heatID, i) => {
-    //     console.log("addToSubs--- TEST", sub, heatID, i)
-    //     this.setState({ subs: [...this.state.subs, sub] })
-    // }
+    removeSub = (sub, heatID, heatIndex) => {
+        console.log("remove sub",sub, heatID, heatIndex)
+        let newData = [ ...this.state.heats ]
+        if(this.state.heats[heatIndex]['subs'].length === 1){
+            newData[heatIndex]['subs'][0] = 0
+        } else {
+            let subIndex = newData[heatIndex]['subs'].indexOf(sub)
+            newData[heatIndex]['subs'].splice(subIndex, 1)
+        }
+        this.setState({
+            heats: newData
+        })
+        firebaseDB.ref(`/heats/${heatID}/subs`).set(this.state.heats[heatIndex]['subs'])
 
+    }
+    getSubName = (sub) => {
+        const paddler = this.state.paddlers.filter((pad) => pad.id === sub)
+        return (
+            <div>
+                {paddler.length ? paddler[0].firstName : null}
+            </div>
+            )            
+    }
     render(){
         let divGrid = {
             display: 'grid',
@@ -312,6 +328,7 @@ class HeatList extends Component {
         const subsList = () => this.state.heats.heatKey.subs.map((item, i) => {
             return(<li key={i}>{item}</li>)
         })
+        
         const heatList = this.state.heats.map((item, i) => {
             return (
                 <tr key={i}>
@@ -327,34 +344,32 @@ class HeatList extends Component {
                     <td>
                         <ul>
                             {
-                                item.subs.map((sub, i)=>{
+                                item.subs
+                                .filter(sub => sub != 0)
+                                .map((sub, index)=>{
                                     return(
-                                        <li>{sub}</li>
+                                        <li key={index}>
+                                        <button 
+                                            className="btn btn-primary"
+                                            onClick={()=> {this.removeSub(sub, item.heatKey, i)}}>
+                                            {this.getSubName(sub)}
+                                        </button>
+                                        </li>
                                     )
 
                                 })
                             }
-
-                            {/* // check if subs exists */}
-                            {console.log("item.subs", Object.values(item.subs))}
-                            {/* { Object.values(item.subs).length === 0 ?
-
-                                Object.values(item.subs).map((sub, i) => {
-                                    return(
-                                        <li key={i}>
-                                        <button
-                                        className="btn btn-primary"
-                                        onClick={()=>this.removeSub(sub, item.heatKey)}
-                                        >
-                                        
-                                        {sub.fullName}
-                                        </button></li>
-                                        
-                                        )
-                                    })
-                                : ""
-
+                            {/* {
+                                item.subs.reduce(function(filtered, sub) {
+                                    if (sub != 0){
+                                        filtered.push(sub)
+                                    }
+                                    console.log("filtered: ", filtered)
+                                    return filtered
+                                }, [])
                             } */}
+
+                    
                         </ul>
 
                     </td>

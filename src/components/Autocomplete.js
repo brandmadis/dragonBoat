@@ -29,11 +29,9 @@ class Autocomplete extends Component {
 
          const filteredSuggestions = suggestions.filter(
              suggestion =>{
-                console.log("suggestion: ",  suggestion, "userInput: ", userInput)
                 return suggestion.fullName.toLowerCase().startsWith(userInput.toLowerCase())
             }
          )
-         console.log("filteredSuggestions: ", filteredSuggestions)
          this.setState({
              activeSuggestion: 0,
              filteredSuggestions,
@@ -51,7 +49,6 @@ class Autocomplete extends Component {
          })
      }
      onKeyDown = e => {
-         console.log("onKeyDown")
          const { activeSuggestion, filteredSuggestions } = this.state
          // enter key
          if (e.keyCode === 13 || e.keyCode === 9){
