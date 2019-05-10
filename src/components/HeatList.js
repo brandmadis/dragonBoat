@@ -197,7 +197,7 @@ class HeatList extends Component {
                     'boat': this.props.match.params.id,
                     'seating': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     'heatKey': heatKey,
-                    'subs': []
+                    'subs': [0]
                 }
                 heatRef.set(heatData)
             })
@@ -261,9 +261,11 @@ class HeatList extends Component {
 
         // console.log("addToSubs", "sub.id", sub.id, "heatID", heatID, "item: ", item, i)
         const newData = [ ...this.state.heats ]
-        newData.push(["afsd","3333"])
-        let ref = firebaseDB.ref(`/heats/${heatID}/subs`)
-        ref.push(["afsd","3333"])
+        newData[i]['subs'].push(sub.id)
+        this.setState({
+            heats: newData
+        })
+        firebaseDB.ref(`/heats/${heatID}/subs`).set(this.state.heats[i]['subs'])
 
         // add sub to state
 
@@ -324,23 +326,35 @@ class HeatList extends Component {
                     </td>
                     <td>
                         <ul>
+                            {
+                                item.subs.map((sub, i)=>{
+                                    return(
+                                        <li>{sub}</li>
+                                    )
+
+                                })
+                            }
 
                             {/* // check if subs exists */}
-                            { Object.values(item.subs).map((sub, i) => {
-                                return(
-                                    <li key={i}>
+                            {console.log("item.subs", Object.values(item.subs))}
+                            {/* { Object.values(item.subs).length === 0 ?
+
+                                Object.values(item.subs).map((sub, i) => {
+                                    return(
+                                        <li key={i}>
                                         <button
-                                            className="btn btn-primary"
-                                            onClick={()=>this.removeSub(sub, item.heatKey)}
+                                        className="btn btn-primary"
+                                        onClick={()=>this.removeSub(sub, item.heatKey)}
                                         >
+                                        
+                                        {sub.fullName}
+                                        </button></li>
+                                        
+                                        )
+                                    })
+                                : ""
 
-                                    {sub.fullName}
-                                    </button></li>
-
-                                )
-                            })
-
-                            }
+                            } */}
                         </ul>
 
                     </td>
