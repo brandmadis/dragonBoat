@@ -49,8 +49,22 @@ class Heat extends Component {
             firebasePaddlers.once('value')
             .then((snapshot) => {
                 const paddlers = firebaseLooper(snapshot)
+                let subs = []
+                let subNames = []
+                const subList = Object.values(this.props.location.state.heat.subs)
+                for (const sub of subList) {
+                  subNames.push(sub.fullName)
+                }
+                for (const sub of subList) {
+                  console.log("sub: ", sub.id)
+                  subs.push(sub.id)
+                }
+                this.setState({subs, subNames})
+                const filteredPaddlers = paddlers.filter(paddler => {
+                  return subs.indexOf(paddler.id) === -1
+                })
                 this.setState({
-                    paddlers
+                    paddlers: filteredPaddlers
                 })
             })
             .then(()=>{
@@ -299,7 +313,7 @@ class Heat extends Component {
                   })   
         let divGrid = {
           display: 'grid',
-          gridTemplateColumns: '30px 5px 120px 10px 60px' ,          
+          gridTemplateColumns: '30px 5px 120px 10px 120px 10px 40px' ,          
         }
         // let border = { border: '1px solid black' }
         const numStyle = {
@@ -341,6 +355,12 @@ class Heat extends Component {
           </div>
           </div>
         )
+
+        const subList = () => this.state.subs.map((item, i)=>{
+          console.log(item, i )
+          return (<li key={i}>{item}</li>)
+        })
+
         return (
             <div>
                   {this.state.loaded ? 
@@ -426,6 +446,7 @@ class Heat extends Component {
                           </div>                        
                     </div>
                     <div></div>
+                    <div>
                     <Bench
                         {...this.state}
                         onClick={this.handleClick}
@@ -436,6 +457,18 @@ class Heat extends Component {
                         prevFrontRear={this.state.prevFrontRear}                        
                         
                         />
+                    </div>
+                    <div></div>
+                    <div>Subs
+                      
+                      <ul>
+                        {this.state.subNames.map((item, i)=>{
+                          return (
+                            <li key={i}>{item}</li>
+                          )
+                        })}
+                      </ul>
+                    </div>
                 </div>
             </div>
                       : "" }

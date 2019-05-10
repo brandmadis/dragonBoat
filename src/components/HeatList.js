@@ -298,12 +298,8 @@ class HeatList extends Component {
                 </tr>
             )
         })
-        const subsList = (heatKey) => this.state.heats.heatKey.subs.map((item, i) => {
-            return(
-                    <li key={i}>
-                        {item}
-                    </li>
-                )
+        const subsList = () => this.state.heats.heatKey.subs.map((item, i) => {
+            return(<li key={i}>{item}</li>)
         })
         const heatList = this.state.heats.map((item, i) => {
             return (
