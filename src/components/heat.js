@@ -254,9 +254,10 @@ class Heat extends Component {
         console.log("boatID: ", boatID)
         newHeatRef.set(newHeat)        
         // this.props.history.push(`/heatList/${data.boat}`)
+        const paddlers = this.state.paddlers
         this.props.history.push({
           pathname: `/heat/${newHeatRef.key}/${data.heatName}-clone`,
-          state: { heat: {boat: boatID} }
+          state: { heat: {boat: boatID}, paddlers }
         })
         this.setState({
           name: `${data.heatName}-clone`
