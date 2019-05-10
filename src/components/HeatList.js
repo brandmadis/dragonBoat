@@ -197,7 +197,7 @@ class HeatList extends Component {
                     'boat': this.props.match.params.id,
                     'seating': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     'heatKey': heatKey,
-                    'subs': ""
+                    'subs': []
                 }
                 heatRef.set(heatData)
             })
@@ -255,29 +255,38 @@ class HeatList extends Component {
         })
     }
     
-    addToSubs = (sub, heatID, i) => {
-        console.log("addToSubs", sub.id, heatID, i)
+    addToSubs = (sub, heatID, item, i) => {
+        // check if heat has subs list
+
+
+        // console.log("addToSubs", "sub.id", sub.id, "heatID", heatID, "item: ", item, i)
         const newData = [ ...this.state.heats ]
-        // const newData = this.state.heats[i]['subs'].slice()
-        newData.push(sub)
-        // this.setState({
-        //     heats: newData
-        // })
-        // let data = [sub]
-        // newData[i]['subs'].push("data")
-        // newData['-LdoW0dib-oXYUgw3RxV'].subs.push(sub)
-        // this.setState({
-        //     heats: [...this.state.heats, sub.id]
-        // })
-        // newData[i].subs.push(sub.id)
-        // this.setState({
-        //     heats: [...this.state.heats[i]['subs'], sub]
-        // })
+        newData.push(["afsd","3333"])
         let ref = firebaseDB.ref(`/heats/${heatID}/subs`)
-        ref.push(sub)
+        ref.push(["afsd","3333"])
+
+        // add sub to state
+
+        // check if sub is currently seated and remove
+        // console.log("seating: ", item)
+        const subState = [...this.state.heats]
+        console.log("subState: ", subState[i]['subs'])
+        // subState[i]['subs'].push(sub.id)
+        // this.setState({
+        //     heats: subState
+        // })
+        if(item.seating.includes(sub.id)){
+            console.log("remove the paddler", item.seating.indexOf(sub.id))
+            const newformData = [...this.state.heats ]
+            // console.log("newformdata: ", newformData[i]['seating'])
+            newformData[i]['seating'][item.seating.indexOf(sub.id)] = 0
+            this.setState({
+                heats: newformData
+            })
+        }
     }
     removeSub = (sub, heatID) => {
-        console.log("revove sub",sub, heatID)
+        console.log("remove sub",sub, heatID)
     }
     // addToSubsTest = (sub, heatID, i) => {
     //     console.log("addToSubs--- TEST", sub, heatID, i)
@@ -310,12 +319,13 @@ class HeatList extends Component {
                     <td>
                         <Autocomplete
                             suggestions={this.state.suggestions}
-                            addToSubs={(sub) => this.addToSubs(sub, item.heatKey, i)}
+                            addToSubs={(sub) => this.addToSubs(sub, item.heatKey, item, i)}
                             />
                     </td>
                     <td>
                         <ul>
-                            {/* {item.subs.products.map((sub, i) =>{ */}
+
+                            {/* // check if subs exists */}
                             { Object.values(item.subs).map((sub, i) => {
                                 return(
                                     <li key={i}>

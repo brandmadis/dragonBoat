@@ -205,6 +205,7 @@ class Seat extends Component {
       const paddler = this.props.paddler.filter(obj => {
         return obj.id === this.props.item
       })[0]
+      console.log("-----", paddler)
             // { isNaN(this.props.seat) ? "" : -this.props.seat }
       const selectedPaddler = this.props.selected
       
