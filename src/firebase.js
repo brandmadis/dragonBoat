@@ -2,23 +2,23 @@ import * as firebase from 'firebase'
 import { CardContent } from 'semantic-ui-react';
 
     // dev
-    // let config = {
-    //     apiKey: process.env.REACT_APP_devApiKey,
-    //     authDomain: process.env.REACT_APP_devauthDomain,
-    //     databaseURL: process.env.REACT_APP_devdatabaseURL,
-    //     projectId: process.env.REACT_APP_devprojectId,
-    //     storageBucket: process.env.REACT_APP_devstorageBucket,
-    //     messagingSenderId: process.env.REACT_APP_devmessagingSenderId,
-    // };
-    // prod
     let config = {
-        apiKey: "AIzaSyDE-p3xPwJ_2BCT__rin94Mz9Cejfrpc4U",
-        authDomain: "dragonprod-7a670.firebaseapp.com",
-        databaseURL: "https://dragonprod-7a670.firebaseio.com",
-        projectId: "dragonprod-7a670",
-        storageBucket: "dragonprod-7a670.appspot.com",
-        messagingSenderId: ""
-    }
+        apiKey: process.env.REACT_APP_devApiKey,
+        authDomain: process.env.REACT_APP_devauthDomain,
+        databaseURL: process.env.REACT_APP_devdatabaseURL,
+        projectId: process.env.REACT_APP_devprojectId,
+        storageBucket: process.env.REACT_APP_devstorageBucket,
+        messagingSenderId: process.env.REACT_APP_devmessagingSenderId,
+    };
+    // prod
+    // let config = {
+    //     apiKey: "AIzaSyDE-p3xPwJ_2BCT__rin94Mz9Cejfrpc4U",
+    //     authDomain: "dragonprod-7a670.firebaseapp.com",
+    //     databaseURL: "https://dragonprod-7a670.firebaseio.com",
+    //     projectId: "dragonprod-7a670",
+    //     storageBucket: "dragonprod-7a670.appspot.com",
+    //     messagingSenderId: ""
+    // }
 //     if (window.location.hostname === process.env.REACT_APP_prodauthDomain) {
 //     config = {
 //         apiKey: process.env.REACT_APP_prodApiKey,

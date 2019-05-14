@@ -374,7 +374,9 @@ class PaddlerAdd extends Component {
                     click={(element) => this.updateGenderButton(element)}
                 />   
                 <div style={{marginBottom: '10px'}}></div>
-
+                <div className="row">
+                    <div className="col-sm-2"></div>
+                    <div className="col-sm-6">
                 <Uploader 
                     filename={(filename)=>this.storeFilename(filename)}
                     />
@@ -391,6 +393,8 @@ class PaddlerAdd extends Component {
                     </Button>
                 </div>                
                 { this.showError() }
+                    </div>
+                </div>
             </form>
         </div>
         )

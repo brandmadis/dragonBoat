@@ -378,60 +378,96 @@ class PaddlerEdit extends Component {
                 
                 // <button type='submit' className="btn btn-default">Submit</button>
         const imgStyle = { borderRadius: '15px'}
-        
+        let divGrid = {
+            display: 'grid',
+            gridTemplateColumns: `200px 200px` ,          
+          }  
     return (
         <div>
-            <h1><i>Edit paddler</i></h1>
+            <h1><i>{this.state.formData.firstName.value} {this.state.formData.lastName.value}</i></h1>
             <form onSubmit={this.submitForm}>
-                {this.state.formData.image.value === "" ? 
-                            <FontAwesomeIcon icon="dragon" size="3x" />
-                        :            
-                <img 
+            <div style={divGrid}>
+            <div>
+
+                {
+                    this.state.formData.image.value === "" ? 
+                    <FontAwesomeIcon icon="dragon" size="3x" />
+                    :   
+                    
+                    <img 
                     src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${this.state.formData.image.value}?alt=media`} 
                     style={ imgStyle }
                     alt="" width="100" height="100"/>
                 }
                 <div style={{ marginBottom: '10px'}}></div>
                 <Uploader 
-                    filename={(filename)=>this.storeFilename(filename)}
-                    />
+                    filename={(filename)=>this.storeFilename(filename)}/>
+                    </div>
+
+                    {/*
+                <table className="table">
+                    <tbody>
+                     <tr>
+                            <td>Weight</td>
+                            <td>{this.state.formData.Weight.value}</td>
+                        </tr>
+                        <tr>
+                            <td>Time</td>
+                            <td>{this.state.formData.Time.value}</td>
+                        </tr>
+                        <tr>
+                            <td>Attendance</td>
+                            <td>{this.state.formData.Attendance.value}</td>
+                        </tr>
+                        <tr>
+                            <td>Preference</td>
+                            <td>{this.state.formData.Pref.value}</td>
+                        </tr> 
+                    </tbody>
+
+                </table>
+                        */}
+            </div>         
                 <FormFields 
                     id={'firstName'}
                     formData={this.state.formData.firstName}
                     change={(element) => this.updateForm(element)}
-                /> 
+                    /> 
                 <FormFields 
                     id={'lastName'}
                     formData={this.state.formData.lastName}
                     change={(element) => this.updateForm(element)}
-                />
+                    />
                 <FormFields 
                     id={'Weight'}
                     formData={this.state.formData.Weight}
                     change={(element) => this.updateForm(element)}
-                />
+                    />
                 <FormFields 
                     id={'Time'}
                     formData={this.state.formData.Time}
                     change={(element) => this.updateForm(element)}
-                /> 
+                    /> 
                 <FormFields 
                     id={'Attendance'}
                     formData={this.state.formData.Attendance}
                     change={(element) => this.updateForm(element)}
-                />                
+                    />                
                 <FormFields 
                     id={'Pref'}
                     formData={this.state.formData.Pref}
                     change={(element) => this.updateForm(element)}
-                />    
+                    />    
                 <FormFields 
                     id={'gender'}
                     formData={this.state.formData.gender}
                     selectedGender={this.state.selectedGender}
                     change={(element) => this.updateRadio(element)}
                     click={(element) => this.updateGenderButton(element)}
-                    />     
+                    />   
+                <div className="row">
+                        <div className="col-sm-2"></div>
+                        <div className="col-sm-6">
                 { this.submitButton() }
                 <div style={{display: 'inline'}}>
                     <Button animated onClick={()=>this.cancel()}>
@@ -452,15 +488,12 @@ class PaddlerEdit extends Component {
                         <Button.Content hidden><Icon name='delete' /></Button.Content>
                     </Button>
                 </div>
+                            </div>
+                    </div>
             </form>
-                {/* <button
-                onClick={
-                    ()=>this.deletePaddler(this.props.match.params.id)}>
-                    Delete</button> */}
-            
-        </div>
-        )
-    }
+            </div>
+                    )
+                }
 }
 
 export default PaddlerEdit

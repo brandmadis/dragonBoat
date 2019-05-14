@@ -41,16 +41,20 @@ class Autocomplete extends Component {
      }
      onClick = e => {
          console.log("onClick")
+         const { activeSuggestion, filteredSuggestions } = this.state
+         this.props.addToSubs(filteredSuggestions[activeSuggestion])
+
          this.setState({
              activeSuggestion: 0,
              filteredSuggestions: [],
              showSuggestions: false,
-             userInput: e.currentTarget.innerText
+            //  userInput: e.currentTarget.innerText
+             userInput: ""
          })
      }
      onKeyDown = e => {
          const { activeSuggestion, filteredSuggestions } = this.state
-         // enter key
+         // enter key or tab key
          if (e.keyCode === 13 || e.keyCode === 9){
              this.props.addToSubs(filteredSuggestions[activeSuggestion])
              this.setState({

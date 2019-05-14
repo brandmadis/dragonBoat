@@ -24,7 +24,10 @@ const FormFields = ({formData, change, id, selectedGender, click}) => {
         switch(formData.element){
             case('input'):
                 formTemplate = (
-                    <div className="form-group">
+                    <div className="form-group row">
+                        <label className="col-sm-2">{formData.labelText}</label>
+                        <div className="col-sm-4">
+                            
                         <input 
                             {...formData.config}
                             value={formData.value}
@@ -33,13 +36,16 @@ const FormFields = ({formData, change, id, selectedGender, click}) => {
                             className="form-control"
                             
                             />
+                        </div>
                         {showError()}
                     </div>
                     )
                     break
                     case('select'):
                     formTemplate = (
-                        <div>
+                        <div className="form-group row">
+                        <label className="col-sm-2">{formData.labelText}</label>
+                        <div className="col-sm-4">
                         <select
                             value={formData.value}
                             name={formData.config.name}
@@ -51,11 +57,16 @@ const FormFields = ({formData, change, id, selectedGender, click}) => {
                                     <option key={i} value={item.val}>{item.text}</option>
                                     ))}
                         </select>
+                        </div>
                     </div>
                 )   
                 break
                 case('radio'):
                 formTemplate = (
+                    <div className="form-group row">
+                    <label className="col-sm-2">{formData.labelText}</label>
+                    <div className="col-sm-6">
+
                     <div style={{paddingTop:"10px", paddingBottom:'10px'}}>
 
                         {/* { formData.config.options.map((item, i)=>(
@@ -102,7 +113,8 @@ const FormFields = ({formData, change, id, selectedGender, click}) => {
                             </button>
                             ))}                        
                     </div>
-
+                    </div>
+                    </div>
                 )
                 break
             default: 
