@@ -307,7 +307,7 @@ class HeatList extends Component {
         const paddler = this.state.paddlers.filter((pad) => pad.id === sub)
         return (
             <div>
-                {paddler.length ? paddler[0].firstName : null}
+                {paddler.length ? paddler[0].firstName + " " + paddler[0].lastName : null}
             </div>
             )            
     }
@@ -328,7 +328,9 @@ class HeatList extends Component {
         const subsList = () => this.state.heats.heatKey.subs.map((item, i) => {
             return(<li key={i}>{item}</li>)
         })
-        
+        const filteredSuggestions = () => this.state.suggestions.filter((paddler) => {
+            return this.state.subs.indexOf(paddler) != -1
+        })
         const heatList = this.state.heats.map((item, i) => {
             return (
                 <tr key={i}>
@@ -337,7 +339,9 @@ class HeatList extends Component {
                         >{item.heatName}</td>
                     <td>
                         <Autocomplete
-                            suggestions={this.state.suggestions}
+                            // suggestions={this.filteredSuggestions}
+                            suggestions={this.state.suggestions.filter((paddler) => {
+                                return this.state.heats[i]['subs'].indexOf(paddler.id) === -1})}
                             addToSubs={(sub) => this.addToSubs(sub, item.heatKey, item, i)}
                             />
                     </td>
