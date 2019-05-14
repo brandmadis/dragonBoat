@@ -114,6 +114,7 @@ class Heat extends Component {
     handleClick(user, seat){
         const newState = Object.assign({}, this.state)
         let sel = this.state.selected
+        let selSeat = this.state.selSeat
         console.log("---- sel: ", sel, "user: ", user, "seat: ", seat)
         
         if (sel === null && sel !== 0 ) { // first click, nothing previously selected
@@ -141,10 +142,10 @@ class Heat extends Component {
             } else {
               console.log("sel != user, reassign user")
               let firstClick = this.state.boat.indexOf(sel)
-              
-              newState.boat[firstClick] = user
+              console.log("firstClick: ", firstClick)
+              newState.boat[selSeat] = user
               newState.selected= null
-              this.updateBoat(1)
+              this.updateBoat(1) // firebase update
             }
           }
           else if (seat !== undefined){ // second click on boat
