@@ -53,7 +53,7 @@ class PaddlerEdit extends Component {
                         placeholder: ''
                     },
                     validation: {
-                        required: true,
+                        required: false,
                         minLen: 2
                     },
                     valid: true,
@@ -71,7 +71,7 @@ class PaddlerEdit extends Component {
                         placeholder: ''
                     },
                     validation: {
-                        required: true,
+                        required: false,
                         minLen: 2,
                         number: true
                     },
@@ -90,7 +90,7 @@ class PaddlerEdit extends Component {
                         placeholder: 'Time'
                     },
                     validation: {
-                        required: true,
+                        required: false,
                         minLen: 2,
                         number: true
                     },
@@ -109,7 +109,7 @@ class PaddlerEdit extends Component {
                         placeholder: 'Attendance'
                     },
                     validation: {
-                        required: true,
+                        required: false,
                         minLen: 2,
                         number: true
                     },
@@ -133,7 +133,7 @@ class PaddlerEdit extends Component {
                             ]
                     },
                     validation: {
-                        required: true,
+                        required: false,
                     },
                     valid: true,
                     touched: true,
