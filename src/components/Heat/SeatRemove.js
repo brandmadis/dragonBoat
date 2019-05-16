@@ -20,10 +20,7 @@ class SeatRemove extends Component {
             <div 
                 className="removePaddler"
                 style={divStyle}
-                onClick={() => this.props.removeFromBoat()}
-                
-                >
-                
+                onClick={() => this.props.removeFromBoat()}>
             <i>Remove Paddler</i>
             </div>
         )

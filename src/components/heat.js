@@ -20,6 +20,7 @@ class Heat extends Component {
         this.state = {
             selected: null,
             paddlers: [],
+            filteredPaddlers: [],
             paddlerIds: [],
             boat: [],
             selSeat: -1,
@@ -32,7 +33,7 @@ class Heat extends Component {
         }
     this.handleClick = this.handleClick.bind(this);
     this.removeFromBoat = this.removeFromBoat.bind(this);
-        
+    this.addToSubs = this.addToSubs.bind(this)
     }
         parseIds(){
           const paddlerIds = []
@@ -44,7 +45,7 @@ class Heat extends Component {
           })
         }
     async componentDidMount(){
-      
+      console.log("didMount")
         if(this.state.paddlers.length < 1){
             firebasePaddlers.once('value')
             .then((snapshot) => {
@@ -63,8 +64,11 @@ class Heat extends Component {
                 const filteredPaddlers = paddlers.filter(paddler => {
                   return subNames.indexOf(paddler.id) === -1
                 })
+                const benchPaddlers = filteredPaddlers.filter(paddler => {
+                  return this.state.boat.indexOf(paddler.id)
+                })
                 this.setState({
-                    paddlers: filteredPaddlers
+                    paddlers: benchPaddlers
                 })
             })
             .then(()=>{
@@ -211,6 +215,28 @@ class Heat extends Component {
         firebaseDB.ref(refUrl).set(this.state.boat)
       }
     }
+    updatePaddlers = () => {
+      
+    }
+    addToSubs(){
+      console.log("addToSubs hit", this.state.selected)
+      const newSubData = [
+        ...this.state.subNames
+      ]
+
+      newSubData.push(this.state.selected)
+      
+      this.setState({
+        subNames: newSubData,
+        selected: null
+
+      })
+      let refUrl = `heats/${this.props.match.params.id}/subs`
+      console.log(refUrl, newSubData)
+      firebaseDB.ref(refUrl).set(this.state.subNames)
+      console.log("after firebase call")
+    }
+
     updateBoat(marker){
       console.log("updateBoat func", marker)
       let refUrl = `heats/${this.props.match.params.id}/seating`
@@ -236,6 +262,7 @@ class Heat extends Component {
         //       id: childSnapshot.key
         //   })
         // })
+
         console.log("data: ", data)
 
       })
@@ -314,13 +341,13 @@ class Heat extends Component {
     render(){
         let paddlers = JSON.parse(JSON.stringify(this.state.paddlers));
         let boat = JSON.parse(JSON.stringify(this.state.boat));
-        
         let bench = Object.values(paddlers)
                   .filter(function(item){
                     return boat.indexOf(item.id) === -1})
                   .map(function(obj){
                     return obj.id
-                  })   
+                  })  
+        console.log("bench: ", this.state.paddlers, bench) 
         let divGrid = {
           display: 'grid',
           gridTemplateColumns: '30px 5px 120px 10px 120px 10px 40px' ,          
@@ -461,11 +488,12 @@ class Heat extends Component {
                         {...this.state}
                         onClick={this.handleClick}
                         bench={bench}
+                        // bench={this.state.filteredPaddlers}
                         removeFromBoat={this.removeFromBoat}
                         boat={boat}
                         paddlers={paddlers}
                         prevFrontRear={this.state.prevFrontRear}                        
-                        
+                        addToSubs={this.addToSubs}
                         />
                     </div>
                     <div></div>
