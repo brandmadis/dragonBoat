@@ -20,6 +20,7 @@ class Heat extends Component {
         this.state = {
             selected: null,
             paddlers: [],
+            bench: [],
             filteredPaddlers: [],
             paddlerIds: [],
             boat: [],
@@ -70,6 +71,7 @@ class Heat extends Component {
                 this.setState({
                     paddlers: benchPaddlers
                 })
+
             })
             .then(()=>{
                 this.parseIds()
@@ -90,6 +92,17 @@ class Heat extends Component {
         else {
         }
         this.setState({loaded: true})
+        let pad = this.state.paddlers
+        let boat = this.state.boat
+        console.log("pad: ", pad, "boat: ", boat)
+        let bench = Object.values(pad)
+        .filter(function(item){
+          return boat.indexOf(item.id) === -1})
+        .map(function(obj){
+          return obj.id
+        })         
+        console.log("heat bench:", bench)
+        this.setState({bench})
     }
     paddlerCheck(){
       for( var seat in this.state.boat){
@@ -119,7 +132,7 @@ class Heat extends Component {
         const newState = Object.assign({}, this.state)
         let sel = this.state.selected
         let selSeat = this.state.selSeat
-        console.log("---- sel: ", sel, "user: ", user, "seat: ", seat)
+        // console.log("---- sel: ", sel, "user: ", user, "seat: ", seat)
         
         if (sel === null && sel !== 0 ) { // first click, nothing previously selected
           if (user > 0 && seat === undefined){
@@ -220,19 +233,20 @@ class Heat extends Component {
     }
     addToSubs(){
       console.log("addToSubs hit", this.state.selected)
-      const newSubData = [
-        ...this.state.subNames
-      ]
-
+      const newSubData = [ ...this.state.subNames ]
       newSubData.push(this.state.selected)
-      
       this.setState({
         subNames: newSubData,
         selected: null
 
       })
+      const newBenchData = [ ... this.state.bench ]
+      let index = newBenchData.indexOf(this.state.selected)
+      newBenchData.splice(index, 1)
+      this.setState({ bench: newBenchData })
+
       let refUrl = `heats/${this.props.match.params.id}/subs`
-      console.log(refUrl, newSubData)
+      console.log("refURL: ", refUrl, "newSubData: ", newSubData, "subNames: ", this.state.subNames)
       firebaseDB.ref(refUrl).set(this.state.subNames)
       console.log("after firebase call")
     }
@@ -347,7 +361,6 @@ class Heat extends Component {
                   .map(function(obj){
                     return obj.id
                   })  
-        console.log("bench: ", this.state.paddlers, bench) 
         let divGrid = {
           display: 'grid',
           gridTemplateColumns: '30px 5px 120px 10px 120px 10px 40px' ,          
@@ -487,7 +500,8 @@ class Heat extends Component {
                     <Bench
                         {...this.state}
                         onClick={this.handleClick}
-                        bench={bench}
+                        // bench={bench}
+                        bench={this.state.bench}
                         // bench={this.state.filteredPaddlers}
                         removeFromBoat={this.removeFromBoat}
                         boat={boat}
