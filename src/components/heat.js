@@ -10,7 +10,7 @@ import { firebaseDB,
           firebaseHeats,
           firebaseLooper, 
           firebaseLooper2,
-          // config
+          config
         } from '../firebase'
 // import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
@@ -233,22 +233,29 @@ class Heat extends Component {
     }
     addToSubs(){
       console.log("addToSubs hit", this.state.selected)
-      const newSubData = [ ...this.state.subNames ]
+      let newSubData = [ ...this.state.subNames ]
       newSubData.push(this.state.selected)
-      this.setState({
-        subNames: newSubData,
-        selected: null
-
-      })
+      
       const newBenchData = [ ... this.state.bench ]
       let index = newBenchData.indexOf(this.state.selected)
       newBenchData.splice(index, 1)
-      this.setState({ bench: newBenchData })
+      console.log("newSubData: ", newSubData)
+      console.log("subNames: ", this.state.subNames)
+      
+      this.setState({ 
+        bench: newBenchData,
+        subNames: newSubData,
+        // subNames: ["newSubData"],
+      })
 
       let refUrl = `heats/${this.props.match.params.id}/subs`
-      console.log("refURL: ", refUrl, "newSubData: ", newSubData, "subNames: ", this.state.subNames)
+      // console.log("refURL: ", refUrl, "newSubData: ", newSubData, "subNames: ", this.state.subNames)
       firebaseDB.ref(refUrl).set(this.state.subNames)
-      console.log("after firebase call")
+      // console.log("after firebase call")
+      this.setState({
+        selected: null
+
+      })
     }
 
     updateBoat(marker){
@@ -344,11 +351,39 @@ class Heat extends Component {
       
 
     }
+    removeSub = (subId) => {
+      console.log("removeSub: ", subId)
+      const newSubData = [ ...this.state.subNames]
+      let index = newSubData.indexOf(subId)
+      newSubData.splice(index, 1)
+      this.setState({
+        subNames: newSubData
+      })
+      let refUrl = `heats/${this.props.match.params.id}/subs`
+      firebaseDB.ref(refUrl).set(this.state.subNames)
+ 
+
+
+    }
     getSubName = (item) => {
       const paddler = this.props.location.state.paddlers.filter(pad => pad.id === item)
       return (
-        <div>
-          {paddler.length ? paddler[0].firstName : null}
+        <div
+          onClick={() => {
+            console.log("remove sub")
+            this.removeSub(item)
+          }}
+        >
+          {/* {paddler.length ? paddler[0].firstName : null} */}
+
+          {paddler.length ? 
+          <img 
+            
+            // style={this.props.selected === paddler.id ? selected : userImage}
+            src={`https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/images%2F${paddler[0].image}?alt=media`} 
+            alt="" width="60px" height="60px"
+            />
+            : null}
         </div>
       )
     }
@@ -515,7 +550,10 @@ class Heat extends Component {
                       <ul>
                         {this.state.subNames.map((item, i)=>{
                           return (
-                            <li key={i}>{this.getSubName(item)}</li>
+                            <li 
+                              key={i}
+                              style={{listStyleType: 'none'}}
+                              >{this.getSubName(item)}</li>
                           )
                         })}
                       </ul>
