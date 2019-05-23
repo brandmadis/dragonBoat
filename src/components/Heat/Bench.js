@@ -5,6 +5,12 @@ import WeightsBench from './WeightsBench'
 import AddToSubs from './AddToSubs'
 
 class Bench extends Component {
+  componentDidMount(){
+    console.log("Bench mounted")
+  }
+  componentDidUpdate(){
+    console.log("Bench updated")
+  }
   addToSubsBench = () => {
     // console.log("addToSubsBench", this.props.bench)
     const newBenchData = [
@@ -19,6 +25,7 @@ class Bench extends Component {
     this.props.addToSubs()
   }
   render() {
+    
     var seatContainer = {
       display: 'grid',
       gridTemplateColumns: '60px 60px' ,

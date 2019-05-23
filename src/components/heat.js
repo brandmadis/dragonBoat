@@ -35,6 +35,7 @@ class Heat extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.removeFromBoat = this.removeFromBoat.bind(this);
     this.addToSubs = this.addToSubs.bind(this)
+    this.refreshBench = this.refreshBench.bind(this)
     }
         parseIds(){
           const paddlerIds = []
@@ -46,7 +47,7 @@ class Heat extends Component {
           })
         }
     async componentDidMount(){
-      console.log("didMount")
+      console.log("heat didMount")
         if(this.state.paddlers.length < 1){
             firebasePaddlers.once('value')
             .then((snapshot) => {
@@ -61,15 +62,17 @@ class Heat extends Component {
                   console.log("sub: ", sub.id)
                   subs.push(sub.id)
                 }
-                this.setState({subs, subNames})
-                const filteredPaddlers = paddlers.filter(paddler => {
-                  return subNames.indexOf(paddler.id) === -1
-                })
-                const benchPaddlers = filteredPaddlers.filter(paddler => {
-                  return this.state.boat.indexOf(paddler.id)
-                })
                 this.setState({
-                    paddlers: benchPaddlers
+                  // subs,
+                   subNames})
+                // const filteredPaddlers = paddlers.filter(paddler => {
+                //   return subNames.indexOf(paddler.id) === -1
+                // })
+                // const benchPaddlers = filteredPaddlers.filter(paddler => {
+                //   return this.state.boat.indexOf(paddler.id)
+                // })
+                this.setState({
+                    paddlers: paddlers
                 })
 
             })
@@ -152,7 +155,7 @@ class Heat extends Component {
             console.log("second click on bench")
             if (sel === user){
               console.log("sel == user, deselect")
-              newState.selected= null
+              newState.selected = null
             } else if(this.state.boat.indexOf(sel) === -1){
               console.log("bench user to bench user")
               newState.selected = user
@@ -232,32 +235,49 @@ class Heat extends Component {
       
     }
     addToSubs(){
-      console.log("addToSubs hit", this.state.selected)
-      let newSubData = [ ...this.state.subNames ]
-      newSubData.push(this.state.selected)
-      
-      const newBenchData = [ ... this.state.bench ]
-      let index = newBenchData.indexOf(this.state.selected)
-      newBenchData.splice(index, 1)
+      if(this.state.selected != null){
+
+        console.log("addToSubs hit", this.state.selected)
+        
+        let newSubData = [ ...this.state.subNames ]
+        newSubData.push(this.state.selected)
+        
+        const newBenchData = [ ... this.state.bench ]
+        let index = newBenchData.indexOf(this.state.selected)
+        newBenchData.splice(index, 1)
+        
+      if(this.state.selSeat != -1){ // from boat to subs
+        const newBoatData = [ ...this.state.boat ]
+        newBoatData[this.state.selSeat] = 0
+        this.setState({
+          boat: newBoatData,
+          selSeat: -1
+        })
+        let refUrl = `heats/${this.props.match.params.id}/seating`
+        firebaseDB.ref(refUrl).set(newBoatData)
+      }
+
       console.log("newSubData: ", newSubData)
       console.log("subNames: ", this.state.subNames)
-      
       this.setState({ 
         bench: newBenchData,
         subNames: newSubData,
         // subNames: ["newSubData"],
       })
-
+      
+        
       let refUrl = `heats/${this.props.match.params.id}/subs`
       // console.log("refURL: ", refUrl, "newSubData: ", newSubData, "subNames: ", this.state.subNames)
-      firebaseDB.ref(refUrl).set(this.state.subNames)
+      firebaseDB.ref(refUrl).set(newSubData)
       // console.log("after firebase call")
+      
       this.setState({
         selected: null
-
+        
       })
     }
-
+    }
+    
     updateBoat(marker){
       console.log("updateBoat func", marker)
       let refUrl = `heats/${this.props.match.params.id}/seating`
@@ -354,16 +374,30 @@ class Heat extends Component {
     removeSub = (subId) => {
       console.log("removeSub: ", subId)
       const newSubData = [ ...this.state.subNames]
-      let index = newSubData.indexOf(subId)
-      newSubData.splice(index, 1)
+      if(this.state.subNames.length === 1){
+        newSubData[0] = 0
+      } else {
+
+        let index = newSubData.indexOf(subId)
+        newSubData.splice(index, 1)
+      }
+
+      const newBenchData = [ ...this.state.bench ]
+      newBenchData.push(subId)
+
       this.setState({
-        subNames: newSubData
+        subNames: newSubData,
+        bench: newBenchData
       })
-      let refUrl = `heats/${this.props.match.params.id}/subs`
-      firebaseDB.ref(refUrl).set(this.state.subNames)
+      
  
-
-
+        let refUrl = `heats/${this.props.match.params.id}/subs`
+        firebaseDB.ref(refUrl).set(newSubData)
+      
+        // this.refreshBench()
+    }
+    refreshBench = () => {
+      this.setState({refreshBench: !this.state.refreshBench})
     }
     getSubName = (item) => {
       const paddler = this.props.location.state.paddlers.filter(pad => pad.id === item)
@@ -390,17 +424,31 @@ class Heat extends Component {
     render(){
         let paddlers = JSON.parse(JSON.stringify(this.state.paddlers));
         let boat = JSON.parse(JSON.stringify(this.state.boat));
+        let subNames = this.state.subNames
         let bench = Object.values(paddlers)
                   .filter(function(item){
                     return boat.indexOf(item.id) === -1})
+                  .filter(function(item){
+                    return subNames.indexOf(item.id) === -1})
                   .map(function(obj){
                     return obj.id
-                  })  
+                  }) 
+        let bench2 = Object.values(paddlers)
+                  .filter(function(item){
+                    return subNames.indexOf(item.id) === -1})
+                  .map(function(obj){
+                    return obj.id
+                  }) 
+        
+        console.log("+++++++++++++++++++++++++++++++++")
+        console.log("paddlers", paddlers)
+        console.log("subNames", subNames)
+        console.log("bench", bench)
+        console.log("bench2", bench2)
         let divGrid = {
           display: 'grid',
           gridTemplateColumns: '30px 5px 120px 10px 120px 10px 40px' ,          
         }
-        // let border = { border: '1px solid black' }
         const numStyle = {
           height:'60px', 
           textAlign: 'right',
@@ -535,14 +583,15 @@ class Heat extends Component {
                     <Bench
                         {...this.state}
                         onClick={this.handleClick}
-                        // bench={bench}
-                        bench={this.state.bench}
+                        bench={bench}
+                        // bench={this.state.bench}
                         // bench={this.state.filteredPaddlers}
                         removeFromBoat={this.removeFromBoat}
                         boat={boat}
                         paddlers={paddlers}
                         prevFrontRear={this.state.prevFrontRear}                        
                         addToSubs={this.addToSubs}
+                        refresh={this.refreshBench}
                         />
                     </div>
                     <div></div>

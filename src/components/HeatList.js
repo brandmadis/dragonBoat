@@ -352,7 +352,9 @@ class HeatList extends Component {
                                 .filter(sub => sub != 0)
                                 .map((sub, index)=>{
                                     return(
-                                        <li key={index}>
+                                        <li 
+                                            key={index}
+                                            style={{listStyleType: 'none'}}>
                                         <button 
                                             className="btn btn-primary"
                                             onClick={()=> {this.removeSub(sub, item.heatKey, i)}}>
@@ -400,7 +402,9 @@ class HeatList extends Component {
 </div>
         */}
                 <div style={divGrid}>
-                    <div style={{border: '1px solid black'}}>
+                    <div 
+                        // style={{border: '1px solid black'}}
+                        >
                         <table className="table table-hove">
                             <thead>
                                 <tr>
@@ -439,16 +443,22 @@ class HeatList extends Component {
                     <div></div>
                 <div>
                     
+                        <form 
+                            className="form-inline"
+                            onSubmit={this.submitForm}>
+                            <div>
+                                <input 
+                                    className="form-control"
+                                    type="text"
+                                    onChange={(event)=>this.updateForm(event)}/>
+                            </div>
+                                <button
+                                    className="btn btn-default">Add Heat</button>
+                        </form>
                         <table className="table table-hover">
                             <thead>
                                 <tr>
                                     <th>
-                                        <form onSubmit={this.submitForm}>
-                                            <input 
-                                                type="text"
-                                                onChange={(event)=>this.updateForm(event)}/>
-                                            <button>Add Heat</button>
-                                        </form>
                                         {/* <div onClick={()=>this.createHeat()}
                                             style={{
                                                 display:'inline', 
