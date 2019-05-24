@@ -97,7 +97,7 @@ class HeatList extends Component {
         // re-render
         this.setState({ tags: newTags });
     }  
-    componentWillMount(){
+    componentDidMount(){
         if(this.state.heats.length < 1){
             // firebaseDB.ref(`/boats/${this.props.match.params.id}/heats`).once('value')
             // .then((snapshot) => {
