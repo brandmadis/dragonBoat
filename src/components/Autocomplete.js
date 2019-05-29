@@ -39,10 +39,10 @@ class Autocomplete extends Component {
              userInput: e.currentTarget.value
          })
      }
-     onClick = e => {
-         console.log("onClick")
+     onClick = (e, index) => {
+         console.log("AutoComplete onClick", index)
          const { activeSuggestion, filteredSuggestions } = this.state
-         this.props.addToSubs(filteredSuggestions[activeSuggestion])
+         this.props.addToSubs(filteredSuggestions[index])
 
          this.setState({
              activeSuggestion: 0,
@@ -79,6 +79,10 @@ class Autocomplete extends Component {
              this.setState({ activeSuggestion: activeSuggestion + 1})
          }
      }
+     onMouseOver = (index) => {
+         console.log("Autocomplete onMouseOver")
+        this.setState({activeSuggestion: index})
+     }
      render(){
          const {
              onChange,
@@ -106,7 +110,8 @@ class Autocomplete extends Component {
                                 <li
                                     className={className}
                                     key={index}
-                                    onClick={onClick}
+                                    onClick={() => onClick(this, index)}
+                                    onMouseOver={() => this.onMouseOver(index)}
                                     >
                                     {suggestion.fullName}
                                 </li>

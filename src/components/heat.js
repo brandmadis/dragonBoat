@@ -493,7 +493,12 @@ class Heat extends Component {
           console.log(item, i )
           return (<li key={i}>{item}</li>)
         })
-
+        const userImage = {
+          position: 'relative',
+          borderRadius: '15px',
+          cursor: 'pointer', 
+          listStyleType: 'none'     
+        }
         return (
             <div>
                   {this.state.loaded ? 
@@ -601,7 +606,7 @@ class Heat extends Component {
                           return (
                             <li 
                               key={i}
-                              style={{listStyleType: 'none'}}
+                              style={userImage}
                               >{this.getSubName(item)}</li>
                           )
                         })}
