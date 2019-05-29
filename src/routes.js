@@ -13,13 +13,17 @@ import Boats2 from './components/Boats2'
 import Heats from './components/heats'
 import BoatEdit from './components/boatEdit'
 import HeatList from './components/HeatList'
+
 import Temp from './components/temp/Temp'
+import Nav from './components/temp/Nav'
+import TempPaddlers from './components/temp/TempPaddlers'
 
 const Routes = () => {
     return (
         <div>
         <div>
             {/* <NavBar /> */}
+            <Nav />
             <div className="container">
                 <Route path="/paddlers" exact component={Paddlers}/>
                 <Route path="/paddlers/:id" exact component={PaddlerEdit}/>
@@ -38,6 +42,7 @@ const Routes = () => {
             </div>
             </div>
                 <Route path="/temp" exact component={Temp}/>
+                <Route path="/tempPaddlers" exact component={TempPaddlers}/>
         </div>        
         )
 }

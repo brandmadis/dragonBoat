@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
+// import { firebaseDB, firebasePaddlers, firebaseLooper, config } from '../firebase'
 
-class Temp extends Component {
+class TempPaddlers extends Component {
     render(){
         return (
             <div>
 
-    
     {/* START PAGE-CONTAINER */}
     <div className="page-container ">
       {/* START HEADER */}
@@ -15,7 +15,7 @@ class Temp extends Component {
         </a>
         {/* END MOBILE SIDEBAR TOGGLE */}
         <div className="">
-          <div className="brand inline   m-l-10">
+          <div className="brand inline  m-l-10 ">
             <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" data-src-retina="assets/img/logo_2x.png" width="78" height="22"/>
           </div>
           {/* START NOTIFICATION LIST */}
@@ -172,892 +172,880 @@ class Temp extends Component {
         </div>
       </div>
       {/* END HEADER */}
+
+
+
+      
       {/* START PAGE CONTENT WRAPPER */}
       <div className="page-content-wrapper ">
         {/* START PAGE CONTENT */}
-        <div className="content sm-gutter">
-          {/* START CONTAINER FLUID */}
-          <div className="container-fluid padding-25 sm-padding-10">
-            <div className="row">
-              <div className="col-lg-4 col-xl-3 col-xlg-2 ">
-                <div className="row">
-                  <div className="col-md-12 m-b-10">
-                    {/* START WIDGET D3 widget_graphTileFlat*/}
-                    <div className="widget-8 card no-border bg-warning no-margin widget-loader-bar">
-                      <div className="container-xs-height full-height">
-                        <div className="row-xs-height">
-                          <div className="col-xs-height col-top">
-                            <div className="card-header  top-left top-right">
-                              <div className="card-title text-black hint-text">
-                                <span className="font-montserrat fs-11 all-caps">Weekly Sales <i
-		                                className="fa fa-chevron-right"></i>
-                                                    </span>
-                              </div>
-                              <div className="card-controls">
-                                <ul>
-                                  <li>
-                                    <a data-toggle="refresh" className="card-refresh text-black" href="#"><i
-											className="card-icon card-icon-refresh"></i></a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row-xs-height ">
-                          <div className="col-xs-height col-top relative">
-                            <div className="row">
-                              <div className="col-sm-6">
-                                <div className="p-l-20">
-                                  <h3 className="no-margin p-b-5 text-white">$14,000</h3>
-                                  <p className="small hint-text m-t-5">
-                                    <span className="label  font-montserrat m-r-5">60%</span>Higher
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="col-sm-6">
-                              </div>
-                            </div>
-                            <div className='widget-8-chart line-chart' data-line-color="black" data-points="true" data-point-color="warning" data-stroke-width="2">
-                              <svg></svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* END WIDGET */}
-                  </div>
+        <div className="content ">
+          {/* MODAL STICK UP  */}
+          <div className="modal fade stick-up" id="addNewAppModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header clearfix ">
+                  <button type="button" className="close" data-dismiss="modal" aria-hidden="true"><i className="pg-close fs-14"></i>
+                  </button>
+                  <h4 className="p-b-5"><span className="semi-bold">New</span> App</h4>
                 </div>
-                <div className="row">
-                  <div className="col-lg-12 m-b-10">
-                    {/* START WIDGET widget_progressTileFlat*/}
-                    <div className="widget-9 card no-border bg-success no-margin widget-loader-bar">
-                      <div className="full-height d-flex flex-column">
-                        <div className="card-header ">
-                          <div className="card-title text-black">
-                            <span className="font-montserrat fs-11 all-caps">Weekly Sales <i
-	                    className="fa fa-chevron-right"></i>
-	                                </span>
-                          </div>
-                          <div className="card-controls">
-                            <ul>
-                              <li><a href="#" className="card-refresh text-black" data-toggle="refresh"><i
-								className="card-icon card-icon-refresh"></i></a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="p-l-20">
-                          <h3 className="no-margin p-b-5 text-white">$23,000</h3>
-                          <a href="#" className="btn-circle-arrow text-white"><i
-						className="pg-arrow_minimize"></i>
-				</a>
-                          <span className="small hint-text text-white">65% lower than last month</span>
-                        </div>
-                        <div className="mt-auto">
-                          <div className="progress progress-small m-b-20">
-                            {/* START BOOTSTRAP PROGRESS (http://getbootstrap.com/components/#progress) */}
-                            <div className="progress-bar progress-bar-white" style={{width: '45%'}}></div>
-                            {/* END BOOTSTRAP PROGRESS */}
-                          </div>
+                <div className="modal-body">
+                  <p className="small-text">Create a new app using this form, make sure you fill them all</p>
+                  <form role="form">
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <div className="form-group form-group-default">
+                          <label>name</label>
+                          <input id="appName" type="text" className="form-control" placeholder="Name of your app"/>
                         </div>
                       </div>
                     </div>
-                    {/* END WIDGET */}
-                  </div>
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <div className="form-group form-group-default">
+                          <label>Description</label>
+                          <input id="appDescription" type="text" className="form-control" placeholder="Tell us more about it"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <div className="form-group form-group-default">
+                          <label>Price</label>
+                          <input id="appPrice" type="text" className="form-control" placeholder="your price"/>
+                        </div>
+                      </div>
+                      <div className="col-sm-6">
+                        <div className="form-group form-group-default">
+                          <label>Notes</label>
+                          <input id="appNotes" type="text" className="form-control" placeholder="a note"/>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                <div className="row">
-                  <div className="col-lg-12 md-m-b-10 sm-m-b-10">
-                    {/* START WIDGET widget_statTile*/}
-                    <div className="widget-10 card no-border bg-white no-margin widget-loader-bar">
-                      <div className="card-header  top-left top-right ">
-                        <div className="card-title text-black hint-text">
-                          <span className="font-montserrat fs-11 all-caps">Weekly Sales <i className="fa fa-chevron-right"></i>
-                                        </span>
-                        </div>
-                        <div className="card-controls">
-                          <ul>
-                            <li><a data-toggle="refresh" className="card-refresh text-black" href="#"><i
-							className="card-icon card-icon-refresh"></i></a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="card-body p-t-40">
-                        <div className="row">
-                          <div className="col-sm-12">
-                            <h4 className="no-margin p-b-5 text-danger semi-bold">APPL 2.032</h4>
-                            <div className="pull-left small">
-                              <span>WMHC</span>
-                              <span className=" text-success font-montserrat">
-                                                    <i className="fa fa-caret-up m-l-10"></i> 9%
-                                                </span>
-                            </div>
-                            <div className="pull-left m-l-20 small">
-                              <span>HCRS</span>
-                              <span className=" text-danger font-montserrat">
-                                                    <i className="fa fa-caret-up m-l-10"></i> 21%
-                                                </span>
-                            </div>
-                            <div className="clearfix"></div>
-                          </div>
-                        </div>
-                        <div className="p-t-10 full-width">
-                          <a href="#" className="btn-circle-arrow b-grey"><i
-						className="pg-arrow_minimize text-danger"></i></a>
-                          <span className="hint-text small">Show more</span>
-                        </div>
-                      </div>
-                    </div>
-                    {/* END WIDGET */}
-                  </div>
+                <div className="modal-footer">
+                  <button id="add-app" type="button" className="btn btn-primary  btn-cons">Add</button>
+                  <button type="button" className="btn btn-cons" data-dismiss="modal">Close</button>
                 </div>
               </div>
-              <div className="col-lg-8 col-xl-9 col-xlg-6 m-b-10">
+              {/* /.modal-content */}
+            </div>
+            {/* /.modal-dialog */}
+          </div>
+
+          {/* START JUMBOTRON */}
+          <div className="jumbotron" data-pages="parallax">
+            <div className=" container-fluid   container-fixed-lg sm-p-l-0 sm-p-r-0">
+              <div className="inner">
+                {/* START BREADCRUMB */}
+                <ol className="breadcrumb">
+                  <li className="breadcrumb-item"><a href="#">Home</a></li>
+                  <li className="breadcrumb-item active">Data Tables</li>
+                </ol>
+                {/* END BREADCRUMB */}
                 <div className="row">
-                  <div className="col-md-12">
-                    {/* START WIDGET D3 widget_graphWidget*/}
-                    <div className="widget-12 card no-border widget-loader-circle no-margin">
-                      <div className="row">
-                        <div className="col-lg-8 ">
-                          <div className="card-header  pull-up top-right ">
-                            <div className="card-controls">
-                              <ul>
-                                <li className="hidden-xlg">
-                                  <div className="dropdown">
-                                    <a data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                      <i className="card-icon card-icon-settings"></i>
-                                    </a>
-                                    <ul className="dropdown-menu pull-right" role="menu">
-                                      <li><a href="#">AAPL</a>
-                                      </li>
-                                      <li><a href="#">YHOO</a>
-                                      </li>
-                                      <li><a href="#">GOOG</a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </li>
-                                <li>
-                                  <a data-toggle="refresh" className="card-refresh text-black" href="#"><i className="card-icon card-icon-refresh"></i></a>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
+                  <div className="col-xl-7 col-lg-6 ">
+                    {/* START card */}
+                    <div className="full-height">
+                      <div className="card-body text-center">
+                        <img className="image-responsive-height demo-mw-600" src="assets/img/demo/tables.jpg" alt=""/>
+                      </div>
+                    </div>
+                    {/* END card */}
+                  </div>
+                  <div className="col-xl-5 col-lg-6 ">
+                    {/* START card */}
+                    <div className="card card-transparent">
+                      <div className="card-header ">
+                        <div className="card-title">Getting started
                         </div>
                       </div>
                       <div className="card-body">
-                        <div className="row">
-                          <div className="col-sm-8">
-                            <div className="p-l-5">
-                              <h2 className="pull-left m-t-5 m-b-5">Apple Inc.</h2>
-                              <h2 className="pull-left m-l-50 m-t-5 m-b-5 text-danger">
-							<span className="">448.97</span>
-							<span className="text-danger fs-12">-318.24</span>
-						</h2>
-                              <div className="clearfix"></div>
-                              <div className="full-width">
-                                <ul className="list-inline">
-                                  <li><a href="#" className="font-montserrat text-master">1D</a>
-                                  </li>
-                                  <li className="active"><a href="#" className="font-montserrat  bg-master-light text-master">5D</a>
-                                  </li>
-                                  <li><a href="#" className="font-montserrat text-master">1M</a>
-                                  </li>
-                                  <li><a href="#" className="font-montserrat text-master">1Y</a>
-                                  </li>
-                                </ul>
-                              </div>
-                              <div className="nvd3-line line-chart text-center" data-x-grid="false">
-                                <svg></svg>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-sm-4">
-                            <div className="widget-12-search">
-                              <p className="pull-left">Company
-                                <span className="bold">List</span>
-                              </p>
-                              <button className="btn btn-default btn-xs pull-right">
-                                <span className="bold">+</span>
-                              </button>
-                              <div className="clearfix"></div>
-                              <input type="text" placeholder="Search list" className="form-control m-t-5"/>
-                            </div>
-                            <div className="company-stat-boxes">
-                              <div data-index="0" className="company-stat-box m-t-15 active padding-20 bg-master-lightest">
-                                <div>
-                                  <button type="button" className="close" data-dismiss="modal">
-                                    <i className="pg-close fs-12"></i>
-                                  </button>
-                                  <p className="company-name pull-left text-uppercase bold no-margin">
-                                    <span className="fa fa-circle text-success fs-11"></span> AAPL
-                                  </p>
-                                  <small className="hint-text m-l-10">Yahoo Inc.</small>
-                                  <div className="clearfix"></div>
-                                </div>
-                                <div className="m-t-10">
-                                  <p className="pull-left small hint-text no-margin p-t-5">9:42AM ET</p>
-                                  <div className="pull-right">
-                                    <p className="small hint-text no-margin inline">37.73</p>
-                                    <span className=" label label-important p-t-5 m-l-5 p-b-5 inline fs-12">+ 0.09</span>
-                                  </div>
-                                  <div className="clearfix"></div>
-                                </div>
-                              </div>
-                              <div data-index="1" className="company-stat-box m-t-15  padding-20 bg-master-lightest">
-                                <div>
-                                  <button type="button" className="close" data-dismiss="modal">
-                                    <i className="pg-close fs-12"></i>
-                                  </button>
-                                  <p className="company-name pull-left text-uppercase bold no-margin">
-                                    <span className="fa fa-circle text-primary fs-11"></span> YHOO
-                                  </p>
-                                  <small className="hint-text m-l-10">Yahoo Inc.</small>
-                                  <div className="clearfix"></div>
-                                </div>
-                                <div className="m-t-10">
-                                  <p className="pull-left small hint-text no-margin p-t-5">9:42AM ET</p>
-                                  <div className="pull-right">
-                                    <p className="small hint-text no-margin inline">37.73</p>
-                                    <span className=" label label-success p-t-5 m-l-5 p-b-5 inline fs-12">+ 0.09</span>
-                                  </div>
-                                  <div className="clearfix"></div>
-                                </div>
-                              </div>
-                              <div data-index="2" className="company-stat-box m-t-15  padding-20 bg-master-lightest">
-                                <div>
-                                  <button type="button" className="close" data-dismiss="modal">
-                                    <i className="pg-close fs-12"></i>
-                                  </button>
-                                  <p className="company-name pull-left text-uppercase bold no-margin">
-                                    <span className="fa fa-circle text-complete fs-11"></span> GOOG
-                                  </p>
-                                  <small className="hint-text m-l-10">Yahoo Inc.</small>
-                                  <div className="clearfix"></div>
-                                </div>
-                                <div className="m-t-10">
-                                  <p className="pull-left small hint-text no-margin p-t-5">9:42AM ET</p>
-                                  <div className="pull-right">
-                                    <p className="small hint-text no-margin inline">37.73</p>
-                                    <span className=" label label-success p-t-5 m-l-5 p-b-5 inline fs-12">+ 0.09</span>
-                                  </div>
-                                  <div className="clearfix"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        <h3>Easier than finding a needle in the haystack.</h3>
+                        <p>Sharing the same stylized design layout, these tables allows for the effective compilation and organization of data with easy access and maneuverability for users. </p>
+                        <p className="small hint-text m-t-5">VIA senior product manage
+                          <br></br> for UI/UX at REVOX</p>
+                        <br></br>
+                        <button className="btn btn-primary btn-cons">More</button>
                       </div>
                     </div>
-                    {/* END WIDGET */}
+                    {/* END card */}
                   </div>
                 </div>
-              </div>
-              <div className="col-lg-6 hidden-lg visible-xlg col-xlg-4 m-b-10">
-                {/* START WIDGET D3 widget_stackedBarWidget*/}
-                <div className="widget-15 card card-condensed  no-margin no-border widget-loader-circle">
-                  <div className="card-header ">
-                    <div className="card-controls">
-                      <ul>
-                        <li><a href="#" className="card-collapse" data-toggle="collapse"><i
-							className="card-icon card-icon-collapse"></i></a>
-                        </li>
-                        <li><a href="#" className="card-refresh text-black" data-toggle="refresh"><i
-							className="card-icon card-icon-refresh"></i></a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="card-body no-padding">
-                    <ul className="nav nav-tabs nav-tabs-simple">
-                      <li className="nav-item">
-                        <a href="#" data-toggle="tab" className="p-t-5 active">
-						APPL<br></br>
-						22.23<br></br>
-						<span className="text-success">+60.223%</span>
-					</a>
-                      </li>
-                      <li className="nav-item"><a href="#" data-toggle="tab" className="p-t-5">
-					FB<br></br>
-					45.97<br></br>
-					<span className="text-danger">-06.56%</span>
-				</a>
-                      </li>
-                      <li className="nav-item"><a href="#" data-toggle="tab" className="p-t-5">
-					GOOG<br></br>
-					22.23<br></br>
-					<span className="text-success">+60.223%</span>
-				</a>
-                      </li>
-                    </ul>
-                    <div className="tab-content p-l-20 p-r-20">
-                      <div className="tab-pane no-padding active" id="widget-15-tab-1">
-                        <div className="full-width">
-                          <div className="full-width">
-                            <div className="widget-15-chart rickshaw-chart"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="tab-pane no-padding" id="widget-15-tab-2">
-                      </div>
-                      <div className="tab-pane" id="widget-15-tab-3">
-                      </div>
-                    </div>
-                    <div className="p-t-20 p-l-20 p-r-20 p-b-30">
-                      <div className="row">
-                        <div className="col-md-9">
-                          <p className="fs-16 text-black">Apple’s Motivation - Innovation
-                            <br></br>distinguishes between A leader and a follower.
-                          </p>
-                          <p className="small hint-text p-b-10">VIA Apple Store (Consumer and Education Individuals)
-                            <br></br>(800) MY-APPLE (800-692-7753)
-                          </p>
-                        </div>
-                        <div className="col-md-3 text-right">
-                          <p className="font-montserrat bold text-success m-r-20 fs-16">+0.94</p>
-                          <p className="font-montserrat bold text-danger m-r-20 fs-16">-0.63</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* END WIDGET */}
               </div>
             </div>
-            <div className="row m-b-10">
-              <div className="col-lg-8 sm-p-b-10 md-p-b-10">
-                {/* START WIDGET widget_mapWidget*/}
-                <div className="widget-13 card no-border  no-margin widget-loader-circle">
-                  <div className="card-header  pull-up top-right ">
-                    <div className="card-controls">
-                      <ul>
-                        <li><a href="#" className="card-refresh text-black" data-toggle="refresh"><i className="card-icon card-icon-refresh"></i></a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="container-sm-height no-overflow">
-                    <div className="row row-sm-height">
-                      <div className="col-sm-5 col-lg-4 col-xlg-3 col-sm-height col-top no-padding">
-                        <div className="card-header  ">
-                          <div className="card-title">Menu clipping
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <ul className="nav nav-pills m-t-5 m-b-15" role="tablist">
-                            <li className="active">
-                              <a href="#tab1" data-toggle="tab" role="tab" className="b-a b-grey text-master">
-                                            fb
-                                        </a>
-                            </li>
-                            <li>
-                              <a href="#tab2" data-toggle="tab" role="tab" className="b-a b-grey text-master">
-                                            js
-                                        </a>
-                            </li>
-                            <li>
-                              <a href="#tab3" data-toggle="tab" role="tab" className="b-a b-grey text-master">
-                                            sa
-                                        </a>
-                            </li>
-                          </ul>
-                          <div className="tab-content">
-                            <div className="tab-pane active" id="tab1">
-                              <h3>Facebook</h3>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Views</p>
-                              <p className="all-caps font-montserrat  no-margin text-success ">14,256</p>
-                              <br></br>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Today</p>
-                              <p className="all-caps font-montserrat  no-margin text-warning ">24</p>
-                              <br></br>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Week</p>
-                              <p className="all-caps font-montserrat  no-margin text-success ">56</p>
-                            </div>
-                            <div className="tab-pane " id="tab2">
-                              <h3>Google</h3>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Views</p>
-                              <p className="all-caps font-montserrat  no-margin text-success ">14,256</p>
-                              <br></br>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Today</p>
-                              <p className="all-caps font-montserrat  no-margin text-warning ">24</p>
-                              <br></br>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Week</p>
-                              <p className="all-caps font-montserrat  no-margin text-success ">56</p>
-                            </div>
-                            <div className="tab-pane" id="tab3">
-                              <h3>Amazon</h3>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Views</p>
-                              <p className="all-caps font-montserrat  no-margin text-success ">14,256</p>
-                              <br></br>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Today</p>
-                              <p className="all-caps font-montserrat  no-margin text-warning ">24</p>
-                              <br></br>
-                              <p className="hint-text all-caps font-montserrat small no-margin ">Week</p>
-                              <p className="all-caps font-montserrat  no-margin text-success ">56</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="bg-master-light p-l-20 p-r-20 p-t-10 p-b-10 pull-bottom full-width hidden-xs">
-                          <p className="no-margin">
-                            <a href="#"><i className="fa fa-arrow-circle-o-down text-success"></i></a>
-                            <span className="hint-text">Super secret options</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="col-sm-7 col-lg-8 col-xlg-9 col-sm-height col-top no-padding relative">
-                        <div className="bg-master-light widget-13-map">
-                        </div>
-                      </div>
-                    </div>
+          </div>
+          {/* END JUMBOTRON */}
+          {/* START CONTAINER FLUID */}
+          <div className=" container-fluid   container-fixed-lg bg-white">
+            {/* START card */}
+            <div className="card card-transparent">
+              <div className="card-header ">
+                <div className="card-title">Pages Default Tables Style
+                </div>
+                <div className="pull-right">
+                  <div className="col-xs-12">
+                    <input type="text" id="search-table" className="form-control pull-right" placeholder="Search"/>
                   </div>
                 </div>
-                {/* END WIDGET */}
+                <div className="clearfix"></div>
               </div>
-              <div className="col-lg-4">
-                {/* START WIDGET widget_realtimeWidget*/}
-                <div className="widget-14 card no-border  no-margin widget-loader-circle">
-                  <div className="container-xs-height full-height">
-                    <div className="row-xs-height">
-                      <div className="col-xs-height">
-                        <div className="card-header ">
-                          <div className="card-title">Server load
-                          </div>
-                          <div className="card-controls">
-                            <ul>
-                              <li><a href="#" className="card-refresh text-black" data-toggle="refresh"><i
-										className="card-icon card-icon-refresh"></i></a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row-xs-height">
-                      <div className="col-xs-height">
-                        <div className="p-l-20 p-r-20">
-                          <p>Server: www.revox.io</p>
-                          <div className="row">
-                            <div className="col-lg-3 col-md-12">
-                              <h4 className="bold no-margin">5.2GB</h4>
-                              <p className="small no-margin">Total usage</p>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                              <h5 className=" no-margin p-t-5">227.34KB</h5>
-                              <p className="small no-margin">Currently</p>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                              <h5 className=" no-margin p-t-5">117.65MB</h5>
-                              <p className="small no-margin">Average</p>
-                            </div>
-                            <div className="col-lg-3 visible-xlg">
-                              <div className="widget-14-chart-legend bg-transparent text-black no-padding pull-right"></div>
-                              <div className="clearfix"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row-xs-height">
-                      <div className="col-xs-height relative bg-master-lightest">
-                        <div className="widget-14-chart_y_axis"></div>
-                        <div className="widget-14-chart rickshaw-chart top-left top-right bottom-left bottom-right"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* END WIDGET */}
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-4 visible-lg hidden-xlg sm-m-b-10">
-                {/* START WIDGET D3 widget_stackedBarWidgetBasic*/}
-                <div className="widget-15-2 card no-margin no-border widget-loader-circle">
-                  <div className="card-header  top-right">
-                    <div className="card-controls">
-                      <ul>
-                        <li><a href="#" className="card-refresh text-black" data-toggle="refresh"><i
-							className="card-icon card-icon-refresh"></i></a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <ul className="nav nav-tabs nav-tabs-simple">
-                    <li>
-                      <a href="#widget-15-2-tab-1" className="active">
-					APPL<br></br>
-					22.23<br></br>
-					<span className="text-success">+60.223%</span>
-				</a>
-                    </li>
-                    <li><a href="#widget-15-2-tab-2">
-				FB<br></br>
-				45.97<br></br>
-				<span className="text-danger">-06.56%</span>
-			</a>
-                    </li>
-                    <li><a href="#widget-15-2-tab-3">
-				GOOG<br></br>
-				22.23<br></br>
-				<span className="text-success">+60.223%</span>
-			</a>
-                    </li>
-                  </ul>
-                  <div className="tab-content">
-                    <div className="tab-pane no-padding active" id="widget-15-2-tab-1">
-                      <div className="full-width">
-                        <div className="widget-15-chart2 rickshaw-chart full-height"></div>
-                      </div>
-                    </div>
-                    <div className="tab-pane no-padding" id="widget-15-2-tab-2">
-                    </div>
-                    <div className="tab-pane" id="widget-15-2-tab-3">
-                    </div>
-                  </div>
-                  <div className="p-t-10 p-l-20 p-r-20 p-b-30">
-                    <div className="row">
-                      <div className="col-md-9">
-                        <p className="fs-16 text-black">Apple’s Motivation - Innovation distinguishes between A leader and a follower.
+              <div className="card-body">
+                <table className="table table-hover demo-table-search table-responsive-block" id="tableWithSearch">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Places</th>
+                      <th>Activities</th>
+                      <th>Status</th>
+                      <th>Last Update</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>Among the children</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>you want English, Scottish, Welsh, Irish, British, European or UK even a British (name other original country you came form or have roots to E.G. A British Japanese or a 5th generation
                         </p>
-                        <p className="small hint-text">VIA Apple Store (Consumer and Education Individuals)
-                          <br></br>(800) MY-APPLE (800-692-7753)
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>A day to remember</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>UK was on top of the art world 18-19 century had the best food, best cloths and best entertainment back then) it was a hyper nation</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>Life’s sadness shared</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>he world speaks English. Common law, Magna Carta and the Bill of Rights are its wonderful legacy
                         </p>
-                      </div>
-                      <div className="col-md-3 text-right">
-                        <h5 className="font-montserrat bold text-success">+0.94</h5>
-                        <h5 className="font-montserrat bold text-danger">-0.63</h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* END WIDGET */}
-              </div>
-              <div className="col-md-4 col-lg-3 col-xlg-3 m-b-10 visible-xlg">
-                {/* START WIDGET D3 widget_graphOptionsWidget*/}
-                <div className="widget-16 card no-border  no-margin widget-loader-circle">
-                  <div className="card-header ">
-                    <div className="card-title">Page Options
-                    </div>
-                    <div className="card-controls">
-                      <ul>
-                        <li><a href="#" className="card-refresh text-black" data-toggle="refresh"><i
-							className="card-icon card-icon-refresh"></i></a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="widget-16-header padding-20 d-flex">
-                    <span className="icon-thumbnail bg-master-light pull-left text-master">ws</span>
-                    <div className="flex-1 full-width overflow-ellipsis">
-                      <p className="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Pages name
-                      </p>
-                      <h5 className="no-margin overflow-ellipsis ">Webarch Sales Analysis</h5>
-                    </div>
-                  </div>
-                  <div className="p-l-25 p-r-45 p-t-25 p-b-25">
-                    <div className="row">
-                      <div className="col-md-4 ">
-                        <p className="hint-text all-caps font-montserrat small no-margin ">Views</p>
-                        <p className="all-caps font-montserrat  no-margin text-success ">14,256</p>
-                      </div>
-                      <div className="col-md-4 text-center">
-                        <p className="hint-text all-caps font-montserrat small no-margin ">Today</p>
-                        <p className="all-caps font-montserrat  no-margin text-warning ">24</p>
-                      </div>
-                      <div className="col-md-4 text-right">
-                        <p className="hint-text all-caps font-montserrat small no-margin ">Week</p>
-                        <p className="all-caps font-montserrat  no-margin text-success ">56</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="relative no-overflow">
-                    <div className="widget-16-chart line-chart" data-line-color="success" data-points="true" data-point-color="white" data-stroke-width="2">
-                      <svg></svg>
-                    </div>
-                  </div>
-                  <div className="b-b b-t b-grey p-l-20 p-r-20 p-b-10 p-t-10">
-                    <p className="pull-left">Post is Public</p>
-                    <div className="pull-right">
-                      <input type="checkbox" data-init-plugin="switchery" />
-                    </div>
-                    <div className="clearfix"></div>
-                  </div>
-                  <div className="b-b b-grey p-l-20 p-r-20 p-b-10 p-t-10">
-                    <p className="pull-left">Maintenance mode</p>
-                    <div className="pull-right">
-                      <input type="checkbox" data-init-plugin="switchery" defaultChecked />
-                    </div>
-                    <div className="clearfix"></div>
-                  </div>
-                  <div className="p-l-20 p-r-20 p-t-10 p-b-10 ">
-                    <p className="pull-left no-margin hint-text">Super secret options</p>
-                    <a href="#" className="pull-right"><i className="fa fa-arrow-circle-o-down text-success fs-16"></i></a>
-                    <div className="clearfix"></div>
-                  </div>
-                </div>
-                {/* END WIDGET */}
-              </div>
-              <div className="col-xlg-3 visible-xlg ">
-                <div className="row">
-                  <div className="col-xlg-12">
-                    {/* START WIDGET widget_socialPostTile*/}
-                    <div className="card no-border  no-margin">
-                      <div className="padding-15">
-                        <div className="item-header clearfix">
-                          <div className="thumbnail-wrapper d32 circular">
-                            <img width="40" height="40" src="assets/img/profiles/3x.jpg" data-src="assets/img/profiles/3.jpg" data-src-retina="assets/img/profiles/3x.jpg" alt=""/>
-                          </div>
-                          <div className="inline m-l-10">
-                            <p className="no-margin">
-                              <strong>Anne Simons</strong>
-                            </p>
-                            <p className="no-margin hint-text">Shared a link
-                              <span className="location semi-bold"><i className="fa fa-map-marker"></i> NY center</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <hr className="no-margin"/>
-                      <div className="padding-15">
-                        <p>Inspired by : good design is obvious, great design is transparent</p>
-                        <div className="hint-text">via themeforest</div>
-                      </div>
-                      <div className="relative">
-                        <ul className="buttons pull-top top-right list-inline p-r-10 p-t-10">
-                          <li>
-                            <a className="text-white" href="#"><i className="fa fa-expand"></i>
-					</a>
-                          </li>
-                          <li>
-                            <a className="text-white" href="#"><i className="fa fa-heart-o"></i>
-					</a>
-                          </li>
-                        </ul>
-                        <div className="widget-19-post no-overflow">
-                          <img src="assets/img/social-post-image.png" className="block center-margin relative" alt="Post"/>
-                        </div>
-                      </div>
-                      <div className="padding-15">
-                        <div className="hint-text pull-left">few seconds ago</div>
-                        <ul className="list-inline pull-right no-margin">
-                          <li><a className="text-master hint-text" href="#">5,345 <i className="fa fa-comment-o"></i></a>
-                          </li>
-                          <li><a className="text-master hint-text" href="#">23K <i className="fa fa-heart-o"></i></a>
-                          </li>
-                        </ul>
-                        <div className="clearfix"></div>
-                      </div>
-                    </div>
-                    {/* END WIDGET */}
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-12 col-lg-8 col-xlg-6 md-m-t-10">
-                {/* START WIDGET widget_weatherWidget*/}
-                <div className="widget-17 card  no-border no-margin widget-loader-circle">
-                  <div className="card-header ">
-                    <div className="card-title">
-                      <i className="pg-map"></i> California, USA
-                      <span className="caret"></span>
-                    </div>
-                    <div className="card-controls">
-                      <ul>
-                        <li className="">
-                          <div className="dropdown">
-                            <a data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                              <i className="card-icon card-icon-settings"></i>
-                            </a>
-                            <ul className="dropdown-menu pull-right" role="menu">
-                              <li><a href="#">AAPL</a>
-                              </li>
-                              <li><a href="#">YHOO</a>
-                              </li>
-                              <li><a href="#">GOOG</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </li>
-                        <li>
-                          <a data-toggle="refresh" className="card-refresh text-black" href="#">
-                            <i className="card-icon card-icon-refresh"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="card-body">
-                    <div className="p-l-5">
-                      <div className="row">
-                        <div className="col-sm-6">
-                          <div className="row m-t-20">
-                            <div className="col-lg-5">
-                              <h4 className="no-margin">Monday</h4>
-                              <p className="small hint-text">9th August 2014</p>
-                            </div>
-                            <div className="col-lg-7">
-                              <div className="pull-left">
-                                <p className="small hint-text no-margin">Currently</p>
-                                <h4 className="text-danger bold no-margin">32°
-                      <span className="small">/ 30C</span>
-                    </h4>
-                              </div>
-                              <div className="pull-right">
-                                <canvas height="64" width="64" className="clear-day"></canvas>
-                              </div>
-                            </div>
-                          </div>
-                          <h5>Feels like
-                <span className="semi-bold">rainy</span>
-              </h5>
-                          <p>Weather information</p>
-                          <div className="widget-17-weather">
-                            <div className="row">
-                              <div className="col-6 p-r-10">
-                                <div className="row">
-                                  <div className="col-lg-12">
-                                    <p className="pull-left">Wind</p>
-                                    <p className="pull-right bold">11km/h</p>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="col-lg-12">
-                                    <p className="pull-left">Sunrise</p>
-                                    <p className="pull-right bold">05:20</p>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="col-lg-12">
-                                    <p className="pull-left">Humidity</p>
-                                    <p className="pull-right bold">20%</p>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="col-lg-12">
-                                    <p className="pull-left">Precipitation</p>
-                                    <p className="pull-right bold">60%</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-6 p-l-10">
-                                <div className="row">
-                                  <div className="col-lg-12">
-                                    <p className="pull-left">Sunset</p>
-                                    <p className="pull-right bold">21:05</p>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="col-lg-12">
-                                    <p className="pull-left">Visibility</p>
-                                    <p className="pull-right bold">21km</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="row m-t-10 timeslot">
-                            <div className="col-2 p-t-10 text-center">
-                              <p className="small">13:30</p>
-                              <canvas height="25" width="25" className="partly-cloudy-day"></canvas>
-                              <p className="text-danger bold">30°C</p>
-                            </div>
-                            <div className="col-2 p-t-10 text-center">
-                              <p className="small">14:00</p>
-                              <canvas height="25" width="25" className="cloudy"></canvas>
-                              <p className="text-danger bold">30°C</p>
-                            </div>
-                            <div className="col-2 p-t-10 text-center">
-                              <p className="small">14:30</p>
-                              <canvas height="25" width="25" className="rain"></canvas>
-                              <p className="text-danger bold">30°C</p>
-                            </div>
-                            <div className="col-2 p-t-10 text-center">
-                              <p className="small">15:00</p>
-                              <canvas height="25" width="25" className="sleet"></canvas>
-                              <p className="text-danger bold">30°C</p>
-                            </div>
-                            <div className="col-2 p-t-10 text-center">
-                              <p className="small">15:30</p>
-                              <canvas height="25" width="25" className="snow"></canvas>
-                              <p className="text-danger bold">30°C</p>
-                            </div>
-                            <div className="col-2 p-t-10 text-center">
-                              <p className="small">16:00</p>
-                              <canvas height="25" width="25" className="wind"></canvas>
-                              <p className="text-danger bold">30°C</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-sm-6 d-none d-sm-none d-md-block d-lg-block d-xl-block">
-                          <div className="row">
-                            <div className="forecast-day col-sm-6 text-center m-t-10 ">
-                              <div className="bg-master-lightest p-b-10 p-t-10">
-                                <h4 className="p-t-10 no-margin">Tuesday</h4>
-                                <p className="small hint-text m-b-20">11th Augest 2014</p>
-                                <canvas className="rain" width="64" height="64"></canvas>
-                                <h5 className="text-danger">32°</h5>
-                                <p>Feels like
-                                  <span className="bold">sunny</span>
-                                </p>
-                                <p className="small">Wind
-                                  <span className="bold p-l-20">11km/h</span>
-                                </p>
-                                <div className="m-t-20 block">
-                                  <div className="padding-10">
-                                    <div className="row">
-                                      <div className="col-lg-6 text-center">
-                                        <p className="small">Noon</p>
-                                        <canvas className="sleet" width="25" height="25"></canvas>
-                                        <p className="text-danger bold">30°C</p>
-                                      </div>
-                                      <div className="col-lg-6 text-center">
-                                        <p className="small">Night</p>
-                                        <canvas className="wind" width="25" height="25"></canvas>
-                                        <p className="text-danger bold">30°C</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-sm-6 text-center m-t-10 ">
-                              <div className="bg-master-lightest p-b-10 p-t-10">
-                                <h4 className="p-t-10 no-margin">Wednesday</h4>
-                                <p className="small hint-text m-b-20">11th Augest 2014</p>
-                                <canvas className="rain" width="64" height="64"></canvas>
-                                <h5 className="text-danger">32°</h5>
-                                <p>Feels like
-                                  <span className="bold">sunny</span>
-                                </p>
-                                <p className="small">Wind
-                                  <span className="bold p-l-20">11km/h</span>
-                                </p>
-                                <div className="m-t-20 block">
-                                  <div className="padding-10">
-                                    <div className="row">
-                                      <div className="col-lg-6 text-center">
-                                        <p className="small">Noon</p>
-                                        <canvas className="sleet" width="25" height="25"></canvas>
-                                        <p className="text-danger bold">30°C</p>
-                                      </div>
-                                      <div className="col-lg-6 text-center">
-                                        <p className="small">Night</p>
-                                        <canvas className="wind" width="25" height="25"></canvas>
-                                        <p className="text-danger bold">30°C</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* END WIDGET */}
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle semi-bold">
+                        <p>First Tour</p>
+                      </td>
+                      <td className="v-align-middle"><a href="#" className="btn btn-tag">United States</a><a href="#" className="btn btn-tag">India</a>
+                        <a href="#" className="btn btn-tag">China</a><a href="#" className="btn btn-tag">Africa</a>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Public</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>April 13,2014 10:13</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
+            {/* END card */}
+          </div>
+          {/* END CONTAINER FLUID */}
+          {/* START CONTAINER FLUID */}
+          <div className=" container-fluid   container-fixed-lg">
+            {/* START card */}
+            <div className="card card-transparent">
+              <div className="card-header ">
+                <div className="card-title">Table with Dynamic Rows
+                </div>
+                <div className="pull-right">
+                  <div className="col-xs-12">
+                    <button id="show-modal" className="btn btn-primary btn-cons"><i className="fa fa-plus"></i> Add row
+                    </button>
+                  </div>
+                </div>
+                <div className="clearfix"></div>
+              </div>
+              <div className="card-body">
+                <table className="table table-hover demo-table-dynamic table-responsive-block" id="tableWithDynamicRows">
+                  <thead>
+                    <tr>
+                      <th>App name</th>
+                      <th>Description</th>
+                      <th>Price</th>
+                      <th>Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="v-align-middle">
+                        <p>Hyperlapse</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Description goes here</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>FREE</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Notes go here</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle">
+                        <p>Facebook</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Description goes here</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>FREE</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Notes go here</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle">
+                        <p>Twitter</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Description goes here</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>FREE</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Notes go here</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle">
+                        <p>Foursquare</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Description goes here</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>FREE</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Notes go here</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="v-align-middle">
+                        <p>Angry Birds</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Description goes here</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>FREE</p>
+                      </td>
+                      <td className="v-align-middle">
+                        <p>Notes go here</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {/* END card */}
+          </div>
+          {/* END CONTAINER FLUID */}
+          {/* START CONTAINER FLUID */}
+          <div className=" container-fluid   container-fixed-lg bg-white">
+            {/* START card */}
+            <div className="card card-transparent">
+              <div className="card-header  d-flex justify-content-between">
+                <div className="card-title">Table with export options
+                </div>
+                <div className="export-options-container"></div>
+                {/* <div className="clearfix"></div> */}
+              </div>
+              <div className="card-body">
+                <table className="table table-striped" id="tableWithExportOptions">
+                  <thead>
+                    <tr>
+                      <th>Rendering engine</th>
+                      <th>Browser</th>
+                      <th>Platform(s)</th>
+                      <th>Engine version</th>
+                      <th>CSS grade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="odd gradeX">
+                      <td>Trident</td>
+                      <td>Internet Explorer 4.0</td>
+                      <td>Win 95+</td>
+                      <td className="center"> 4</td>
+                      <td className="center">X</td>
+                    </tr>
+                    <tr className="even gradeC">
+                      <td>Trident</td>
+                      <td>Internet Explorer 5.0</td>
+                      <td>Win 95+</td>
+                      <td className="center">5</td>
+                      <td className="center">C</td>
+                    </tr>
+                    <tr className="odd gradeA">
+                      <td>Trident</td>
+                      <td>Internet Explorer 5.5</td>
+                      <td>Win 95+</td>
+                      <td className="center">5.5</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="even gradeA">
+                      <td>Trident</td>
+                      <td>Internet Explorer 6</td>
+                      <td>Win 98+</td>
+                      <td className="center">6</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="odd gradeA">
+                      <td>Trident</td>
+                      <td>Internet Explorer 7</td>
+                      <td>Win XP SP2+</td>
+                      <td className="center">7</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="even gradeA">
+                      <td>Trident</td>
+                      <td>AOL browser (AOL desktop)</td>
+                      <td>Win XP</td>
+                      <td className="center">6</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Firefox 1.0</td>
+                      <td>Win 98+ / OSX.2+</td>
+                      <td className="center">1.7</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Firefox 1.5</td>
+                      <td>Win 98+ / OSX.2+</td>
+                      <td className="center">1.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Firefox 2.0</td>
+                      <td>Win 98+ / OSX.2+</td>
+                      <td className="center">1.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Firefox 3.0</td>
+                      <td>Win 2k+ / OSX.3+</td>
+                      <td className="center">1.9</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Camino 1.0</td>
+                      <td>OSX.2+</td>
+                      <td className="center">1.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Camino 1.5</td>
+                      <td>OSX.3+</td>
+                      <td className="center">1.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Netscape 7.2</td>
+                      <td>Win 95+ / Mac OS 8.6-9.2</td>
+                      <td className="center">1.7</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Netscape Browser 8</td>
+                      <td>Win 98SE+</td>
+                      <td className="center">1.7</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Netscape Navigator 9</td>
+                      <td>Win 98+ / OSX.2+</td>
+                      <td className="center">1.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.0</td>
+                      <td>Win 95+ / OSX.1+</td>
+                      <td className="center">1</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.1</td>
+                      <td>Win 95+ / OSX.1+</td>
+                      <td className="center">1.1</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.2</td>
+                      <td>Win 95+ / OSX.1+</td>
+                      <td className="center">1.2</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.3</td>
+                      <td>Win 95+ / OSX.1+</td>
+                      <td className="center">1.3</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.4</td>
+                      <td>Win 95+ / OSX.1+</td>
+                      <td className="center">1.4</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.5</td>
+                      <td>Win 95+ / OSX.1+</td>
+                      <td className="center">1.5</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.6</td>
+                      <td>Win 95+ / OSX.1+</td>
+                      <td className="center">1.6</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.7</td>
+                      <td>Win 98+ / OSX.1+</td>
+                      <td className="center">1.7</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Mozilla 1.8</td>
+                      <td>Win 98+ / OSX.1+</td>
+                      <td className="center">1.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Seamonkey 1.1</td>
+                      <td>Win 98+ / OSX.2+</td>
+                      <td className="center">1.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Gecko</td>
+                      <td>Epiphany 2.20</td>
+                      <td>Gnome</td>
+                      <td className="center">1.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Webkit</td>
+                      <td>Safari 1.2</td>
+                      <td>OSX.3</td>
+                      <td className="center">125.5</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Webkit</td>
+                      <td>Safari 1.3</td>
+                      <td>OSX.3</td>
+                      <td className="center">312.8</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Webkit</td>
+                      <td>Safari 2.0</td>
+                      <td>OSX.4+</td>
+                      <td className="center">419.3</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Webkit</td>
+                      <td>Safari 3.0</td>
+                      <td>OSX.4+</td>
+                      <td className="center">522.1</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Webkit</td>
+                      <td>OmniWeb 5.5</td>
+                      <td>OSX.4+</td>
+                      <td className="center">420</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Webkit</td>
+                      <td>iPod Touch / iPhone</td>
+                      <td>iPod</td>
+                      <td className="center">420.1</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Webkit</td>
+                      <td>S60</td>
+                      <td>S60</td>
+                      <td className="center">413</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Opera 7.0</td>
+                      <td>Win 95+ / OSX.1+</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Opera 7.5</td>
+                      <td>Win 95+ / OSX.2+</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Opera 8.0</td>
+                      <td>Win 95+ / OSX.2+</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Opera 8.5</td>
+                      <td>Win 95+ / OSX.2+</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Opera 9.0</td>
+                      <td>Win 95+ / OSX.3+</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Opera 9.2</td>
+                      <td>Win 88+ / OSX.3+</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Opera 9.5</td>
+                      <td>Win 88+ / OSX.3+</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Opera for Wii</td>
+                      <td>Wii</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Nokia N800</td>
+                      <td>N800</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Presto</td>
+                      <td>Nintendo DS browser</td>
+                      <td>Nintendo DS</td>
+                      <td className="center">8.5</td>
+                      <td className="center">C/A<sup>1</sup>
+                      </td>
+                    </tr>
+                    <tr className="gradeC">
+                      <td>KHTML</td>
+                      <td>Konqureror 3.1</td>
+                      <td>KDE 3.1</td>
+                      <td className="center">3.1</td>
+                      <td className="center">C</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>KHTML</td>
+                      <td>Konqureror 3.3</td>
+                      <td>KDE 3.3</td>
+                      <td className="center">3.3</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>KHTML</td>
+                      <td>Konqureror 3.5</td>
+                      <td>KDE 3.5</td>
+                      <td className="center">3.5</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeX">
+                      <td>Tasman</td>
+                      <td>Internet Explorer 4.5</td>
+                      <td>Mac OS 8-9</td>
+                      <td className="center">-</td>
+                      <td className="center">X</td>
+                    </tr>
+                    <tr className="gradeC">
+                      <td>Tasman</td>
+                      <td>Internet Explorer 5.1</td>
+                      <td>Mac OS 7.6-9</td>
+                      <td className="center">1</td>
+                      <td className="center">C</td>
+                    </tr>
+                    <tr className="gradeC">
+                      <td>Tasman</td>
+                      <td>Internet Explorer 5.2</td>
+                      <td>Mac OS 8-X</td>
+                      <td className="center">1</td>
+                      <td className="center">C</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Misc</td>
+                      <td>NetFront 3.1</td>
+                      <td>Embedded devices</td>
+                      <td className="center">-</td>
+                      <td className="center">C</td>
+                    </tr>
+                    <tr className="gradeA">
+                      <td>Misc</td>
+                      <td>NetFront 3.4</td>
+                      <td>Embedded devices</td>
+                      <td className="center">-</td>
+                      <td className="center">A</td>
+                    </tr>
+                    <tr className="gradeX">
+                      <td>Misc</td>
+                      <td>Dillo 0.8</td>
+                      <td>Embedded devices</td>
+                      <td className="center">-</td>
+                      <td className="center">X</td>
+                    </tr>
+                    <tr className="gradeX">
+                      <td>Misc</td>
+                      <td>Links</td>
+                      <td>Text only</td>
+                      <td className="center">-</td>
+                      <td className="center">X</td>
+                    </tr>
+                    <tr className="gradeX">
+                      <td>Misc</td>
+                      <td>Lynx</td>
+                      <td>Text only</td>
+                      <td className="center">-</td>
+                      <td className="center">X</td>
+                    </tr>
+                    <tr className="gradeC">
+                      <td>Misc</td>
+                      <td>IE Mobile</td>
+                      <td>Windows Mobile 6</td>
+                      <td className="center">-</td>
+                      <td className="center">C</td>
+                    </tr>
+                    <tr className="gradeC">
+                      <td>Misc</td>
+                      <td>PSP browser</td>
+                      <td>PSP</td>
+                      <td className="center">-</td>
+                      <td className="center">C</td>
+                    </tr>
+                    <tr className="gradeU">
+                      <td>Other browsers</td>
+                      <td>All others</td>
+                      <td>-</td>
+                      <td className="center">-</td>
+                      <td className="center">U</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {/* END card */}
           </div>
           {/* END CONTAINER FLUID */}
         </div>
@@ -1124,7 +1112,7 @@ class Temp extends Component {
                     {/* BEGIN Note Action !*/}
                     <div className="checkbox check-warning no-margin">
                       <input id="qncheckbox1" type="checkbox" value="1"/>
-                      <label htmlFor="qncheckbox1"></label>
+                      <label for="qncheckbox1"></label>
                     </div>
                     {/* END Note Action !*/}
                     {/* BEGIN Note Preview Text !*/}
@@ -1147,7 +1135,7 @@ class Temp extends Component {
                     {/* BEGIN Note Action !*/}
                     <div className="checkbox check-warning no-margin">
                       <input id="qncheckbox2" type="checkbox" value="1"/>
-                      <label htmlFor="qncheckbox2"></label>
+                      <label for="qncheckbox2"></label>
                     </div>
                     {/* END Note Action !*/}
                     {/* BEGIN Note Preview Text !*/}
@@ -1170,7 +1158,7 @@ class Temp extends Component {
                     {/* BEGIN Note Action !*/}
                     <div className="checkbox check-warning no-margin">
                       <input id="qncheckbox3" type="checkbox" value="1"/>
-                      <label htmlFor="qncheckbox3"></label>
+                      <label for="qncheckbox3"></label>
                     </div>
                     {/* END Note Action !*/}
                     {/* BEGIN Note Preview Text !*/}
@@ -1193,7 +1181,7 @@ class Temp extends Component {
                     {/* BEGIN Note Action !*/}
                     <div className="checkbox check-warning no-margin">
                       <input id="qncheckbox4" type="checkbox" value="1"/>
-                      <label htmlFor="qncheckbox4"></label>
+                      <label for="qncheckbox4"></label>
                     </div>
                     {/* END Note Action !*/}
                     {/* BEGIN Note Preview Text !*/}
@@ -1216,7 +1204,7 @@ class Temp extends Component {
                     {/* BEGIN Note Action !*/}
                     <div className="checkbox check-warning no-margin">
                       <input id="qncheckbox5" type="checkbox" value="1"/>
-                      <label htmlFor="qncheckbox5"></label>
+                      <label for="qncheckbox5"></label>
                     </div>
                     {/* END Note Action !*/}
                     {/* BEGIN Note Preview Text !*/}
@@ -1254,7 +1242,7 @@ class Temp extends Component {
                       <span>21st april 2014 2:13am</span>
                     </div>
                     <div className="content">
-                      <div className="quick-note-editor full-width full-height js-input" contentEditable="true"></div>
+                      <div className="quick-note-editor full-width full-height js-input" contenteditable="true"></div>
                     </div>
                   </div>
                 </div>
@@ -2142,12 +2130,12 @@ class Temp extends Component {
         {/* END Overlay Header !*/}
         <div className="container-fluid">
           {/* BEGIN Overlay Controls !*/}
-          <input id="overlay-search" className="no-border overlay-search bg-transparent" placeholder="Search..." autoComplete="off" spellCheck="false"/>
+          <input id="overlay-search" className="no-border overlay-search bg-transparent" placeholder="Search..." autocomplete="off" spellcheck="false"/>
           <br></br>
           <div className="inline-block">
             <div className="checkbox right">
-              <input id="checkboxn" type="checkbox" value="1" defaultChecked/>
-              <label htmlFor="checkboxn"><i className="fa fa-search"></i> Search within page</label>
+              <input id="checkboxn" type="checkbox" value="1" checked="checked"/>
+              <label for="checkboxn"><i className="fa fa-search"></i> Search within page</label>
             </div>
           </div>
           <div className="inline-block m-l-10">
@@ -2262,10 +2250,9 @@ class Temp extends Component {
     </div>
     {/* END OVERLAY */}
 
-             </div>
-
+              </div>
         )
     }
 }
 
-export default Temp
+export default TempPaddlers
