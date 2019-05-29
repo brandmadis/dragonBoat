@@ -262,6 +262,7 @@ class HeatList extends Component {
 
         // console.log("addToSubs", "sub.id", sub.id, "heatID", heatID, "item: ", item, i)
         console.log("subs", this.state.heats[i]['subs'][0], "item: ", item)
+        
         let newData = [ ...this.state.heats ]
         if (this.state.heats[i]['subs'][0] === 0) { // if first sub, replace placeholder
             newData[i]['subs'][0] = sub.id
