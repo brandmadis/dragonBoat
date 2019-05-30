@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import FormFields from '../widgets/Forms/formFields2'
+import FormFields from '../../widgets/Forms/formFields2'
 import { 
     firebaseDB, 
     config
     // firebasePaddlers, 
     // firebaseLooper 
-} from '../firebase'
+} from '../../firebase'
 import { Redirect } from 'react-router-dom'
-import Uploader from '../widgets/FileUploader/fileUploaderEdit'
+import Uploader from '../../widgets/FileUploader/fileUploaderEdit'
 import { Button, Icon } from 'semantic-ui-react'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 
@@ -334,13 +334,15 @@ class PaddlerEdit extends Component {
         this.state.loading ? 
             'loading...' :
             <div style={{display:'inline'}}>
-
-                <Button animated>
+                <button type='submit' className="btn btn-default">
+                    Submit
+                </button>
+                {/* <Button animated>
                     <Button.Content visible>Submit</Button.Content>
                     <Button.Content hidden>
                         <Icon name='arrow right' />
                     </Button.Content>
-                </Button>
+                </Button> */}
             </div>
     )  
     showError = () => (
@@ -355,20 +357,20 @@ class PaddlerEdit extends Component {
     }    
     cancel() {
         console.log("cancel")
-        this.props.history.push(`/paddlers`);
+        this.props.history.push(`/tempPaddlers`);
         
     }
     deletePaddler(id){
         console.log("delete Paddler")
         firebaseDB.ref('paddlers/' + id).remove()
-        this.props.history.push(`/paddlers`);
+        this.props.history.push(`/tempPaddlers`);
     }
     render() {
     const { redirect } = this.state;
 
      if (redirect) {
          console.log("redirect hit")
-       return <Redirect to='/paddlers'/>;
+       return <Redirect to='/tempPaddlers'/>;
      }
      
                 // <FormFields 
@@ -385,6 +387,29 @@ class PaddlerEdit extends Component {
           }  
     return (
         <div>
+    {/* START PAGE-CONTAINER */}
+    <div className="page-container ">    
+      {/* START PAGE CONTENT WRAPPER */}
+      <div className="page-content-wrapper ">
+        {/* START PAGE CONTENT */}
+        <div className="content ">
+      
+          {/* START CONTAINER FLUID */}
+          <div className=" container-fluid   container-fixed-lg bg-white">
+            {/* START card */}
+            <div className="card card-transparent">
+              <div className="card-header ">
+                <div className="card-title">
+                </div>
+                {/* <div className="pull-right">
+                  <div className="col-xs-12">
+                    <input type="text" id="search-table" className="form-control pull-right" placeholder="Search"/>
+                  </div>
+                </div> */}
+                <div className="clearfix"></div>
+              </div>
+              <div className="card-body"></div>
+
             <h1><i>{this.state.formData.firstName.value} {this.state.formData.lastName.value}</i></h1>
             <form onSubmit={this.submitForm}>
             <div style={divGrid}>
@@ -471,27 +496,51 @@ class PaddlerEdit extends Component {
                         <div className="col-sm-6">
                 { this.submitButton() }
                 <div style={{display: 'inline'}}>
-                    <Button animated onClick={()=>this.cancel()}>
-                        <Button.Content visible>Cancel</Button.Content>
-                        <Button.Content hidden>
+                    <button 
+                        className="btn btn-default"
+                        onClick={()=>this.cancel()}>
+                        Cancel
+                        {/* <Button.Content visible>Cancel</Button.Content> */}
+                        {/* <Button.Content hidden>
                             <Icon name='arrow left' />
-                        </Button.Content>
-                    </Button>
+                        </Button.Content> */}
+                    </button>
                 </div>
                 <div style={{display: 'inline'}}>
-                    <Button 
-                        color="red"
+                    <button 
                         type="button"
-                        animated onClick={()=>{
+                        className="btn btn-danger"
+                        onClick={()=>{
                             if(window.confirm('Are you sure you want to delete this paddler?'))
                             this.deletePaddler(this.props.match.params.id)}}>
-                        <Button.Content visible>Delete</Button.Content>
-                        <Button.Content hidden><Icon name='delete' /></Button.Content>
-                    </Button>
+                                Delete
+                        {/* <Button.Content visible>Delete</Button.Content>
+                        <Button.Content hidden><Icon name='delete' /></Button.Content> */}
+                    </button>
                 </div>
                             </div>
                     </div>
             </form>
+
+            </div>
+            </div>
+            {/* END card */}
+          </div>
+          {/* END CONTAINER FLUID */}
+          {/* START CONTAINER FLUID */}
+          {/* END CONTAINER FLUID */}
+          {/* START CONTAINER FLUID */}
+          {/* END CONTAINER FLUID */}
+        </div>
+        {/* END PAGE CONTENT */}
+        {/* START COPYRIGHT */}
+        {/* START CONTAINER FLUID */}
+        {/* START CONTAINER FLUID */}
+ 
+        {/* END COPYRIGHT */}
+      </div>
+      {/* END PAGE CONTENT WRAPPER */}
+    {/* END PAGE CONTAINER */}
             </div>
                     )
                 }

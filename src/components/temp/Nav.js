@@ -49,7 +49,7 @@ class Nav extends Component {
         {/* BEGIN SIDEBAR MENU ITEMS*/}
         <ul className="menu-items">
           <li className="m-t-30 ">
-              <NavLink to="temp">
+              <NavLink to="/">
                 <span className="title">Dashboard</span>
                 {/* <span className="details">12 New Updates</span> */}
               </NavLink>
@@ -60,11 +60,11 @@ class Nav extends Component {
             <span className="bg-success icon-thumbnail"><i className="pg-home"></i></span>
           </li>
           <li className="">
-              <NavLink to="tempPaddlers">Paddlers</NavLink>
+              <NavLink to="/tempPaddlers">Paddlers</NavLink>
               <span className="bg-success icon-thumbnail"><i className="pg-home"></i></span>
           </li>
           <li>
-              <NavLink to="boats2">Boats</NavLink>
+              <NavLink to="/tempBoats">Boats</NavLink>
               <span className="bg-success icon-thumbnail"><i className="pg-home"></i></span>
           </li>
           {/* <li className="">

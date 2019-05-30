@@ -93,19 +93,20 @@ const FormFields = ({formData, change, id, selectedGender, click}) => {
                             <button 
                                 key={i}
                                 type="button"
-                                className={i === 0 ?
-                                    (parseInt(formData.value) === (i + 1) ? 
-                                        "ui left attached button primary" :
-                                        `${typeof (i+1)} ${typeof parseInt(formData.value)} ui left attached button`
-                                    )
+                                className="btn btn-default"
+                                // {i === 0 ?
+                                //     (parseInt(formData.value) === (i + 1) ? 
+                                //         // "ui left attached button primary" :
+                                //         `${typeof (i+1)} ${typeof parseInt(formData.value)} ui left attached button`
+                                //     )
                                     
-                                    :
-                                    (parseInt(formData.value) === (i + 1) ? 
-                                        "ui right attached button primary" :
-                                        "ui right attached button"
-                                    )
+                                //     :
+                                //     (parseInt(formData.value) === (i + 1) ? 
+                                //         "ui right attached button primary" :
+                                //         "ui right attached button"
+                                //     )
 
-                                }
+                                // }
                                 onChange={()=>change(item.val)}
                                 onClick={()=>click(item.val)}
                                 >

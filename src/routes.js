@@ -17,6 +17,11 @@ import HeatList from './components/HeatList'
 import Temp from './components/temp/Temp'
 import Nav from './components/temp/Nav'
 import TempPaddlers from './components/temp/TempPaddlers'
+import TempPaddlersEdit from './components/temp/TempPaddlersEdit'
+import TempPaddlersAdd from './components/temp/TempPaddlersAdd'
+import TempBoats from './components/temp/TempBoats'
+import TempHeats from './components/temp/TempHeats'
+import TempHeat from './components/temp/TempHeat'
 
 const Routes = () => {
     return (
@@ -35,14 +40,19 @@ const Routes = () => {
                 <Route path="/heat/:id/:name" exact component={Heat}/>
                 <Route path="/heatList/:id" exact component={HeatList}/>
                 <Route path="/boatedit/:id" exact component={BoatEdit}/>
-                <Route path="/" exact component={Boats2}/>
+                {/* <Route path="/" exact component={Boats2}/> */}
                 <Route path="/paddlerAdd" exact component={PaddlerAdd}/>
                 <Route path="/paddlerAdd2" exact component={PaddlerAdd2}/>
                 <Route path="/boatAdd" exact component={Heat}/>
             </div>
             </div>
-                <Route path="/temp" exact component={Temp}/>
+                <Route path="/" exact component={Temp}/>
                 <Route path="/tempPaddlers" exact component={TempPaddlers}/>
+                <Route path="/tempPaddlers/:id" exact component={TempPaddlersEdit}/>
+                <Route path="/tempPaddlersAdd" exact component={TempPaddlersAdd}/>
+                <Route path="/tempBoats" exact component={TempBoats}/>
+                <Route path="/tempHeats/:id" exact component={TempHeats}/>
+                <Route path="/tempHeat/:id/:name" exact component={TempHeat}/>
         </div>        
         )
 }

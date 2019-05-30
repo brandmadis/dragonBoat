@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 // import { Link, withRouter } from 'react-router-dom'
 import { firebaseBoats, firebaseLooper, firebaseDB, firebaseHeats, firebaseSeats } from '../firebase'
-import FormFields from '../widgets/Forms/formFields2'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
 
 class Boats2 extends Component {
