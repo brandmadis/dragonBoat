@@ -33,7 +33,7 @@ class TempPaddlers extends Component {
             <div>
 
     {/* START PAGE-CONTAINER */}
-    <div className="page-container ">    
+    <div className="page-container ">   
       {/* START PAGE CONTENT WRAPPER */}
       <div className="page-content-wrapper ">
         {/* START PAGE CONTENT */}
